@@ -531,7 +531,9 @@ const PROJECTS = [
   }
 ];
 
-/* Writing. Click a card on the page to open it.
+/* Writing. On your live site these lists are replaced by writing.txt,
+   so edit that file instead. These are only a fallback.
+   Click a card on the page to open it.
    Write the full piece in `body`, between the backticks. Line breaks are kept
    exactly as typed, so poems keep their shape.
    stage for ideas: "seed" shows as Ideas, "drafting" shows as Drafting. */
@@ -718,6 +720,37 @@ function renderWriting() {
   document.querySelectorAll("[data-paper]").forEach(el => { const u = SITE.papers && SITE.papers[el.dataset.paper]; if (u) el.innerHTML = `<a class="paper-link" href="${esc(u)}" target="_blank" rel="noopener">Read paper ↗</a>`; });
   if (SITE.resumeUrl) { document.getElementById("resume-link").href = SITE.resumeUrl; document.getElementById("resume-link-wrap").hidden = false; }
 }
+/* ---------- load writing.txt (edit that file to change Writing; no code needed) ---------- */
+function parseWriting(txt) {
+  const out = { writings: [], ideas: [] };
+  const blocks = txt.replace(/\r/g, "").split(/^## /m).slice(1);
+  for (const blk of blocks) {
+    const lines = blk.split("\n");
+    const head = lines.shift();
+    const m = head.match(/^\s*(finished|idea|ideas|drafting)\s*:\s*(.+)$/i);
+    if (!m) continue;
+    const kind = m[1].toLowerCase(), title = m[2].trim();
+    const meta = {}; let i = 0;
+    for (; i < lines.length; i++) {
+      if (/^\s*---\s*$/.test(lines[i])) { i++; break; }
+      const kv = lines[i].match(/^\s*([A-Za-z]+)\s*:\s*(.*)$/);
+      if (kv) meta[kv[1].toLowerCase()] = kv[2].trim();
+    }
+    const body = lines.slice(i).join("\n").replace(/^\n+|\s+$/g, "");
+    if (kind === "finished") out.writings.push({ type: meta.type || "Writing", title, text: meta.summary || "", link: meta.link || "", body });
+    else out.ideas.push({ stage: kind === "drafting" ? "drafting" : "seed", title, text: meta.summary || "", body });
+  }
+  return out;
+}
+fetch("writing.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
+  const d = parseWriting(t);
+  if (d.writings.length || d.ideas.length) {
+    WRITINGS.splice(0, WRITINGS.length, ...d.writings);
+    IDEAS.splice(0, IDEAS.length, ...d.ideas);
+    renderWriting(); drawAllCovers();
+  }
+}).catch(() => {});
+
 function drawAllCovers() { document.querySelectorAll("canvas[data-seed]").forEach(c => drawCover(c, +c.dataset.seed)); }
 
 /* ---------- case study ---------- */
