@@ -32,6 +32,7 @@
   --wash: #34433D; --jade: #86B7A1; --seal: #D45E4C; --resin: #DDA449;
   --line: rgba(228,233,227,.14); color-scheme: dark;
 }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { background: var(--paper); color: var(--ink); font: 400 16px/1.65 var(--font-body); }
@@ -92,13 +93,19 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 .alt { background: var(--paper-2); }
 
 /* ---------- work cards ---------- */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(18px, 2.5vw, 28px); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: clamp(18px, 2.5vw, 28px); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.filter { font: 500 13px/1 var(--font-body); padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink-soft); cursor: pointer; }
+.filter:hover { border-color: var(--ink-soft); color: var(--ink); }
+.filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.filter .count { font-family: var(--font-mono); font-size: 11px; opacity: .7; margin-left: 4px; }
 .card { display: flex; flex-direction: column; text-align: left; font: inherit; color: inherit; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 0; cursor: pointer; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s; }
 .card:hover { transform: translateY(-4px); border-color: var(--ink-soft); box-shadow: 0 14px 30px -18px rgba(0,0,0,.45); }
 @media (prefers-reduced-motion: reduce) { .card, .card:hover { transition: none; transform: none; } }
 .card .cover { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--paper-2); border-bottom: 1px solid var(--line); }
 .card .cover canvas { width: 100%; height: 100%; display: block; }
-.card .cover .c-stamp { position: absolute; right: 14px; top: 14px; background: var(--seal); color: var(--paper); font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 6px 7px; border-radius: 2px; }
+.card .cover .c-stamps { position: absolute; right: 14px; top: 14px; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.card .cover .c-stamp { background: var(--seal); color: var(--paper); font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 6px 7px; border-radius: 2px; }
 .card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .card h3 { font-size: 24px; }
 .card .tag { color: var(--ink-soft); font-size: 15px; }
@@ -113,6 +120,7 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 .r-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .r-item strong { font-weight: 600; }
 .r-item .when { font: 400 13px/1.6 var(--font-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.paper-link { font: 600 13px/1.6 var(--font-body); color: var(--jade); white-space: nowrap; }
 .r-item p { grid-column: 1 / -1; color: var(--ink-soft); font-size: 15px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; }
 .chip { font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
@@ -128,8 +136,12 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 .idea { font: inherit; color: inherit; text-align: left; cursor: pointer; transition: border-color .2s, transform .2s; padding: 16px 16px 18px; border: 1px dashed var(--wash); border-radius: 3px; background: color-mix(in srgb, var(--paper-2) 60%, transparent); display: grid; gap: 6px; align-content: start; }
 .idea .stage { justify-self: start; font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border-radius: 2px; color: var(--paper); background: var(--jade); }
 .idea .stage.seed { background: var(--resin); }
+.idea.done { border-style: solid; border-color: var(--line); background: var(--paper); }
+.idea.done:hover { border-color: var(--ink); box-shadow: 0 10px 24px -16px rgba(0,0,0,.45); }
 .idea:hover { border-color: var(--ink-soft); border-style: solid; transform: translateY(-2px); }
-@media (prefers-reduced-motion: reduce) { .idea:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .idea.done { border-style: solid; border-color: var(--line); background: var(--paper); }
+.idea.done:hover { border-color: var(--ink); box-shadow: 0 10px 24px -16px rgba(0,0,0,.45); }
+.idea:hover { transform: none; } }
 .idea h4 { font-size: 18px; }
 .idea .read { margin-top: 6px; font-weight: 600; font-size: 13.5px; color: var(--jade); }
 dialog.piece { width: min(760px, 100vw); max-width: 100vw; max-height: 100dvh; height: 100%; margin: 0 auto; padding: 0; border: 0; background: var(--paper); color: var(--ink); }
@@ -278,8 +290,8 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
     <dl class="facts">
       <div><dt class="label">Now</dt><dd>MSI, UX Research &amp; Design, UMich (Aug 2026 – May 2028)</dd></div>
       <div><dt class="label">Before</dt><dd>BS &amp; BA, Informatics and Creative Writing, UW Seattle</dd></div>
-      <div><dt class="label">Research</dt><dd>Race and Data Justice Lab · Center for Learning, Computing, and Imagination · Interactive Data Lab </dd></div>
-      <div><dt class="label">Honors</dt><dd>ICER 2026 Best Paper honorable mention · McNair Scholar · UMSI Achievement Fellow</dd></div>
+      <div><dt class="label">Research</dt><dd>Interactive Data Lab · Center for Learning, Computing, and Imagination</dd></div>
+      <div><dt class="label">Honors</dt><dd>ICER 2026 Best Paper Honorable Mention · McNair Scholar · Achievement Fellow</dd></div>
       <div><dt class="label">Seeking</dt><dd>UX research &amp; design internships, summer 2027</dd></div>
     </dl>
   </div>
@@ -295,6 +307,7 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
     <div class="sec-head">
       <div><p class="label">Selected work</p><h2>Case studies</h2><p>Open a card to walk through the full process, from problem statement to lessons learned.</p></div>
     </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter case studies"></div>
     <div class="cards" id="cards"></div>
   </div>
 </section>
@@ -315,15 +328,15 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
         </div>
         <div class="r-group">
           <h3>Research experience</h3>
-          <div class="r-item"><strong>Center for Learning, Computing, and Imagination</strong><span class="when">UW</span><p>Co-designed help-seeking structures with marginalized students in computing; studied how beginners learn with LLMs.</p></div>
-          <div class="r-item"><strong>Interactive Data Lab</strong><span class="when">UW</span><p>Research on LLMs and beginner learning.</p></div>
+          <div class="r-item"><strong>Center for Learning, Computing, and Imagination</strong><span class="when" data-paper="lci">UW</span><p>Co-designed help-seeking structures with marginalized students in computing; studied how beginners learn with LLMs.</p></div>
+          <div class="r-item"><strong>Interactive Data Lab</strong><span class="when" data-paper="idl">UW</span><p>Research on LLMs and beginner learning.</p></div>
         </div>
       </div>
       <div>
         <div class="r-group">
           <h3>Honors &amp; publications</h3>
-          <div class="r-item"><strong>Honorable mention, ICER 2026</strong><span class="when">2026</span><p>ACM Conference on International Computing Education Research.</p></div>
-          <div class="r-item"><strong>Achievement Fellowship</strong><span class="when">2026</span><p>Full tuition, UMich School of Information.</p></div>
+          <div class="r-item"><strong>Best Paper Honorable Mention, ICER 2026</strong><span class="when">2026</span><p>ACM Conference on International Computing Education Research.</p></div>
+          <div class="r-item"><strong>Achievement Fellowship</strong><span class="when">2026</span><p>Full tuition, University of Michigan School of Information.</p></div>
           <div class="r-item"><strong>McNair Scholar</strong><span class="when">UW</span><p>Publication record and multiple conference presentations.</p></div>
         </div>
         <div class="r-group">
@@ -343,11 +356,11 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
 <section class="block" id="writings">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="label">Writings &amp; videos</p><h2>Words, zines &amp; moving pictures</h2></div>
+      <div><p class="label">Writings &amp; videos</p><h2>Words, arts &amp; videos</h2></div>
     </div>
     <div class="wv">
       <div>
-        <div class="w-group"><p class="label">Finished writing</p><p class="w-sub">Poems, papers, scripts and essays I've completed.</p><div class="ideas" id="writing-list"></div></div>
+        <div class="w-group"><p class="label">Finished writing</p><p class="w-sub">Pieces I've completed.</p><div class="ideas" id="writing-list"></div></div>
         <div class="w-group"><p class="label">Ideas on my mind</p><p class="w-sub">Questions and drafts I keep coming back to. Half-formed on purpose.</p><div class="ideas" id="idea-list"></div></div>
       </div>
       <div><p class="label" style="margin-bottom:14px">Videos</p><div class="videos" id="video-list"></div></div>
@@ -401,11 +414,16 @@ const SITE = {
   resumeUrl: "",            // link to your resume PDF
   email: "",                // e.g. "saara@umich.edu"
   linkedin: "",             // full https:// link
+  // Paper links shown in Resume > Research experience (replaces "UW" with a link)
+  papers: {
+    lci: "https://dl.acm.org/doi/epdf/10.1145/3765964.3811661", // Center for Learning, Computing, and Imagination paper
+    idl: "",                // Interactive Data Lab paper
+  },
 };
 
 const PROJECTS = [
   {
-    id: "mosaic", seed: 7, stamp: "Product design",
+    id: "mosaic", seed: 7, tags: ["Product design"],
     title: "Mosaic", kicker: "Competition project · Product design",
     tagline: "Find friendships that shape you. A peer-connection and extracurricular app for homeschooled K–12 students.",
     year: "2026",
@@ -473,7 +491,7 @@ const PROJECTS = [
     lessons: ["Lived experience is a starting point; it still needs to be tested against other families' realities.", "Designing for two users at once (kids and parents) means every screen has a second audience.", "[Add your own reflection]"]
   },
   {
-    id: "help-seeking", seed: 41, stamp: "Co-design",
+    id: "help-seeking", seed: 41, tags: ["Research", "Co-design"],
     title: "Asking for Help", kicker: "Research · UW Center for Learning, Computing, and Imagination",
     tagline: "Co-designing help-seeking structures with marginalized students in computing.",
     year: "UW",
@@ -516,18 +534,16 @@ const PROJECTS = [
 /* Writing. Click a card on the page to open it.
    Write the full piece in `body`, between the backticks. Line breaks are kept
    exactly as typed, so poems keep their shape.
-   stage for ideas: "seed" (just a thought) or "drafting" (I've started writing). */
+   stage for ideas: "seed" shows as Ideas, "drafting" shows as Drafting. */
 const WRITINGS = [
-  { type: "Zine · Poetry", title: "Dhaqan Celis", text: "A poetry and zine project exploring Somali poetry and cultural connection. The center of my undergraduate capstone.", link: "", body: `` },
-  { type: "Paper", title: "ICER 2026 · Honorable mention", text: "[Add paper title and a one-line summary.]", link: "", body: `` },
   { type: "Screenplay", title: "Roman Fever, adapted", text: "A collaborative screen adaptation of Edith Wharton's short story.", link: "", body: `` },
-  { type: "Essays", title: "On privacy: Stallman and DeCew", text: "Philosophy essays on Richard Stallman's free-software ethics and Judith DeCew's account of privacy.", link: "", body: `` }
 ];
 
 const IDEAS = [
-  { stage: "seed", title: "[Idea title]", text: "[A sentence or two on the question you keep circling back to.]", body: `` },
-  { stage: "drafting", title: "[Idea title]", text: "[What you're drafting and what you hope it becomes.]", body: `` },
-  { stage: "seed", title: "[Idea title]", text: "[Another thought in progress.]", body: `` }
+  // The list card: one idea or question per line inside body.
+  { stage: "seed", title: "Ideas & questions", text: "Everything I'm wondering about right now.", body: `` },
+  // The in-progress card: one idea you're actively working on.
+  { stage: "drafting", title: "[Working title]", text: "[What you're drafting and what you hope it becomes.]", body: `` }
 ];
 
 const VIDEOS = [
@@ -663,8 +679,8 @@ function drawCover(canvas, seed) {
 /* ---------- render page lists ---------- */
 function renderCards() {
   document.getElementById("cards").innerHTML = PROJECTS.map((p, i) => `
-    <button class="card" data-i="${i}" aria-haspopup="dialog">
-      <div class="cover"><canvas data-seed="${p.seed}" aria-hidden="true"></canvas><span class="c-stamp">${esc(p.stamp)}</span></div>
+    <button class="card" data-i="${i}" data-tags="${esc(p.tags.join("|"))}" aria-haspopup="dialog">
+      <div class="cover"><canvas data-seed="${p.seed}" aria-hidden="true"></canvas><span class="c-stamps">${p.tags.map(t => `<span class="c-stamp">${esc(t)}</span>`).join("")}</span></div>
       <div class="body">
         <p class="label">${esc(p.kicker)}</p>
         <h3>${esc(p.title)}</h3>
@@ -673,11 +689,19 @@ function renderCards() {
       </div>
     </button>`).join("");
   document.querySelectorAll(".card").forEach(b => b.addEventListener("click", () => openCase(+b.dataset.i)));
+  const tags = [...new Set(PROJECTS.flatMap(p => p.tags))];
+  const f = document.getElementById("filters");
+  f.innerHTML = ["All", ...tags].map(t => `<button class="filter" data-tag="${esc(t)}" aria-pressed="${t === "All"}">${esc(t)}<span class="count">${t === "All" ? PROJECTS.length : PROJECTS.filter(p => p.tags.includes(t)).length}</span></button>`).join("");
+  f.querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => {
+    f.querySelectorAll(".filter").forEach(x => x.setAttribute("aria-pressed", x === b));
+    const t = b.dataset.tag;
+    document.querySelectorAll(".card").forEach(c => { c.hidden = t !== "All" && !c.dataset.tags.split("|").includes(t); });
+  }));
 }
 function renderWriting() {
   const pieceCard = (d, kind, i) => `
-    <button class="idea" data-kind="${kind}" data-i="${i}" aria-haspopup="dialog">
-      <span class="stage ${kind === "idea" && d.stage === "seed" ? "seed" : ""}">${kind === "idea" ? (d.stage === "seed" ? "Seed" : "Drafting") : esc(d.type)}</span>
+    <button class="idea${kind === "writing" ? " done" : ""}" data-kind="${kind}" data-i="${i}" aria-haspopup="dialog">
+      <span class="stage ${kind === "idea" && d.stage === "seed" ? "seed" : ""}">${kind === "idea" ? (d.stage === "seed" ? "Ideas" : "Drafting") : esc(d.type)}</span>
       <h4>${esc(d.title)}</h4><p>${esc(d.text)}</p><span class="read">${kind === "idea" ? "Open notes" : "Read"} →</span>
     </button>`;
   document.getElementById("writing-list").innerHTML = WRITINGS.map((d, i) => pieceCard(d, "writing", i)).join("");
@@ -691,6 +715,7 @@ function renderWriting() {
   if (SITE.email) parts.push(`<span>${esc(SITE.email)}</span>`);
   if (SITE.linkedin) parts.push(`<a href="${esc(SITE.linkedin)}" target="_blank" rel="noopener">LinkedIn ↗</a>`);
   c.innerHTML = parts.join("");
+  document.querySelectorAll("[data-paper]").forEach(el => { const u = SITE.papers && SITE.papers[el.dataset.paper]; if (u) el.innerHTML = `<a class="paper-link" href="${esc(u)}" target="_blank" rel="noopener">Read paper ↗</a>`; });
   if (SITE.resumeUrl) { document.getElementById("resume-link").href = SITE.resumeUrl; document.getElementById("resume-link-wrap").hidden = false; }
 }
 function drawAllCovers() { document.querySelectorAll("canvas[data-seed]").forEach(c => drawCover(c, +c.dataset.seed)); }
@@ -751,10 +776,10 @@ const pdlg = document.getElementById("piece"); let pk = "writing", pi = 0;
 function openPiece(kind, i) {
   const list = kind === "idea" ? IDEAS : WRITINGS; pk = kind; pi = (i + list.length) % list.length;
   const d = list[pi];
-  const tag = kind === "idea" ? (d.stage === "seed" ? "Idea · Seed" : "Idea · Drafting") : d.type;
+  const tag = kind === "idea" ? (d.stage === "seed" ? "Ideas" : "Drafting") : d.type;
   const body = (d.body || "").trim();
   document.getElementById("piece-body").innerHTML = `<p class="label">${esc(tag)}</p><h2 id="piece-title">${esc(d.title)}</h2><p class="dek">${esc(d.text)}</p>` +
-    (body ? `<div class="text">${esc(body)}</div>` : `<p class="empty">${kind === "idea" ? "Notes on this idea are still taking shape." : "The full piece is coming soon."}</p>`) +
+    (body ? `<div class="text">${esc(body)}</div>` : `<p class="empty">${kind === "idea" ? "Still taking shape. Check back soon." : "The full piece is coming soon."}</p>`) +
     (d.link ? `<p style="margin-top:24px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">Open the full piece ↗</a></p>` : "");
   document.getElementById("piece-body").scrollTop = 0;
   if (!pdlg.open) pdlg.showModal();
