@@ -156,6 +156,8 @@ dialog.piece::backdrop { background: rgba(10,14,12,.55); }
 .photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); gap: 14px; padding-top: 18px; }
 .photo { font: inherit; color: inherit; text-align: left; padding: 0; cursor: pointer; display: grid; align-content: start; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); overflow: hidden; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .photo img { display: block; width: 100%; max-width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--paper-2); }
+.photo-empty { grid-column: 1 / -1; padding: 16px 16px 18px; border: 1px dashed var(--wash); border-radius: 3px; display: grid; gap: 8px; justify-items: start; color: var(--ink-soft); font-size: 14.5px; }
+.photo-empty .stage { font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border-radius: 2px; color: var(--paper); background: var(--resin); }
 .photo span { padding: 9px 11px 11px; font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
 .photo:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 24px -16px rgba(0,0,0,.45); }
 @media (prefers-reduced-motion: reduce) { .photo:hover { transform: none; } }
@@ -385,7 +387,7 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
       <div>
         <div class="w-group"><p class="label">Finished writing</p><p class="w-sub">Pieces I've completed.</p><div class="ideas" id="writing-list"></div></div>
         <div class="w-group"><p class="label">Ideas on my mind</p><p class="w-sub">Questions and drafts I keep coming back to. Half-formed on purpose.</p><div class="ideas" id="idea-list"></div></div>
-        <div class="w-group" id="photo-group" hidden><p class="label">Art &amp; photos</p><p class="w-sub">Pictures of things I've seen and made.</p><div class="photos" id="photo-list"></div></div>
+        <div class="w-group" id="photo-group"><p class="label">Art &amp; photos</p><p class="w-sub">Pictures of things I've seen and made.</p><div class="photos" id="photo-list"></div></div>
       </div>
       <div><p class="label" style="margin-bottom:14px">Videos</p><div class="videos" id="video-list"></div></div>
     </div>
@@ -795,7 +797,7 @@ fetch("writing.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.
 let PHOTOS = [], li = 0;
 const lb = document.getElementById("lb");
 function renderPhotos() {
-  document.getElementById("photo-group").hidden = !PHOTOS.length;
+  if (!PHOTOS.length) { document.getElementById("photo-list").innerHTML = `<div class="photo-empty"><span class="stage seed">Art &amp; photos</span><p>Pictures coming soon.</p></div>`; return; }
   document.getElementById("photo-list").innerHTML = PHOTOS.map((p, i) => `<button class="photo" data-i="${i}" aria-haspopup="dialog"><img src="${esc(encodeURI(p.file))}" alt="${esc(p.caption || "Photo")}" loading="lazy">${p.caption ? `<span>${esc(p.caption)}</span>` : ""}</button>`).join("");
   document.querySelectorAll("button.photo").forEach(b => b.addEventListener("click", () => openPhoto(+b.dataset.i)));
 }
@@ -810,6 +812,7 @@ document.getElementById("lb-prev").onclick = () => openPhoto(li - 1);
 document.getElementById("lb-next").onclick = () => openPhoto(li + 1);
 lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("lb-fig")) lb.close(); });
 lb.addEventListener("keydown", e => { if (e.key === "ArrowRight") openPhoto(li + 1); if (e.key === "ArrowLeft") openPhoto(li - 1); });
+renderPhotos();
 fetch("photos.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
   PHOTOS = t.replace(/\r/g, "").split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(l => {
     const k = l.indexOf("|"); return k < 0 ? { file: l, caption: "" } : { file: l.slice(0, k).trim(), caption: l.slice(k + 1).trim() };
