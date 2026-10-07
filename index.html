@@ -1,4 +1,4 @@
-<title>Saara's Portfolio</title>
+<title>Saara Uthmaan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -62,23 +62,24 @@ p { margin: 0; }
 @media (max-width: 520px) { .nav a.link { font-size: 13px; } }
 
 /* ---------- hero / about ---------- */
-.hero { position: relative; overflow: hidden; isolation: isolate; padding-inline: var(--gutter); padding-block: calc(env(safe-area-inset-top, 0px) + 110px) clamp(300px, 42vw, 440px); }
-.hero canvas { position: absolute; inset: auto 0 0 0; width: 100%; height: clamp(360px, 52vw, 620px); z-index: -2; display: block; }
+.hero { position: relative; overflow: hidden; padding-inline: var(--gutter); padding-block: calc(env(safe-area-inset-top, 0px) + 110px) 0; }
+.scene { position: relative; isolation: isolate; margin-inline: calc(-1 * var(--gutter)); margin-top: clamp(24px, 4vw, 48px); height: clamp(300px, 38vw, 540px); }
+.scene canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; display: block; }
 .mist { position: absolute; left: -20%; width: 140%; height: 90px; z-index: -1; pointer-events: none;
   background: radial-gradient(ellipse 30% 50% at 25% 50%, var(--paper), transparent 70%), radial-gradient(ellipse 25% 45% at 70% 50%, var(--paper), transparent 70%);
   opacity: .7; animation: drift 38s ease-in-out infinite alternate; }
-.mist.m1 { bottom: clamp(120px, 18vw, 230px); }
-.mist.m2 { bottom: clamp(40px, 8vw, 110px); animation-duration: 52s; animation-direction: alternate-reverse; opacity: .55; }
+.mist.m1 { bottom: 42%; }
+.mist.m2 { bottom: 12%; animation-duration: 52s; animation-direction: alternate-reverse; opacity: .55; }
 @keyframes drift { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
 @media (prefers-reduced-motion: reduce) { .mist { animation: none; } }
 .hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
-.hero h1 { font-size: clamp(56px, 10vw, 128px); font-weight: 800; letter-spacing: -.02em; line-height: .95; margin-block: 14px 22px; }
+.hero h1 { font-size: clamp(52px, 8.5vw, 112px); font-weight: 800; letter-spacing: -.02em; line-height: .95; margin-block: 14px 22px; }
 .lede { font: 500 clamp(19px, 2.2vw, 24px)/1.45 var(--font-display); max-width: 30ch; margin-bottom: 20px; }
 .about-text { color: var(--ink-soft); max-width: var(--measure); display: grid; gap: 12px; }
-.facts { display: grid; gap: 0; align-self: end; background: color-mix(in srgb, var(--paper) 78%, transparent); backdrop-filter: blur(3px); border-top: 2px solid var(--ink); }
+.facts { display: grid; gap: 0; align-self: end; margin: 0; border-top: 2px solid var(--ink); }
 .facts div { display: grid; grid-template-columns: 7.5em minmax(0,1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
 .facts dt { margin: 0; } .facts dd { margin: 0; }
-.tree-caption { position: absolute; right: var(--gutter); bottom: 14px; font: italic 400 12px/1.3 var(--font-mono); color: var(--ink-soft); text-align: right; }
+.tree-caption { position: absolute; left: var(--gutter); bottom: 14px; margin: 0; font: italic 400 12px/1.3 var(--font-mono); color: var(--ink-soft); }
 @media (max-width: 820px) { .hero-inner { grid-template-columns: 1fr; } }
 
 /* ---------- sections ---------- */
@@ -121,18 +122,26 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 /* ---------- writings & videos ---------- */
 .wv { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 64px); }
 @media (max-width: 820px) { .wv { grid-template-columns: 1fr; } }
-.w-item { display: grid; grid-template-columns: minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--line); }
-.w-item h4 { font-size: 21px; margin-block: 4px 6px; }
-.w-item p { color: var(--ink-soft); font-size: 15px; }
 .w-group + .w-group { margin-top: 48px; }
 .w-sub { color: var(--ink-soft); font-size: 14px; margin-top: 4px; padding-bottom: 6px; border-bottom: 2px solid var(--ink); }
 .ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; padding-top: 18px; }
-.idea { padding: 16px 16px 18px; border: 1px dashed var(--wash); border-radius: 3px; background: color-mix(in srgb, var(--paper-2) 60%, transparent); display: grid; gap: 6px; align-content: start; }
+.idea { font: inherit; color: inherit; text-align: left; cursor: pointer; transition: border-color .2s, transform .2s; padding: 16px 16px 18px; border: 1px dashed var(--wash); border-radius: 3px; background: color-mix(in srgb, var(--paper-2) 60%, transparent); display: grid; gap: 6px; align-content: start; }
 .idea .stage { justify-self: start; font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border-radius: 2px; color: var(--paper); background: var(--jade); }
 .idea .stage.seed { background: var(--resin); }
+.idea:hover { border-color: var(--ink-soft); border-style: solid; transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .idea:hover { transform: none; } }
 .idea h4 { font-size: 18px; }
+.idea .read { margin-top: 6px; font-weight: 600; font-size: 13.5px; color: var(--jade); }
+dialog.piece { width: min(760px, 100vw); max-width: 100vw; max-height: 100dvh; height: 100%; margin: 0 auto; padding: 0; border: 0; background: var(--paper); color: var(--ink); }
+dialog.piece::backdrop { background: rgba(10,14,12,.55); }
+.piece-shell { height: 100%; display: grid; grid-template-rows: auto minmax(0,1fr); }
+.piece-top { display: flex; justify-content: flex-end; gap: 8px; padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--gutter) 10px; }
+.piece-body { overflow-y: auto; padding: 8px var(--gutter) 80px; }
+.piece-body h2 { font-size: clamp(30px, 5vw, 46px); margin-block: 10px 12px; }
+.piece-body .dek { color: var(--ink-soft); font-size: 17px; max-width: var(--measure); padding-bottom: 22px; border-bottom: 2px solid var(--ink); }
+.piece-body .text { white-space: pre-wrap; font: 400 18px/1.8 var(--font-display); max-width: var(--measure); padding-top: 26px; }
+.piece-body .empty { color: var(--ink-soft); font-style: italic; padding-top: 26px; }
 .idea p { color: var(--ink-soft); font-size: 14.5px; }
-.w-item a.more { display: inline-block; margin-top: 8px; font-weight: 600; font-size: 14px; color: var(--jade); }
 .videos { display: grid; gap: 18px; }
 .video { display: block; text-decoration: none; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--paper); }
 .video .frame { position: relative; aspect-ratio: 16/9; max-width: 100%; background: var(--paper-2); display: grid; place-items: center; }
@@ -255,29 +264,30 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
 </nav>
 
 <header class="hero" id="about">
-  <canvas id="landscape" aria-hidden="true"></canvas>
-  <div class="mist m1" aria-hidden="true"></div>
-  <div class="mist m2" aria-hidden="true"></div>
   <div class="hero-inner">
     <div>
       <p class="label">UX Research &amp; Design · University of Michigan School of Information</p>
-      <h1>Saara</h1>
+      <h1>Saara<br>Uthmaan</h1>
       <p class="lede">I research and design for people that tools often overlook.</p>
       <div class="about-text">
-        <p>Homeschooled kids looking for friends. Nurse leaders running on empty. Students who aren't sure how to ask for help. I start with their stories and build from there.</p>
+        <p>Homeschooled kids looking for friends. Students who aren't sure how to ask for help. I start with their stories and build from there.</p>
         <p>I'm an MSI student at the University of Michigan, specializing in UX research and design on an Achievement Fellowship. At the University of Washington I studied Informatics and Creative Writing and did research at the Interactive Data Lab and the Center for Learning, Computing, and Imagination, on how beginners learn with LLMs and on co-designing help-seeking structures for marginalized students in computing.</p>
         <p>Outside of research, I write poetry and make zines.</p>
       </div>
     </div>
     <dl class="facts">
-      <div><dt class="label">Now</dt><dd>MSI, UX Research &amp; Design, UMich (2026–)</dd></div>
-      <div><dt class="label">Before</dt><dd>Informatics &amp; Creative Writing, UW Seattle</dd></div>
+      <div><dt class="label">Now</dt><dd>MSI, UX Research &amp; Design, UMich (Aug 2026 – May 2028)</dd></div>
+      <div><dt class="label">Before</dt><dd>BS &amp; BA, Informatics and Creative Writing, UW Seattle</dd></div>
       <div><dt class="label">Research</dt><dd>Interactive Data Lab · Center for Learning, Computing, and Imagination</dd></div>
       <div><dt class="label">Honors</dt><dd>ICER 2026 honorable mention · McNair Scholar · Achievement Fellow</dd></div>
       <div><dt class="label">Seeking</dt><dd>UX research &amp; design internships, summer 2027</dd></div>
     </dl>
   </div>
-  <p class="tree-caption">Boswellia sacra · the frankincense tree,<br>rooted in rock, giving resin when cut.</p>
+  <div class="scene" aria-hidden="true">
+    <canvas id="landscape"></canvas>
+    <div class="mist m1"></div>
+    <div class="mist m2"></div>
+  </div>
 </header>
 
 <section class="block" id="work">
@@ -300,8 +310,8 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
       <div>
         <div class="r-group">
           <h3>Education</h3>
-          <div class="r-item"><strong>Master of Science in Information</strong><span class="when">2026–2028</span><p>University of Michigan School of Information · UX Research and Design · Achievement Fellowship</p></div>
-          <div class="r-item"><strong>Informatics &amp; Creative Writing</strong><span class="when">–2026</span><p>University of Washington, Seattle · McNair Scholar</p></div>
+          <div class="r-item"><strong>Master of Science in Information</strong><span class="when">Aug 2026 – May 2028</span><p>University of Michigan School of Information · UX Research and Design · Achievement Fellowship</p></div>
+          <div class="r-item"><strong>Bachelor of Science &amp; Bachelor of Arts</strong><span class="when">Sept 2021 – Aug 2026</span><p>University of Washington, Seattle · Informatics and Creative Writing · McNair Scholar</p></div>
         </div>
         <div class="r-group">
           <h3>Research experience</h3>
@@ -337,7 +347,7 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
     </div>
     <div class="wv">
       <div>
-        <div class="w-group"><p class="label">Finished writing</p><p class="w-sub">Poems, papers, scripts and essays I've completed.</p><div id="writing-list"></div></div>
+        <div class="w-group"><p class="label">Finished writing</p><p class="w-sub">Poems, papers, scripts and essays I've completed.</p><div class="ideas" id="writing-list"></div></div>
         <div class="w-group"><p class="label">Ideas on my mind</p><p class="w-sub">Questions and drafts I keep coming back to. Half-formed on purpose.</p><div class="ideas" id="idea-list"></div></div>
       </div>
       <div><p class="label" style="margin-bottom:14px">Videos</p><div class="videos" id="video-list"></div></div>
@@ -347,10 +357,21 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
 
 <footer>
   <div class="wrap">
-    <div style="display:flex;gap:12px;align-items:center"><span class="seal" aria-hidden="true">S</span><span>Saara · Ann Arbor, Michigan</span></div>
+    <div style="display:flex;gap:12px;align-items:center"><span class="seal" aria-hidden="true">S</span><span>Saara Uthmaan · Ann Arbor, Michigan</span></div>
     <div class="contact" id="contact"></div>
   </div>
 </footer>
+
+<dialog class="piece" id="piece" aria-labelledby="piece-title">
+  <div class="piece-shell">
+    <div class="piece-top">
+      <button class="icon-btn" id="piece-prev" aria-label="Previous piece">←</button>
+      <button class="icon-btn" id="piece-next" aria-label="Next piece">→</button>
+      <button class="icon-btn" id="piece-close" aria-label="Close">✕</button>
+    </div>
+    <article class="piece-body" id="piece-body"></article>
+  </div>
+</dialog>
 
 <dialog class="cs" id="cs" aria-labelledby="cs-title">
   <div class="cs-shell">
@@ -452,66 +473,6 @@ const PROJECTS = [
     lessons: ["Lived experience is a starting point; it still needs to be tested against other families' realities.", "Designing for two users at once (kids and parents) means every screen has a second audience.", "[Add your own reflection]"]
   },
   {
-    id: "heroes-500", seed: 23, stamp: "Research",
-    title: "Heroes 500", kicker: "SI 500 · Michigan Medicine",
-    tagline: "Assessing the well-being of nurse leaders, and connecting them to the resilience resources that already exist.",
-    year: "2026",
-    draft: true,
-    problem: "Nurse leaders carry their own workload and their teams' stress. Michigan Medicine has resilience resources, but there's no clear picture of how nurse leaders are actually doing, or whether they know these resources exist.",
-    hmw: "How might we assess the well-being of nurse leaders so that Michigan Medicine can better understand the state of well-being among nurse leaders, in order to inform nurse leaders of resources available through current resilient organizations to improve the quality of patient care?",
-    meta: { Role: "UX researcher (team of [#])", Timeline: "Fall 2026", Collaborators: "SI 500 team · Michigan Medicine project partner", Tools: "Zoom, Miro, Qualtrics, Figma", Duration: "One semester" },
-    challenge: [
-      "Nurse leaders have very little free time, so any assessment has to be short.",
-      "Admitting burnout to the organization can feel risky.",
-      "Existing resources are spread across several offices and hard to find.",
-      "Leadership needs aggregate insight without identifying individuals."
-    ],
-    research: {
-      summary: "We ran stakeholder interviews with our Michigan Medicine partner and nurse leaders to map how well-being is understood today and which resources exist.",
-      methods: ["[Add #] stakeholder interviews", "Affinity mapping", "Resource inventory", "Literature review on burnout measures"]
-    },
-    themes: [
-      { t: "Time is the scarcest resource", d: "[Add finding from interviews]" },
-      { t: "Trust shapes honesty", d: "[Add finding about anonymity and reporting]" },
-      { t: "Resources exist but aren't seen", d: "[Add finding about awareness of resilience programs]" }
-    ],
-    personas: [
-      { name: "[Name], Nurse Manager", role: "Leads a unit of [#] nurses", q: "[Add a representative quote]", goals: ["[Goal]", "[Goal]"], pains: ["[Frustration]", "[Frustration]"] }
-    ],
-    competitive: {
-      cols: ["Our assessment", "Well-Being Index", "Maslach Burnout Inventory", "Annual engagement survey"],
-      rows: [
-        ["Under 5 minutes", "●", "●", "○", "○"],
-        ["Specific to nurse leaders", "●", "◐", "○", "○"],
-        ["Links to local resources", "●", "◐", "○", "○"],
-        ["Anonymous by design", "●", "●", "◐", "◐"]
-      ]
-    },
-    ia: { name: "Well-being check-in", children: [
-      { name: "Welcome & privacy note" },
-      { name: "Check-in", children: [{ name: "Workload" }, { name: "Exhaustion" }, { name: "Support" }] },
-      { name: "Your results", children: [{ name: "Matched resources" }, { name: "Save for later" }] },
-      { name: "Leadership dashboard", children: [{ name: "Aggregate trends" }] }
-    ]},
-    flows: [
-      { name: "Complete a check-in", steps: ["Open link from email", "Read privacy note", "Answer short check-in", "See matched resources", "Save or contact a program"] }
-    ],
-    wireframes: [
-      { label: "Privacy note", note: "Anonymity up front", img: "" },
-      { label: "Check-in", note: "One question per screen", img: "" },
-      { label: "Results", note: "Matched resources", img: "" }
-    ],
-    solutions: [
-      { t: "A short pulse check instead of a long survey", c: "A check-in under five minutes, one question per screen.", why: "Response rates depend on lowering respondent burden and respecting people's time.", cite: "Dillman, D. A., Smyth, J. D., & Christian, L. M. (2014). Internet, Phone, Mail, and Mixed-Mode Surveys: The Tailored Design Method (4th ed.). Wiley." },
-      { t: "Questions grounded in validated dimensions", c: "Items map to exhaustion, depersonalization and sense of accomplishment.", why: "Using established burnout dimensions makes results comparable and credible to clinical leadership.", cite: "Maslach, C., & Jackson, S. E. (1981). The measurement of experienced burnout. Journal of Occupational Behaviour, 2(2), 99–113." },
-      { t: "Anonymity stated before the first question", c: "A plain-language note on who sees what, shown first.", why: "People share sensitive information when it flows in ways that match the norms of its context; a well-being check-in must not feel like a performance review.", cite: "Nissenbaum, H. (2004). Privacy as contextual integrity. Washington Law Review, 79(1), 119–157." },
-      { t: "Two or three matched resources, not a directory", c: "Results show a few relevant programs instead of the full list.", why: "Limiting what has to be processed at once reduces cognitive load for already-overloaded users.", cite: "Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. Cognitive Science, 12(2), 257–285." }
-    ],
-    final: { text: "Final recommendations and prototype presented to our Michigan Medicine partner.", img: "", link: "" },
-    future: ["Pilot with one nursing unit", "Validate items with occupational health", "[Add next step]"],
-    lessons: ["[Add your reflection on working with a clinical partner]"]
-  },
-  {
     id: "help-seeking", seed: 41, stamp: "Co-design",
     title: "Asking for Help", kicker: "Research · UW Center for Learning, Computing, and Imagination",
     tagline: "Co-designing help-seeking structures with marginalized students in computing.",
@@ -552,18 +513,21 @@ const PROJECTS = [
   }
 ];
 
+/* Writing. Click a card on the page to open it.
+   Write the full piece in `body`, between the backticks. Line breaks are kept
+   exactly as typed, so poems keep their shape.
+   stage for ideas: "seed" (just a thought) or "drafting" (I've started writing). */
 const WRITINGS = [
-  { type: "Zine · Poetry", title: "Dhaqan Celis", text: "A poetry and zine project exploring Somali poetry and cultural connection. The center of my undergraduate capstone: collaborative poem drafting, layout and design, and a reflective write-up.", link: "" },
-  { type: "Paper", title: "ICER 2026 · Honorable mention", text: "[Add paper title and a one-line summary.]", link: "" },
-  { type: "Screenplay", title: "Roman Fever, adapted", text: "A collaborative screen adaptation of Edith Wharton's short story.", link: "" },
-  { type: "Essays", title: "On privacy: Stallman and DeCew", text: "Philosophy essays on Richard Stallman's free-software ethics and Judith DeCew's account of privacy.", link: "" }
+  { type: "Zine · Poetry", title: "Dhaqan Celis", text: "A poetry and zine project exploring Somali poetry and cultural connection. The center of my undergraduate capstone.", link: "", body: `` },
+  { type: "Paper", title: "ICER 2026 · Honorable mention", text: "[Add paper title and a one-line summary.]", link: "", body: `` },
+  { type: "Screenplay", title: "Roman Fever, adapted", text: "A collaborative screen adaptation of Edith Wharton's short story.", link: "", body: `` },
+  { type: "Essays", title: "On privacy: Stallman and DeCew", text: "Philosophy essays on Richard Stallman's free-software ethics and Judith DeCew's account of privacy.", link: "", body: `` }
 ];
 
-// Ideas on my mind. stage: "seed" (just a thought) or "drafting" (I've started writing)
 const IDEAS = [
-  { stage: "seed", title: "[Idea title]", text: "[A sentence or two on the question you keep circling back to.]" },
-  { stage: "drafting", title: "[Idea title]", text: "[What you're drafting and what you hope it becomes: a poem, essay, zine, or study.]" },
-  { stage: "seed", title: "[Idea title]", text: "[Another thought in progress.]" }
+  { stage: "seed", title: "[Idea title]", text: "[A sentence or two on the question you keep circling back to.]", body: `` },
+  { stage: "drafting", title: "[Idea title]", text: "[What you're drafting and what you hope it becomes.]", body: `` },
+  { stage: "seed", title: "[Idea title]", text: "[Another thought in progress.]", body: `` }
 ];
 
 const VIDEOS = [
@@ -609,6 +573,8 @@ function drawRanges(ctx, w, h, seed, opts = {}) {
       y += (nz(x / w * 40) - 0.5) * h * 0.035;
       ys.push([x, y]);
     }
+    const ceil = h * (opts.ceil ?? 0.06), minY = Math.min(...ys.map(p => p[1]));
+    if (minY < ceil) { const k = (base - ceil) / (base - minY); ys.forEach(p => { if (p[1] < base) p[1] = base - (base - p[1]) * k; }); }
     const g = ctx.createLinearGradient(0, base - h * 0.35, 0, Math.min(h, base + h * 0.25));
     g.addColorStop(0, css(col, 0.95)); g.addColorStop(0.55, css(col, 0.55)); g.addColorStop(1, css(paper, 0));
     ctx.beginPath(); ctx.moveTo(0, h);
@@ -675,15 +641,15 @@ function drawHero() {
   const ctx = c.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h);
   const dark = rgb(tok("--paper"))[0] < 100;
   // sun (seal red) or moon
-  const sx = w * (w < 700 ? .18 : .58), sy = h * .2, sr = Math.min(w, h) * .055;
+  const sx = w * (w < 700 ? .22 : .36), sy = h * .18, sr = Math.min(w, h) * .055;
   ctx.fillStyle = dark ? css(rgb(tok("--ink")), .8) : css(rgb(tok("--seal")), .85);
   ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
   // birds
   const ink = rgb(tok("--ink")); ctx.strokeStyle = css(ink, .55); ctx.lineWidth = 1.2;
-  [[.38, .16], [.41, .2], [.44, .14]].forEach(([bx, by]) => { const x = w * bx, y = h * by, b = 6; ctx.beginPath(); ctx.moveTo(x - b, y - 2); ctx.quadraticCurveTo(x - b / 2, y - 4, x, y); ctx.quadraticCurveTo(x + b / 2, y - 4, x + b, y - 2); ctx.stroke(); });
-  drawRanges(ctx, w, h, 11, { layers: 4, top: .38, spread: .4 });
-  const s = Math.min(h * .62, w * .42);
-  drawTree(ctx, w * (w < 700 ? .74 : .82), h - s * .28, s, 3);
+  [[.46, .14], [.49, .19], [.52, .12]].forEach(([bx, by]) => { const x = w * bx, y = h * by, b = 6; ctx.beginPath(); ctx.moveTo(x - b, y - 2); ctx.quadraticCurveTo(x - b / 2, y - 4, x, y); ctx.quadraticCurveTo(x + b / 2, y - 4, x + b, y - 2); ctx.stroke(); });
+  drawRanges(ctx, w, h, 11, { layers: 4, top: .5, spread: .34, ceil: .12 });
+  const s = Math.min(h * .5, w * .34);
+  drawTree(ctx, w * (w < 700 ? .74 : .8), h - s * .16, s, 3);
 }
 
 function drawCover(canvas, seed) {
@@ -709,11 +675,14 @@ function renderCards() {
   document.querySelectorAll(".card").forEach(b => b.addEventListener("click", () => openCase(+b.dataset.i)));
 }
 function renderWriting() {
-  document.getElementById("writing-list").innerHTML = WRITINGS.map(w => `
-    <article class="w-item"><div><p class="label">${esc(w.type)}</p><h4>${esc(w.title)}</h4><p>${esc(w.text)}</p>
-      ${w.link ? `<a class="more" href="${esc(w.link)}" target="_blank" rel="noopener">Read ↗</a>` : ""}</div></article>`).join("");
-  document.getElementById("idea-list").innerHTML = IDEAS.map(d => `
-    <article class="idea"><span class="stage ${d.stage === "seed" ? "seed" : ""}">${d.stage === "seed" ? "Seed" : "Drafting"}</span><h4>${esc(d.title)}</h4><p>${esc(d.text)}</p></article>`).join("");
+  const pieceCard = (d, kind, i) => `
+    <button class="idea" data-kind="${kind}" data-i="${i}" aria-haspopup="dialog">
+      <span class="stage ${kind === "idea" && d.stage === "seed" ? "seed" : ""}">${kind === "idea" ? (d.stage === "seed" ? "Seed" : "Drafting") : esc(d.type)}</span>
+      <h4>${esc(d.title)}</h4><p>${esc(d.text)}</p><span class="read">${kind === "idea" ? "Open notes" : "Read"} →</span>
+    </button>`;
+  document.getElementById("writing-list").innerHTML = WRITINGS.map((d, i) => pieceCard(d, "writing", i)).join("");
+  document.getElementById("idea-list").innerHTML = IDEAS.map((d, i) => pieceCard(d, "idea", i)).join("");
+  document.querySelectorAll("button.idea").forEach(b => b.addEventListener("click", () => openPiece(b.dataset.kind, +b.dataset.i)));
   document.getElementById("video-list").innerHTML = VIDEOS.map(v => {
     const inner = `<div class="frame"><canvas data-seed="${v.seed}" aria-hidden="true"></canvas><span class="play" aria-hidden="true"></span></div><div class="vbody"><h4>${esc(v.title)}</h4><p>${esc(v.text)}${v.link ? "" : " · Link coming soon"}</p></div>`;
     return v.link ? `<a class="video" href="${esc(v.link)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="video">${inner}</div>`;
@@ -776,6 +745,24 @@ document.getElementById("cs-close").onclick = () => dlg.close();
 document.getElementById("cs-prev").onclick = () => openCase(current - 1);
 document.getElementById("cs-next").onclick = () => openCase(current + 1);
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+/* ---------- writing reader ---------- */
+const pdlg = document.getElementById("piece"); let pk = "writing", pi = 0;
+function openPiece(kind, i) {
+  const list = kind === "idea" ? IDEAS : WRITINGS; pk = kind; pi = (i + list.length) % list.length;
+  const d = list[pi];
+  const tag = kind === "idea" ? (d.stage === "seed" ? "Idea · Seed" : "Idea · Drafting") : d.type;
+  const body = (d.body || "").trim();
+  document.getElementById("piece-body").innerHTML = `<p class="label">${esc(tag)}</p><h2 id="piece-title">${esc(d.title)}</h2><p class="dek">${esc(d.text)}</p>` +
+    (body ? `<div class="text">${esc(body)}</div>` : `<p class="empty">${kind === "idea" ? "Notes on this idea are still taking shape." : "The full piece is coming soon."}</p>`) +
+    (d.link ? `<p style="margin-top:24px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">Open the full piece ↗</a></p>` : "");
+  document.getElementById("piece-body").scrollTop = 0;
+  if (!pdlg.open) pdlg.showModal();
+}
+document.getElementById("piece-close").onclick = () => pdlg.close();
+document.getElementById("piece-prev").onclick = () => openPiece(pk, pi - 1);
+document.getElementById("piece-next").onclick = () => openPiece(pk, pi + 1);
+pdlg.addEventListener("click", e => { if (e.target === pdlg) pdlg.close(); });
 
 /* ---------- nav highlight ---------- */
 const links = [...document.querySelectorAll(".nav a.link")];
