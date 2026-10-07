@@ -166,7 +166,14 @@ dialog.piece::backdrop { background: rgba(10,14,12,.55); }
 
 footer { padding-inline: var(--gutter); padding-block: 48px 64px; border-top: 1px solid var(--line); }
 footer .wrap { display: flex; gap: 18px; align-items: center; justify-content: space-between; flex-wrap: wrap; color: var(--ink-soft); font-size: 14px; }
-footer .contact { display: flex; gap: 18px; flex-wrap: wrap; }
+footer .contact { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.contact-dd { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; }
+.ci { display: inline-flex; align-items: center; gap: 8px; }
+.ci a { color: var(--jade); font-weight: 600; text-decoration: none; }
+.ci a:hover { text-decoration: underline; }
+.ci .email { user-select: all; }
+.copy { font: 500 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; padding: 5px 7px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--ink-soft); cursor: pointer; }
+.copy:hover { border-color: var(--ink); color: var(--ink); }
 
 /* ---------- case study dialog ---------- */
 dialog.cs { width: min(1180px, 100vw); max-width: 100vw; height: 100%; max-height: 100dvh; margin: 0 auto; padding: 0; border: 0; background: var(--paper); color: var(--ink); overflow: hidden; }
@@ -292,7 +299,8 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
       <div><dt class="label">Before</dt><dd>BS &amp; BA, Informatics and Creative Writing, UW Seattle</dd></div>
       <div><dt class="label">Research</dt><dd>Interactive Data Lab · Center for Learning, Computing, and Imagination</dd></div>
       <div><dt class="label">Honors</dt><dd>ICER 2026 Best Paper Honorable Mention · McNair Scholar · Achievement Fellow</dd></div>
-      <div><dt class="label">Seeking</dt><dd>UX research &amp; design internships, summer 2027</dd></div>
+      <div><dt class="label">Seeking</dt><dd>UX research &amp; UX/UI design internships in summer 2027</dd></div>
+      <div id="contact-row" hidden><dt class="label">Contact</dt><dd class="contact-dd" id="contact-hero"></dd></div>
     </dl>
   </div>
   <div class="scene" aria-hidden="true">
@@ -412,8 +420,8 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
    ===================================================================== */
 const SITE = {
   resumeUrl: "",            // link to your resume PDF
-  email: "",                // e.g. "saara@umich.edu"
-  linkedin: "",             // full https:// link
+  email: "saarau@umich.edu",
+  linkedin: "https://www.linkedin.com/in/saarauthmaan",
   // Paper links shown in Resume > Research experience (replaces "UW" with a link)
   papers: {
     lci: "https://dl.acm.org/doi/epdf/10.1145/3765964.3811661", // Center for Learning, Computing, and Imagination paper
@@ -713,10 +721,14 @@ function renderWriting() {
     const inner = `<div class="frame"><canvas data-seed="${v.seed}" aria-hidden="true"></canvas><span class="play" aria-hidden="true"></span></div><div class="vbody"><h4>${esc(v.title)}</h4><p>${esc(v.text)}${v.link ? "" : " · Link coming soon"}</p></div>`;
     return v.link ? `<a class="video" href="${esc(v.link)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="video">${inner}</div>`;
   }).join("");
-  const c = document.getElementById("contact"), parts = [];
-  if (SITE.email) parts.push(`<span>${esc(SITE.email)}</span>`);
+  const parts = [];
+  if (SITE.email) parts.push(`<span class="email">${esc(SITE.email)}</span>`);
   if (SITE.linkedin) parts.push(`<a href="${esc(SITE.linkedin)}" target="_blank" rel="noopener">LinkedIn ↗</a>`);
-  c.innerHTML = parts.join("");
+  if (SITE.resumeUrl) parts.push(`<a href="${esc(SITE.resumeUrl)}" target="_blank" rel="noopener">Resume ↗</a>`);
+  const html = parts.map(x => `<span class="ci">${x}</span>`).join("");
+  document.getElementById("contact").innerHTML = html;
+  document.getElementById("contact-hero").innerHTML = html;
+  document.getElementById("contact-row").hidden = !parts.length;
   document.querySelectorAll("[data-paper]").forEach(el => { const u = SITE.papers && SITE.papers[el.dataset.paper]; if (u) el.innerHTML = `<a class="paper-link" href="${esc(u)}" target="_blank" rel="noopener">Read paper ↗</a>`; });
   if (SITE.resumeUrl) { document.getElementById("resume-link").href = SITE.resumeUrl; document.getElementById("resume-link-wrap").hidden = false; }
 }
