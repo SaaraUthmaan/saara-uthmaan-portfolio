@@ -1,0 +1,27 @@
+HOW TO USE THIS FILE
+Each piece starts with a line beginning "## ".
+Write "## Finished:" for finished writing, or "## Idea:" / "## Drafting:" for the Ideas on my mind cards.
+Under that, fill in the short details (leave any blank), then a line with three dashes (---).
+Paste your full writing below the dashes. Line breaks stay exactly as you type them.
+To add a new piece, copy a whole block and change it. To remove one, delete its whole block.
+Nothing above the first "## " line shows on the site.
+
+
+## Finished: Roman Fever, adapted
+Type: Screenplay
+Summary: A collaborative screen adaptation of Edith Wharton's short story.
+Link:
+---
+
+
+
+## Idea: Ideas & questions
+Summary: Everything I'm wondering about right now.
+---
+
+
+
+## Drafting: [Working title]
+Summary: [What you're drafting and what you hope it becomes.]
+---
+
