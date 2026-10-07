@@ -1,0 +1,15 @@
+# YOUR PICTURES (Art & photos section)
+#
+# 1. Upload your pictures to GitHub: Add file > Upload files, in the same place as index.html.
+# 2. Below, add one line per picture: the file name, a | bar, then a short caption.
+# 3. Commit changes. Pictures show on the site in the order you list them.
+#
+# Tips:
+# - The file name must match exactly, including .jpg / .JPG / .png / .jpeg
+# - File names without spaces are safest, like huron-river.jpg
+# - Lines starting with # are notes and don't show on the site.
+# - The section stays hidden until at least one picture is listed.
+#
+# Example (remove the # at the start to use it):
+# huron-river.jpg | Sunset on the Huron River
+
