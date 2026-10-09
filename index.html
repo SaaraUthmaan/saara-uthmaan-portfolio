@@ -149,17 +149,72 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 .card h3 { font-size: 24px; }
 .card .tag { color: var(--ink-soft); font-size: 15px; }
 .card .meta { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px dashed var(--line); }
+.facts-card { margin: 6px 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.facts-card div { display: grid; grid-template-columns: 6.2em minmax(0, 1fr); gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.facts-card dt { font: 500 10.5px/1.6 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.facts-card dd { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink); }
 .card .open { font-weight: 600; font-size: 14px; color: var(--jade); }
 
 /* ---------- resume ---------- */
 .resume { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); }
 @media (max-width: 760px) { .resume { grid-template-columns: 1fr; } }
+.path { list-style: none; margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 96px; }
+.path::before { content: ""; position: absolute; left: 50%; top: 8px; bottom: 8px; border-left: 2px dashed var(--wash); }
+.stop { position: relative; padding-bottom: 40px; min-width: 0; }
+.stop:nth-child(odd) { grid-column: 1; text-align: right; }
+.stop:nth-child(even) { grid-column: 2; margin-top: 72px; }
+.stop::after { content: ""; position: absolute; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper-2); border: 3px solid var(--jade); box-sizing: border-box; }
+.stop:nth-child(odd)::after { right: -56px; }
+.stop:nth-child(even)::after { left: -56px; }
+.stop.star::after { background: var(--seal); border-color: var(--seal); }
+.stop.next::after { background: var(--paper-2); border-style: dashed; }
+.stop .yr { font: 500 12px/1.4 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--seal); }
+.stop h3 { font: 700 clamp(18px, 1.7vw, 21px)/1.3 var(--font-display); margin: 4px 0 6px; }
+.stop p { color: var(--ink-soft); font-size: 15px; }
+.stop p b { color: var(--ink); font-weight: 600; }
+.path-skills { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+.path-skills .chips { padding-top: 0; }
+.pubs { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 90ch; }
+.pubs li { color: var(--ink-soft); font-size: 15px; padding-left: 16px; border-left: 2px solid var(--wash); }
+.pubs li b { color: var(--ink); font-weight: 600; }
+.pubs li i { color: var(--ink); }
+.pubs .tag { font: 500 11px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--seal); border: 1px solid currentColor; padding: 3px 6px; border-radius: 2px; white-space: nowrap; }
+.pub-note { font: 400 12px var(--font-mono); color: var(--ink-soft); }
+.chips.honors .chip { border-color: color-mix(in srgb, var(--seal) 45%, transparent); color: var(--ink); background: color-mix(in srgb, var(--seal) 7%, var(--paper)); }
+@media (max-width: 760px) {
+  .path { grid-template-columns: 1fr; padding-left: 34px; }
+  .path::before { left: 7px; }
+  .stop:nth-child(odd), .stop:nth-child(even) { grid-column: 1; text-align: left; margin-top: 0; padding-bottom: 30px; }
+  .stop:nth-child(odd)::after, .stop:nth-child(even)::after { left: -34px; right: auto; }
+}
+.ledger { display: grid; }
+.lg-row { display: grid; grid-template-columns: minmax(0, 180px) minmax(0, 1fr); gap: 12px clamp(20px, 4vw, 56px); padding-block: 26px; border-top: 1px solid var(--line); }
+.lg-row:first-child { border-top: 2px solid var(--ink); }
+.lg-cat { font: 500 11px/1.4 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); padding-top: 6px; }
+.lg-list { display: grid; gap: 20px; min-width: 0; }
+.lg-item { display: grid; grid-template-columns: auto minmax(24px, 1fr) auto; align-items: baseline; column-gap: 12px; }
+.lg-title { font: 700 clamp(17px, 1.6vw, 20px)/1.3 var(--font-display); color: var(--ink); min-width: 0; }
+.lg-dots { border-bottom: 1.5px dotted var(--wash); transform: translateY(-5px); }
+.lg-when { font: 400 13px/1.4 var(--font-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lg-sub { grid-column: 1 / -1; margin-top: 4px; color: var(--ink-soft); font-size: 15px; max-width: var(--measure); }
+.lg-sub b { color: var(--ink); font-weight: 600; }
+.lg-link { color: var(--jade); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.lg-link:hover { text-decoration: underline; }
+@media (max-width: 640px) {
+  .lg-row { grid-template-columns: 1fr; padding-block: 20px; }
+  .lg-item { grid-template-columns: minmax(0, 1fr); }
+  .lg-dots { display: none; }
+  .lg-when { order: -1; margin-bottom: 2px; }
+}
 .r-group h3 { font-size: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; }
 .r-group + .r-group { margin-top: 36px; }
 .r-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .r-item strong { font-weight: 600; }
 .r-item .when { font: 400 13px/1.6 var(--font-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .paper-link { font: 600 13px/1.6 var(--font-body); color: var(--jade); white-space: nowrap; }
+.r-item p b { color: var(--ink); font-weight: 600; }
+.r-group .chips { padding-top: 14px; }
+.resume-row2 { margin-top: 36px; }
 .r-item p { grid-column: 1 / -1; color: var(--ink-soft); font-size: 15px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 14px; }
 .chip { font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
@@ -206,6 +261,9 @@ dialog.lb::backdrop { background: rgba(10,14,12,.88); }
 .lb-fig img { max-width: 100%; max-height: calc(100dvh - 170px); object-fit: contain; border-radius: 2px; }
 .lb-cap { text-align: center; color: #E4E9E3; font-size: 15px; padding: 14px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 22px); }
 .piece-body .text { white-space: pre-wrap; font: 400 18px/1.8 var(--font-display); max-width: var(--measure); padding-top: 26px; }
+.piece-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+.btn.ghost { border-color: var(--line); color: var(--ink-soft); }
+.btn.ghost:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
 .piece-body .empty { color: var(--ink-soft); font-style: italic; padding-top: 26px; }
 .idea p { color: var(--ink-soft); font-size: 14.5px; }
 .videos { display: grid; gap: 18px; }
@@ -266,7 +324,7 @@ dialog.cs::backdrop { background: rgba(10,14,12,.55); backdrop-filter: blur(2px)
 .cs-sec p { color: var(--ink-soft); max-width: var(--measure); }
 .cs-sec p + p { margin-top: 10px; }
 .hmw { font: 500 clamp(18px, 2vw, 22px)/1.5 var(--font-display); color: var(--ink); border-left: 3px solid var(--seal); padding-left: 16px; margin-top: 16px; max-width: 60ch; }
-.meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .meta-grid div { background: var(--paper); padding: 14px; display: grid; gap: 4px; align-content: start; }
 .meta-grid .v { font-size: 15px; }
 .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
@@ -323,8 +381,19 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
 .solution .why { margin-top: 10px; padding: 12px 14px; background: var(--paper-2); border-radius: 3px; font-size: 14.5px; color: var(--ink-soft); }
 .solution .why .label { display: block; margin-bottom: 4px; color: var(--jade); }
 .solution cite { display: block; margin-top: 8px; font: normal 400 12.5px/1.5 var(--font-mono); color: var(--ink-soft); }
+.artifact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 18px; }
+.artifact { margin: 0; display: grid; gap: 8px; align-content: start; }
+.artifact img { width: 100%; max-width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 3px; display: block; background: var(--paper-2); }
+.artifact .cap { font-size: 14px; color: var(--ink-soft); } .artifact .cap b { display: block; color: var(--ink); font-weight: 600; }
+.takeaways { margin: 8px 0 0; padding-left: 20px; color: var(--ink-soft); display: grid; gap: 6px; max-width: var(--measure); }
+.deck { margin: 26px 0 0; display: grid; gap: 10px; }
+.deck:focus-visible { outline: 2px solid var(--seal); outline-offset: 6px; }
+.deck-frame { aspect-ratio: 16 / 9; max-width: 100%; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: #fff; }
+.deck-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.deck-ctrl { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .final { aspect-ratio: 16 / 9; max-width: 100%; border: 1.5px solid var(--ink-soft); border-radius: 4px; display: grid; place-items: center; background: var(--paper-2); text-align: center; padding: 16px; color: var(--ink-soft); font-size: 14px; margin-top: 16px; }
-.final img { width: 100%; height: 100%; object-fit: cover; }
+.final:has(img) { padding: 0; overflow: hidden; }
+.final img { width: 100%; height: 100%; object-fit: cover; object-position: 75% 30%; }
 .refs { margin-top: 18px; font: 400 12.5px/1.6 var(--font-mono); color: var(--ink-soft); padding-left: 18px; }
 .refs li + li { margin-top: 6px; }
 </style>
@@ -391,29 +460,48 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
         <div class="r-group">
           <h3>Education</h3>
           <div class="r-item"><strong>Master of Science in Information</strong><span class="when">Aug 2026 – May 2028</span><p>University of Michigan School of Information · UX Research and Design · Achievement Fellowship</p></div>
-          <div class="r-item"><strong>Bachelor of Science &amp; Bachelor of Arts</strong><span class="when">Sept 2021 – Aug 2026</span><p>University of Washington, Seattle · Informatics and Creative Writing · McNair Scholar</p></div>
+          <div class="r-item"><strong>Bachelor of Science &amp; Bachelor of Arts</strong><span class="when">Sept 2021 – Aug 2026</span><p>University of Washington, Seattle · Informatics (2023–2026) and Creative Writing (2021–2026) · McNair Scholar</p></div>
         </div>
         <div class="r-group">
           <h3>Research experience</h3>
-          <div class="r-item"><strong>Center for Learning, Computing, and Imagination</strong><span class="when" data-paper="lci">UW</span><p>Co-designed help-seeking structures with marginalized students in computing; studied how beginners learn with LLMs.</p></div>
-          <div class="r-item"><strong>Interactive Data Lab</strong><span class="when" data-paper="idl">UW</span><p>Research on LLMs and beginner learning.</p></div>
+          <div class="r-item"><strong>Race and Data Justice Lab (RAD Lab)</strong><span class="when">Now · UMich</span><p>Researcher with Professor Matthew Poy.</p></div>
+          <div class="r-item"><strong>Center for Learning, Computing &amp; Imagination</strong><span class="when">2025 – 2026 · UW</span><p>Imagining Culturally Responsive Help-Seeking. Edited the grant proposal ($5,000 awarded), co-designed the study and futures workshop, recruited participants, served as liaison to AVELA, and ran thematic analysis. <a class="lg-link" href="#work" data-open-case="help-seeking">Case study →</a></p></div>
+          <div class="r-item"><strong>Interactive Data Lab</strong><span class="when">2024 – 2026 · UW</span><p>Independently leading a study on how visualization novices verify AI hallucinations in D3 code. Previously co-designed a study on how LLMs affect learning data visualization libraries: secured IRB approval, ran 8 semi-structured interviews and thematic analysis, and presented at 8 conferences (NSF REU).</p></div>
         </div>
       </div>
       <div>
         <div class="r-group">
-          <h3>Honors &amp; publications</h3>
-          <div class="r-item"><strong>Best Paper Honorable Mention, ICER 2026</strong><span class="when">2026</span><p>ACM Conference on International Computing Education Research.</p></div>
-          <div class="r-item"><strong>Achievement Fellowship</strong><span class="when">2026</span><p>Full tuition, University of Michigan School of Information.</p></div>
-          <div class="r-item"><strong>McNair Scholar</strong><span class="when">UW</span><p>Publication record and multiple conference presentations.</p></div>
+          <h3>Publications</h3>
+          <div class="r-item"><strong>Not Built for Us: Marginalized Students' Visions for Help-Seeking in Computing Education</strong><span class="when">2026</span><p>Edgar*, Sherif*, Jiang, <b>Uthmaan</b> &amp; Ko · ACM ICER 2026, Uppsala, Sweden · Best Paper Honorable Mention · <a class="lg-link" href="https://dl.acm.org/doi/epdf/10.1145/3765964.3811661" target="_blank" rel="noopener">Read ↗</a></p></div>
+          <div class="r-item"><strong>Scalable Community Mentorship: A Vision for Engineering Literacy &amp; Access</strong><span class="when">2024</span><p><b>Uthmaan</b>*, Johnson*, Arroyos*, Hussein*, Cora*, Sherif*, Garcia*, Barrett*, Shirazy*, Cunningham, Shapiro &amp; Iyer · WEEF-GEDC 2024, Sydney, Australia · <a class="lg-link" href="https://doi.org/10.1109/WEEF-GEDC63419.2024.10854949" target="_blank" rel="noopener">Read ↗</a></p></div>
+          <p class="pub-note" style="padding-top:8px">* Authors contributed equally</p>
         </div>
+        <div class="r-group">
+          <h3>Honors</h3>
+          <div class="chips honors">
+            <span class="chip">Best Paper Honorable Mention, ICER 2026</span><span class="chip">Achievement Fellowship, UMich (full tuition)</span><span class="chip">McNair Scholar, UW</span><span class="chip">Mary Gates Research Scholarship</span><span class="chip">Kabir Shahani &amp; Noreen Ramji Endowed Scholarship in Informatics</span><span class="chip">Imam Generational Scholarship</span><span class="chip">Emile Pitre Instructional Center Tutor Scholar</span><span class="chip">Commitment to Service Award</span><span class="chip">Breakout Organization Award, Black in Informatics</span><span class="chip">TRIO Perseverance Award</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resume resume-row2">
+      <div>
+        <div class="r-group">
+          <h3>Teaching, mentoring &amp; leadership</h3>
+          <div class="chips">
+            <span class="chip">Career Fellow, CodePath · 400+ students</span><span class="chip">Writing Tutor, UW · 300+ students</span><span class="chip">STEM Instructor, AVELA · 120+ students</span><span class="chip">Research Mentor, MIT FutureMakers · 36 students</span><span class="chip">Curriculum Designer, AVELA</span><span class="chip">President, Black in Informatics</span><span class="chip">VP of Communications, ColorStack UW</span><span class="chip">Co-Founder, ECHO</span>
+          </div>
+        </div>
+      </div>
+      <div>
         <div class="r-group">
           <h3>Skills</h3>
           <div class="chips">
-            <span class="chip">Semi-structured interviews</span><span class="chip">Thematic analysis</span><span class="chip">Survey design</span><span class="chip">Personas &amp; journey maps</span><span class="chip">Information architecture</span><span class="chip">Wireframing &amp; prototyping</span><span class="chip">Figma</span><span class="chip">Canva</span><span class="chip">Writing &amp; storytelling</span>
+            <span class="chip">Semi-structured interviews</span><span class="chip">Thematic analysis</span><span class="chip">Affinity diagramming</span><span class="chip">Survey design</span><span class="chip">Usability testing</span><span class="chip">Heuristic evaluation</span><span class="chip">A/B testing</span><span class="chip">Card sorting</span><span class="chip">Persona development</span><span class="chip">Mixed methods</span><span class="chip">Futures workshops</span><span class="chip">Figma</span><span class="chip">Miro</span><span class="chip">Python</span><span class="chip">JavaScript · D3.js</span><span class="chip">HTML &amp; CSS</span><span class="chip">Grant &amp; academic writing</span>
           </div>
         </div>
         <div class="r-group" id="resume-link-wrap" hidden>
-          <a class="btn" id="resume-link" href="#" target="_blank" rel="noopener">View full resume (PDF) ↗</a>
+          <a class="btn" id="resume-link" href="#" target="_blank" rel="noopener">Download full resume (PDF) ↗</a>
         </div>
       </div>
     </div>
@@ -498,111 +586,151 @@ const SITE = {
 
 const PROJECTS = [
   {
-    id: "mosaic", seed: 7, tags: ["Product design"],
-    title: "Mosaic", kicker: "Competition project · Product design",
-    tagline: "Find friendships that shape you. A peer-connection and extracurricular app for homeschooled K–12 students.",
+    id: "help-seeking", seed: 41, tags: ["Research", "Co-design"],
+    cardFacts: [
+      ["My role", "Co-author · AVELA liaison · co-designed the futures workshop · thematic analysis"],
+      ["When", "2025 – 2026 · UW Center for Learning, Computing & Imagination"],
+      ["Methods", "Futures workshop with 18 students · surveys · thematic analysis"],
+      ["Outcome", "ICER 2026 paper · Best Paper Honorable Mention"]
+    ],
+    cardRole: "Co-author", title: "Not Built for Us", kicker: "Research · ICER 2026 Best Paper Honorable Mention",
+    tagline: "What would help-seeking in computing look like if the students it fails got to design it?",
     year: "2026",
-    draft: true,
-    problem: "Homeschooled students learn at home, which means they miss the built-in social structure of school: clubs, teams, lunch tables. Families piece together co-ops, Facebook groups and word of mouth, and many kids still struggle to find peers who share their interests. I grew up homeschooled and felt this firsthand.",
-    hmw: "How might we help homeschooled K–12 students find peers and extracurriculars that fit their interests, in a way their parents trust?",
-    meta: { Role: "Founder · UX researcher & designer", Timeline: "Fall 2026", Collaborators: "Team recruited at the business + tech innovation jam", Tools: "Figma, FigJam, Google Forms", Duration: "[Add: e.g. 10 weeks]" },
+    meta: {
+      "My role": "Co-author (4th of 5) · AVELA liaison between the research team and community partner · analysis team · participant-researcher in the workshop",
+      Team: "Belén Edgar, Eman Sherif, Janet Jiang, Saara Uthmaan, Amy J. Ko",
+      "Community partner": "AVELA – A Vision for Engineering Literacy & Access",
+      Participants: "18 students marginalized in computing, all with teaching experience, in 4 groups",
+      Methods: "5-hour futures workshop · surveys · audio · field notes · thematic analysis",
+      Published: "ICER 2026, Uppsala, Sweden · Best Paper Honorable Mention",
+      Funding: "UW Community Engaged Computing Initiative (CECI)"
+    },
+    order: ["problem", "details", "challenge", "research", "flows", "wireframes", "themes", "solutions", "final", "future"],
+    labels: {
+      problem: "Problem & research question", details: "Role, team & context", challenge: "Barriers students face today",
+      research: "Research approach", flows: "Partnership & workshop structure", wireframes: "Workshop artifacts", themes: "Key themes from analysis",
+      solutions: "Design principles", final: "Outcome", future: "Limitations & next steps"
+    },
+    problem: "Asking for help is an essential skill in computing, but many students don't. They don't know what resources exist, doubt they'll help, fear being judged, or don't want to rely on others. Students marginalized in computing face all of this plus inequities of their own. Most research studies existing help-seeking resources. Almost none asks students to imagine what they actually need.",
+    hmw: "Research question: What help-seeking structures do students from marginalized communities in computing envision for post-secondary computing courses?",
     challenge: [
-      "Finding peers with shared interests is slow and depends on parents' existing networks.",
-      "Local activities are scattered across group chats, church bulletins and co-op emails.",
-      "Parents want visibility and control over who their kids talk to.",
-      "Older students want independence and don't want a platform that feels 'for little kids'.",
-      "Kids in rural areas have few nearby options at all."
+      "Office hours don't fit students' lives. Commuters and students with jobs can't attend in person, and long queues mean as little as 5 minutes with a TA.",
+      "\"No answer\" policies leave students stuck: TAs won't explain, but won't guide either.",
+      "Fear of judgment and imposter syndrome. \"I am scared to ask for help because I think they will think I am not smart enough even though I am.\"",
+      "Help-seeking spaces can feel threatening. One group described current environments in exactly that word.",
+      "Isolation, especially when no one looks like you. \"I was the only black girl in my lab, and my partner didn't want to talk to me.\"",
+      "Practice doesn't match assessment, so there are few low-stakes chances to fail and learn."
     ],
     research: {
-      summary: "I combined my own lived experience with conversations with homeschooling families to understand how kids find friends and activities today, and where it breaks down.",
-      methods: ["[Add #] parent interviews", "[Add #] student interviews", "Survey of homeschool groups", "Review of co-op & forum posts", "Competitive audit"]
+      summary: "We ran a futures workshop, a method that reverses traditional power dynamics and puts the people most affected by a system in the role of designing its future. The study was built on a partnership with AVELA, a nonprofit offering STEM outreach to Black and Latine students and taught mostly by Black and Latine computing undergrads. I served as the liaison between AVELA and the research team. We piloted the workshop with 4 students, and refined it over six weeks before running it with 18 students recruited through AVELA, NSBE, SHPE and the Allen Scholars program. Faculty were deliberately left out of the room so students could design without institutional limits. We collected 4.5 hours of audio per group, surveys, field notes, the maps students made, and letters they wrote to university leaders. Then we analyzed it in pairs through inductive and deductive thematic analysis, resolving disagreements through consensus memos and an expert audit.",
+      methods: ["Futures workshop", "Personal & group community maps", "Surveys", "Audio recordings", "Field notes", "Letters to leadership", "Inductive & deductive thematic analysis", "Consensus memos"]
     },
-    themes: [
-      { t: "Friendship follows interests", d: "Students described close friends as people who share a hobby, not people who live nearby." },
-      { t: "Parents are the gatekeepers", d: "Every connection runs through a parent. A tool that skips them won't get used." },
-      { t: "Information is fragmented", d: "Families track activities across 4+ channels and still miss things." },
-      { t: "Age changes everything", d: "Younger kids need supervised play; teens want autonomy and real responsibility." }
-    ],
-    personas: [
-      { name: "Maya, 13", role: "Homeschooled 8th grader", q: "I love robotics, but nobody in my co-op does it.", goals: ["Find friends who like what she likes", "Join a team or competition"], pains: ["Only meets kids through her parents' circle", "Feels too old for the co-op's activities"] },
-      { name: "Denise, 41", role: "Parent of three", q: "I'd let her join if I knew who was on the other end.", goals: ["Safe, vetted connections", "One place to see local activities"], pains: ["Juggles too many group chats", "Worries about online strangers"] }
-    ],
-    competitive: {
-      cols: ["Mosaic", "Outschool", "Facebook groups", "Discord"],
-      rows: [
-        ["Peer-to-peer matching by interest", "●", "◐", "○", "◐"],
-        ["Parent approval & oversight", "●", "●", "◐", "○"],
-        ["Local in-person activities", "●", "○", "●", "○"],
-        ["Designed for under-13s", "●", "●", "○", "○"],
-        ["Free to use", "●", "○", "●", "●"]
-      ]
-    },
-    ia: { name: "Mosaic", children: [
-      { name: "Discover", children: [{ name: "Suggested peers" }, { name: "Activities near you" }] },
-      { name: "Pods", children: [{ name: "My pods" }, { name: "Pod chat" }, { name: "Pod events" }] },
-      { name: "Activities", children: [{ name: "Clubs" }, { name: "Field trips" }, { name: "Competitions" }] },
-      { name: "Profile", children: [{ name: "Interests" }, { name: "Badges" }] },
-      { name: "Parent hub", children: [{ name: "Approvals" }, { name: "Safety settings" }, { name: "Family calendar" }] }
-    ]},
     flows: [
-      { name: "Join a first pod", steps: ["Sign up with parent", "Pick interests", "See suggested pods", "Parent approves", "Say hi in pod chat"] },
-      { name: "Find a local activity", steps: ["Open Activities", "Filter by age & distance", "View details", "Request to join", "Add to family calendar"] }
+      { name: "How we partnered with AVELA", steps: ["Agree on a shared goal", "Show up: attend events, org meetings & volunteer", "Name an AVELA liaison (me)", "6 weekly meetings to shape the workshop", "AVELA members join the analysis"] },
+      { name: "One five-hour workshop, three phases", steps: ["Rapport building", "Critique: name today's barriers", "Fantasy: map communities where you feel safe", "Fantasy: design an ideal help-seeking structure", "Implementation: merge into one collective map", "Letters to faculty & administrators"] }
+    ],
+    themes: [
+      { t: "Responsive to students' lives", d: "Support should adapt to commuters, workers and different learners, with TAs trained to try another explanation and to check in before a student spirals." },
+      { t: "Psychologically safe", d: "Students wanted informal, \"chill\" spaces where asking a question that might sound \"stupid\" doesn't feel risky." },
+      { t: "Agency over how to learn", d: "Many paths to help (friends, Discord, anonymous forums, AI, tutoring) so there's no single \"correct\" way to struggle." },
+      { t: "Free to fail", d: "Ungraded practice quizzes and exams so students can find gaps without losing points." },
+      { t: "Community, shared identity & joy", d: "Help-seeking built on peers with shared backgrounds, modeled on groups like NSBE and ColorStack, with buddy and peer-matching systems." }
+    ],
+    solutions: [
+      { t: "Design flexible structures that adapt without breaking", c: "Learning in comfortable, familiar spaces; staff who notice when a student is struggling and step in.", why: "Support shouldn't assume one-size-fits-all. It should respond to students' cultural backgrounds and lived realities.", cite: "Ladson-Billings, G. (1995). Toward a theory of culturally relevant pedagogy. American Educational Research Journal, 32(3), 465–491." },
+      { t: "Create conditions where students don't feel judged", c: "Responsive TA training in communication and cultural responsiveness; instructors who model vulnerability and visit student spaces.", why: "Students avoid help when asking threatens how competent they look. Our findings suggest that fear is often an accurate read of the environment, not a personal deficit.", cite: "Ryan, A. M., Pintrich, P. R., & Midgley, C. (2001). Avoiding seeking help in the classroom: Who and why? Educational Psychology Review, 13(2), 93–114." },
+      { t: "Give students agency in how they seek help", c: "Multiple modalities, from informal lounges to anonymous forums, with the student choosing.", why: "Motivation drops when autonomy is removed. Here the policies themselves grant or deny that autonomy.", cite: "Deci, E. L., & Ryan, R. M. (2012). Self-determination theory. Handbook of Theories of Social Psychology, 1, 416–436." },
+      { t: "Normalize failure with low-stakes practice", c: "Ungraded practice exams and quizzes; reliable help beyond TAs; instructors sharing their own struggles.", why: "Students were oriented toward mastery, wanting conceptual help rather than quick answers, while the systems around them rewarded performance.", cite: "Ryan, A. M., Pintrich, P. R., & Midgley, C. (2001). Avoiding seeking help in the classroom: Who and why? Educational Psychology Review, 13(2), 93–114." },
+      { t: "Connect students across shared identities", c: "Buddy and peer-matching systems; group work that invites students to share about themselves; joyful touches like memes and social media.", why: "Students draw on peers and social networks as a form of capital to navigate institutions.", cite: "Yosso, T. J. (2005). Whose culture has capital? A critical race theory discussion of community cultural wealth. Race Ethnicity and Education, 8(1), 69–91." },
+      { t: "Let the people at the margins lead the design", c: "A student-only futures workshop where participants were framed as the experts.", why: "The deepest expertise on a system's failures often lives at its boundaries, with the people who live those failures daily.", cite: "Collins, P. H. (2020). Defining Black feminist thought. In Feminist Theory Reader (pp. 278–290). Routledge." }
     ],
     wireframes: [
-      { label: "Onboarding", note: "Interest picker", img: "" },
-      { label: "Discover", note: "Suggested pods & activities", img: "" },
-      { label: "Pod chat", note: "Small-group conversation", img: "" },
-      { label: "Parent hub", note: "Approval queue", img: "" }
+      { photo: true, img: "workshop-map-template.jpg", label: "Community map template", note: "Each student mapped a community where they already felt safe: people, locations, values, communication and emotions." },
+      { photo: true, img: "workshop-personal-map.jpg", label: "A personal community map", note: "Fantasy phase. One participant's map of a campus program where they felt they belonged." },
+      { photo: true, img: "workshop-group-maps.jpg", label: "Group help-seeking maps", note: "Groups built their ideal help-seeking structure, then swapped maps in a gallery walk with sticky-note feedback." },
+      { photo: true, img: "workshop-collective-map.jpg", label: "The collective map", note: "Implementation phase. All four groups negotiated one shared vision, one dimension at a time." }
     ],
-    solutions: [
-      { t: "Interests first in onboarding", c: "Students pick interests before anything else, and matching runs on shared interests rather than location alone.", why: "Feeling connected to others (relatedness) is a core driver of motivation and well-being; shared interests give kids an immediate reason to connect.", cite: "Ryan, R. M., & Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. American Psychologist, 55(1), 68–78." },
-      { t: "Small pods instead of an open feed", c: "Students join pods of 5–8 peers around one interest, instead of posting to a public feed.", why: "Small, bounded groups with clear topics build stronger ties and see fewer norm violations than large open spaces.", cite: "Kraut, R. E., & Resnick, P. (2012). Building Successful Online Communities: Evidence-Based Social Design. MIT Press." },
-      { t: "Parent approval built into every connection", c: "A parent hub where caregivers approve pods and events, with age-based defaults.", why: "Value Sensitive Design asks designers to account for indirect stakeholders; parents never use the main app but decide whether it gets used at all.", cite: "Friedman, B., & Hendry, D. G. (2019). Value Sensitive Design: Shaping Technology with Moral Imagination. MIT Press." },
-      { t: "A weekly 'say hi' prompt", c: "One small, timely prompt per week to post in a pod or RSVP to an event.", why: "Behavior happens when motivation, ability and a trigger arrive together; a small, well-timed prompt lowers the effort to act.", cite: "Fogg, B. J. (2009). A behavior model for persuasive design. Proceedings of Persuasive '09, ACM." },
-      { t: "Plain words and visible labels", c: "Icons always paired with labels; homeschool terms (co-op, field trip) used instead of app jargon.", why: "Recognition over recall and matching the user's real-world language reduce errors, especially for younger users.", cite: "Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. Proceedings of CHI '94, ACM." }
-    ],
-    final: { text: "High-fidelity prototype of onboarding, Discover, pods and the parent hub.", img: "", link: "" },
-    future: ["Usability test the prototype with 5+ students and parents", "Explore a mentor role for older teens", "Accessibility audit against WCAG 2.2 AA", "Partnerships with local co-ops to seed activities"],
-    lessons: ["Lived experience is a starting point; it still needs to be tested against other families' realities.", "Designing for two users at once (kids and parents) means every screen has a second audience.", "[Add your own reflection]"]
+    final: { text: "Published at ICER 2026, the ACM International Computing Education Research conference in Uppsala, Sweden, where it received a Best Paper Honorable Mention. The paper offers a set of design principles that instructors and universities can use to rebuild help-seeking around community and care.", img: "icer-stage-wide.jpg", link: "https://dl.acm.org/doi/epdf/10.1145/3765964.3811661", linkText: "Read the paper ↗", alt: "Saara presenting the paper at ICER 2026",
+      points: [
+        "Help-seeking structures don't need to be separate from students' lives.",
+        "Help-seeking structures need to become more empathetic and accepting of imperfection.",
+        "Students' autonomy in choosing how to seek help is a precondition for their success.",
+        "Students are motivated by mastery, but help-seeking structures reward performance.",
+        "Friendships are essential to effective, supportive and joyful help-seeking."
+      ],
+      slides: { dir: "icer-slides/slide-", count: 35, title: "Our ICER 2026 talk slides" } },
+    future: [
+      "Participants came from student organizations at one large public university. Future work should include other institutions and students outside these groups.",
+      "Include more marginalized groups, including students with disabilities.",
+      "Test the design principles in a real course and measure how they change help-seeking behavior."
+    ]
   },
   {
-    id: "help-seeking", seed: 41, tags: ["Research", "Co-design"],
-    title: "Asking for Help", kicker: "Research · UW Center for Learning, Computing, and Imagination",
-    tagline: "Co-designing help-seeking structures with marginalized students in computing.",
+    id: "safetynet", seed: 7, tags: ["Product design", "Research"],
+    cardFacts: [
+      ["My role", "UX designer & researcher on a team of 4"],
+      ["When", "UW · INFO 360: Design Thinking"],
+      ["Methods", "Survey · prototyping · technology probe with 5 interviews"],
+      ["Outcome", "Interactive prototype with 3 core features"]
+    ],
+    cardRole: "Team of 4", title: "SafetyNet", kicker: "Mobile app · UW INFO 360",
+    tagline: "A tracker app that helps people, especially young women, stay safe when meeting someone from a dating app.",
     year: "UW",
-    draft: true,
-    problem: "Students from marginalized groups in computing often avoid asking for help, even when it's available. Office hours and forums are designed around students who already feel they belong.",
-    hmw: "How might we design help-seeking structures with, not just for, students who are most likely to go without help?",
-    meta: { Role: "Undergraduate researcher", Timeline: "[Add dates]", Collaborators: "LCI faculty & graduate researchers · student co-designers", Tools: "Miro, Zoom, qualitative coding software", Duration: "[Add]" },
-    challenge: ["Fear of looking 'behind' in front of peers and TAs", "Unclear when a question is 'worth' asking", "Office hours times conflict with jobs and caregiving", "Forums reward students who already know the vocabulary"],
-    research: { summary: "We ran co-design sessions where students reimagined how help could work in their courses.", methods: ["Co-design workshops", "Semi-structured interviews", "Thematic analysis"] },
-    themes: [
-      { t: "[Theme]", d: "[Add finding]" },
-      { t: "[Theme]", d: "[Add finding]" },
-      { t: "[Theme]", d: "[Add finding]" }
-    ],
-    personas: [
-      { name: "[Name]", role: "[Student description]", q: "[Representative quote]", goals: ["[Goal]"], pains: ["[Frustration]"] }
-    ],
-    competitive: {
-      cols: ["Co-designed structure", "Office hours", "Course forum", "Course Discord"],
-      rows: [
-        ["Low social cost to ask", "●", "○", "◐", "◐"],
-        ["Fits around work schedules", "●", "○", "●", "●"],
-        ["Shaped by students", "●", "○", "○", "◐"]
-      ]
+    meta: {
+      "My role": "UX designer & researcher on a team of 4",
+      Team: "Amy, Saara, Marie & Sabrina",
+      Course: "INFO 360: Design Thinking, University of Washington",
+      Methods: "Survey · high-fidelity prototype · technology probe with 5 interviews",
+      Deliverables: "3 core features · 2 end-to-end user flows · interactive prototype"
     },
-    ia: { name: "Help-seeking structure", children: [{ name: "[Entry point]" }, { name: "[Step]" }, { name: "[Step]" }] },
-    flows: [{ name: "Ask a first question", steps: ["[Step]", "[Step]", "[Step]"] }],
-    wireframes: [{ label: "[Artifact]", note: "From co-design session", img: "" }],
-    solutions: [
-      { t: "Students as co-designers", c: "Students shaped the structure in workshops instead of only being interviewed.", why: "Co-design treats people as experts of their own experience and shifts who holds power in the design process.", cite: "Sanders, E. B.-N., & Stappers, P. J. (2008). Co-creation and the new landscapes of design. CoDesign, 4(1), 5–18." },
-      { t: "Centering students most affected", c: "Recruitment focused on students marginalized in computing.", why: "Design justice argues the people most harmed by a system should lead its redesign.", cite: "Costanza-Chock, S. (2020). Design Justice: Community-Led Practices to Build the Worlds We Need. MIT Press." },
-      { t: "Lowering the social cost of asking", c: "[Describe the specific mechanism]", why: "Students avoid help when asking threatens how competent they appear to others.", cite: "Ryan, A. M., & Pintrich, P. R. (1997). \"Should I ask for help?\" Journal of Educational Psychology, 89(2), 329–341." }
+    order: ["problem", "details", "challenge", "themes", "flows", "wireframes", "solutions", "final", "future", "lessons"],
+    labels: {
+      problem: "Community & issue", details: "Role, team & context", challenge: "User pain points",
+      themes: "What we learned from research", flows: "User flows", wireframes: "Prototype screens",
+      solutions: "Design solutions", final: "Evaluation & final presentation",
+      future: "Changes from testing", lessons: "If we did this again"
+    },
+    problem: "Online dating puts people in situations where the person they're meeting may not be who they seem and can't be trusted. Our community was mostly women, especially college-aged people, who date online. They already take safety into their own hands, but they do it through scattered texts and habits rather than a tool built for it.",
+    hmw: "How might we help people who date online stay safe on a first date, with the friends they already rely on, without making the date awkward?",
+    challenge: [
+      "Online dating feels unsafe: 60% of study participants rated it 3 or lower on a scale from very unsafe to very safe.",
+      "Dates don't always respect boundaries. \"My date has pressured me to stay out later, even though I'm afraid of staying in the Ave/unsafe environments later at night… Didn't really respect my boundaries there.\"",
+      "Asking for help in the moment is hard to do without the date noticing.",
+      "Safety steps are manual and scattered: separate texts to friends about who, where and when."
     ],
-    final: { text: "[Describe the final outcome or paper]", img: "", link: "" },
-    future: ["[Add]"],
-    lessons: ["[Add]"]
+    themes: [
+      { t: "Friends are already the safety net", d: "Participants share date information with close friends and make sure friends know what their date looks like." },
+      { t: "Public places feel safer", d: "Meeting first dates in a public place is a common precaution." },
+      { t: "Pressure happens in the moment", d: "The riskiest moments come mid-date, when leaving or calling for help would be noticed." }
+    ],
+    flows: [
+      { name: "Send date profile to emergency contacts", steps: ["Tap \"I'm going on a date\"", "Pick the match", "Add date, time & location", "Add an outfit photo", "Send to trusted friends", "Confirmation"] },
+      { name: "Create a discreet widget", steps: ["Open profile", "Choose a discreet image", "Pick how many contacts", "Choose an action: text, call contact or call police", "Add widget to lock screen", "Friends get an alert and can call"] }
+    ],
+    wireframes: [
+      { photo: true, img: "safetynet-landing.jpg", label: "Landing & home", note: "Sign in with your dating app, then see your current location, upcoming dates and partnered date spots." },
+      { photo: true, img: "safetynet-send-date.jpg", label: "Send date details", note: "Pick your match, add the time, place and outfit photo, and send it to trusted friends." },
+      { photo: true, img: "safetynet-create-widget.jpg", label: "Create a widget", note: "Choose a discreet image, the contacts to alert, and what happens when it's tapped." },
+      { photo: true, img: "safetynet-notifications.jpg", label: "Alerts & the rescue call", note: "One tap on the lock screen alerts friends, who can call with a ready-made excuse to leave." }
+    ],
+    solutions: [
+      { t: "Send date details to friends", c: "Share your date's profile, the time, location and your outfit with trusted friends before you go.", why: "Participants already did this through scattered texts. The feature turns a familiar habit into one flow instead of asking people to learn a new behavior.", cite: "Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. Proceedings of CHI '94, ACM." },
+      { t: "A discreet lock-screen widget", c: "A customizable widget with an innocent-looking image that alerts close friends when tapped, with an option to call or text them or call the police.", why: "In a risky moment, asking for help has to take almost no effort and not tip off the date. A single, well-placed tap raises the ability to act exactly when it's needed.", cite: "Fogg, B. J. (2009). A behavior model for persuasive design. Proceedings of Persuasive '09, ACM." },
+      { t: "Verified locations for safe dates", c: "Partner businesses and restaurants committed to date safety, searchable from the home screen.", why: "Participants already chose public places for first dates. Verified partners make that choice easier and more trustworthy.", cite: "" }
+    ],
+    final: { text: "We ran a technology probe, putting the prototype in people's hands to see how it would actually be used, with 5 interviews. Participants felt SafetyNet does address the issue: it adds a layer of security for people who use dating apps, letting them call friends for help while staying subtle about it. Their overall verdict was \"good functions, need polishing.\"", img: "", link: "",
+      slides: { dir: "safetynet-slides/slide-", count: 8, title: "Our final presentation", aspect: "1280 / 989" } },
+    future: [
+      "Show urgent notifications from friends (call, text, alert) on the home screen.",
+      "Let people add emergency contacts who don't have SafetyNet.",
+      "Simplify widget customization, which confused first-time users.",
+      "Use more multiple-choice selections to make setup less confusing."
+    ],
+    lessons: [
+      "Give research more time. Our initial data collection was short, so we understood user needs less fully than we wanted, and user feedback later forced bigger design changes.",
+      "Pick the evaluation method to match the question. The technology probe showed how people would use the app in real life; A/B testing would have let us compare specific design changes.",
+      "Build more interactivity into the prototype. Ours followed one user flow, which limited the tasks we could test."
+    ]
   }
 ];
 
@@ -613,19 +741,16 @@ const PROJECTS = [
    exactly as typed, so poems keep their shape.
    stage for ideas: "seed" shows as Ideas, "drafting" shows as Drafting. */
 const WRITINGS = [
-  { type: "Screenplay", title: "Roman Fever, adapted", text: "A collaborative screen adaptation of Edith Wharton's short story.", link: "", body: `` },
+  { type: "Screenplay", title: "Your Family Is Already Disapointed in You", text: "A dark comedy about a lonely bassist kidnapped by a very determined band.", link: "your-family-is-already-disapointed-in-you.pdf", inspiration: "https://www.craigslist.org/about/best/ash/7608963933.html", body: `` },
 ];
 
 const IDEAS = [
   // The list card: one idea or question per line inside body.
   { stage: "seed", title: "Ideas & questions", text: "Everything I'm wondering about right now.", body: `` },
-  // The in-progress card: one idea you're actively working on.
-  { stage: "drafting", title: "[Working title]", text: "[What you're drafting and what you hope it becomes.]", body: `` }
 ];
 
 const VIDEOS = [
   { seed: 5, title: "Mosaic pitch", text: "Pitch from the business + tech innovation jam.", link: "" },
-  { seed: 13, title: "Design walkthrough", text: "[Add a recorded prototype walkthrough.]", link: "" }
 ];
 
 /* ===================================================================== */
@@ -762,7 +887,7 @@ function renderCards() {
         <p class="label">${esc(p.kicker)}</p>
         <h3>${esc(p.title)}</h3>
         <p class="tag">${esc(p.tagline)}</p>
-        <div class="meta"><span class="label">${esc(p.meta.Role.split("·")[0])} · ${esc(p.year)}</span><span class="open">Open case study →</span></div>
+        <div class="meta"><span class="label">${esc(p.cardRole || String(p.meta.Role || "").split("·")[0])} · ${esc(p.year)}</span><span class="open">Open case study →</span></div>
       </div>
     </button>`).join("");
   document.querySelectorAll(".card").forEach(b => b.addEventListener("click", () => openCase(+b.dataset.i)));
@@ -823,7 +948,7 @@ function parseWriting(txt) {
       if (kv) meta[kv[1].toLowerCase()] = kv[2].trim();
     }
     const body = lines.slice(i).join("\n").replace(/^\n+|\s+$/g, "");
-    if (kind === "finished") out.writings.push({ type: meta.type || "Writing", title, text: meta.summary || "", link: meta.link || "", body });
+    if (kind === "finished") out.writings.push({ type: meta.type || "Writing", title, text: meta.summary || "", link: meta.link || "", inspiration: meta.inspiration || "", body });
     else out.ideas.push({ stage: kind === "drafting" ? "drafting" : "seed", title, text: meta.summary || "", body });
   }
   return out;
@@ -925,37 +1050,50 @@ function iaHTML(n, root = true) {
   return root ? `<div class="ia"><ul><li class="root">${esc(n.name)}${kids}</li></ul></div>` : `<li><span class="node">${esc(n.name)}</span>${kids}</li>`;
 }
 function wireHTML(w, i) {
+  if (w.photo) return `<figure class="artifact"><a href="${esc(w.img)}" target="_blank" rel="noopener"><img src="${esc(w.img)}" alt="${esc(w.label)}" loading="lazy"></a><figcaption class="cap"><b>${esc(w.label)}</b>${esc(w.note)}</figcaption></figure>`;
   const web = i === -1;
   return `<figure class="wire" style="margin:0"><div class="frame${web ? " web" : ""}">${w.img ? `<img src="${esc(w.img)}" alt="${esc(w.label)} wireframe">` : `<i class="h"></i><i class="s"></i><div class="blk">${esc(w.note)}<br>· add image ·</div><i></i>`}</div><figcaption class="cap"><b>${esc(w.label)}</b>${esc(w.note)}</figcaption></figure>`;
 }
+function secsFor(p) {
+  const has = k => { const v = p[k === "details" ? "meta" : k]; return Array.isArray(v) ? v.length > 0 : !!v; };
+  const base = p.order ? p.order.map(k => SECTIONS.find(([x]) => x === k)).filter(Boolean) : SECTIONS;
+  return base.filter(([k]) => has(k)).map(([k, l]) => [k, (p.labels && p.labels[k]) || l]);
+}
 function caseHTML(p) {
   const S = {
-    problem: `<p>${esc(p.problem)}</p><p class="hmw">${esc(p.hmw)}</p>`,
-    details: `<div class="meta-grid">${Object.entries(p.meta).map(([k, v]) => `<div><span class="label">${esc(k)}</span><span class="v">${esc(v)}</span></div>`).join("")}</div>`,
-    challenge: listHTML(p.challenge, "pain"),
-    research: `<p>${esc(p.research.summary)}</p><div class="methods">${p.research.methods.map(m => `<span class="chip">${esc(m)}</span>`).join("")}</div>`,
-    themes: `<div class="grid2">${p.themes.map(t => `<div class="theme"><h4>${esc(t.t)}</h4><p>${esc(t.d)}</p></div>`).join("")}</div>`,
-    personas: `<div class="grid2">${p.personas.map(x => `<div class="persona"><div class="who"><span class="av" aria-hidden="true">${esc(x.name.trim()[0])}</span><div><h4>${esc(x.name)}</h4><span class="label">${esc(x.role)}</span></div></div><q>${esc(x.q)}</q><div><p class="sub">Goals</p><ul>${x.goals.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div><div><p class="sub">Frustrations</p><ul>${x.pains.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div></div>`).join("")}</div>`,
-    competitive: `<div class="table-wrap"><table><thead><tr><th>Capability</th>${p.competitive.cols.map((c, i) => `<th class="${i ? "" : "us"}">${esc(c)}</th>`).join("")}</tr></thead><tbody>${p.competitive.rows.map(r => `<tr><td>${esc(r[0])}</td>${r.slice(1).map((m, i) => `<td class="mark ${i ? "" : "us"}" aria-label="${m === "●" ? "Yes" : m === "◐" ? "Partly" : "No"}">${esc(m)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p class="legend">● supports · ◐ partly · ○ doesn't</p>`,
-    ia: iaHTML(p.ia),
-    flows: p.flows.map(f => `<div class="flow"><h4>${esc(f.name)}</h4><ol class="steps">${f.steps.map(s => `<li><span>${esc(s)}</span></li>`).join("")}</ol></div>`).join(""),
-    wireframes: `<div class="wire-grid">${p.wireframes.map(wireHTML).join("")}</div>`,
-    solutions: p.solutions.map((s, i) => `<div class="solution"><span class="num" aria-hidden="true">${i + 1}</span><div><h4>${esc(s.t)}</h4><p>${esc(s.c)}</p><div class="why"><span class="label">Why · from the readings</span>${esc(s.why)}<cite>${esc(s.cite)}</cite></div></div></div>`).join("") +
-      `<p class="label" style="margin-top:22px">References</p><ol class="refs">${[...new Set(p.solutions.map(s => s.cite))].sort().map(c => `<li>${esc(c)}</li>`).join("")}</ol>`,
-    final: `<p>${esc(p.final.text)}</p><div class="final">${p.final.img ? `<img src="${esc(p.final.img)}" alt="Final design of ${esc(p.title)}">` : "Add a final screen, GIF or demo still here"}</div>${p.final.link ? `<p style="margin-top:14px"><a class="btn" href="${esc(p.final.link)}" target="_blank" rel="noopener">View prototype ↗</a></p>` : ""}`,
-    future: listHTML(p.future),
-    lessons: listHTML(p.lessons)
+    problem: () => `<p>${esc(p.problem)}</p><p class="hmw">${esc(p.hmw)}</p>`,
+    details: () => `<div class="meta-grid">${Object.entries(p.meta).map(([k, v]) => `<div><span class="label">${esc(k)}</span><span class="v">${esc(v)}</span></div>`).join("")}</div>`,
+    challenge: () => listHTML(p.challenge, "pain"),
+    research: () => `<p>${esc(p.research.summary)}</p><div class="methods">${p.research.methods.map(m => `<span class="chip">${esc(m)}</span>`).join("")}</div>`,
+    themes: () => `<div class="grid2">${p.themes.map(t => `<div class="theme"><h4>${esc(t.t)}</h4><p>${esc(t.d)}</p></div>`).join("")}</div>`,
+    personas: () => `<div class="grid2">${p.personas.map(x => `<div class="persona"><div class="who"><span class="av" aria-hidden="true">${esc(x.name.trim()[0])}</span><div><h4>${esc(x.name)}</h4><span class="label">${esc(x.role)}</span></div></div><q>${esc(x.q)}</q><div><p class="sub">Goals</p><ul>${x.goals.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div><div><p class="sub">Frustrations</p><ul>${x.pains.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div></div>`).join("")}</div>`,
+    competitive: () => `<div class="table-wrap"><table><thead><tr><th>Capability</th>${p.competitive.cols.map((c, i) => `<th class="${i ? "" : "us"}">${esc(c)}</th>`).join("")}</tr></thead><tbody>${p.competitive.rows.map(r => `<tr><td>${esc(r[0])}</td>${r.slice(1).map((m, i) => `<td class="mark ${i ? "" : "us"}" aria-label="${m === "●" ? "Yes" : m === "◐" ? "Partly" : "No"}">${esc(m)}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p class="legend">● supports · ◐ partly · ○ doesn't</p>`,
+    ia: () => iaHTML(p.ia),
+    flows: () => p.flows.map(f => `<div class="flow"><h4>${esc(f.name)}</h4><ol class="steps">${f.steps.map(s => `<li><span>${esc(s)}</span></li>`).join("")}</ol></div>`).join(""),
+    wireframes: () => `<div class="${p.wireframes.some(w => w.photo) ? "artifact-grid" : "wire-grid"}">${p.wireframes.map(wireHTML).join("")}</div>`,
+    solutions: () => p.solutions.map((s, i) => `<div class="solution"><span class="num" aria-hidden="true">${i + 1}</span><div><h4>${esc(s.t)}</h4><p>${esc(s.c)}</p><div class="why"><span class="label">${s.cite ? "Why · from the readings" : "Why · from our research"}</span>${esc(s.why)}${s.cite ? `<cite>${esc(s.cite)}</cite>` : ""}</div></div></div>`).join("") +
+      `<p class="label" style="margin-top:22px">References</p><ol class="refs">${[...new Set(p.solutions.map(s => s.cite).filter(Boolean))].sort().map(c => `<li>${esc(c)}</li>`).join("")}</ol>`,
+    final: () => `<p>${esc(p.final.text)}</p>${p.final.points ? `<p class="label" style="margin-top:18px">Takeaways</p><ol class="takeaways">${p.final.points.map(t => `<li>${esc(t)}</li>`).join("")}</ol>` : ""}${p.final.slides ? `<figure class="deck" data-dir="${esc(p.final.slides.dir)}" data-count="${p.final.slides.count}" tabindex="0" aria-label="${esc(p.final.slides.title)}"><p class="label">${esc(p.final.slides.title)}</p><div class="deck-frame"${p.final.slides.aspect ? ` style="aspect-ratio: ${esc(p.final.slides.aspect)}"` : ""}><img alt="Slide 1 of ${p.final.slides.count}" src="${esc(p.final.slides.dir)}01.jpg"></div><figcaption class="deck-ctrl"><span class="label">Use the arrows or ← → keys</span><span class="show-ctrl"><button type="button" class="icon-btn sm" data-d="-1" aria-label="Previous slide">←</button><span class="show-count">1 / ${p.final.slides.count}</span><button type="button" class="icon-btn sm" data-d="1" aria-label="Next slide">→</button></span></figcaption></figure>` : ""}${p.final.img ? `<div class="final"><img src="${esc(p.final.img)}" alt="${esc(p.final.alt || "Final design of " + p.title)}"></div>` : ""}${p.final.link ? `<p style="margin-top:14px"><a class="btn" href="${esc(p.final.link)}" target="_blank" rel="noopener">${esc(p.final.linkText || "View prototype ↗")}</a></p>` : ""}`,
+    future: () => listHTML(p.future),
+    lessons: () => listHTML(p.lessons)
   };
   return (p.draft ? `<div class="draft-note"><b>Draft</b><span>Bracketed text, personas, competitor ratings and wireframes are placeholders. Swap in your real findings and screens before sharing.</span></div>` : "") +
-    SECTIONS.map(([k, label], i) => `<section class="cs-sec" id="cs-${k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(label)}</span>${k === "problem" ? `<h3>${esc(p.tagline)}</h3>` : ""}${S[k]}</section>`).join("");
+    secsFor(p).map(([k, label], i) => `<section class="cs-sec" id="cs-${k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(label)}</span>${k === "problem" ? `<h3>${esc(p.tagline)}</h3>` : ""}${S[k]()}</section>`).join("");
 }
 function openCase(i) {
   current = (i + PROJECTS.length) % PROJECTS.length;
   const p = PROJECTS[current];
   document.getElementById("cs-kicker").textContent = p.kicker;
   document.getElementById("cs-title").textContent = p.title;
-  document.getElementById("cs-toc").innerHTML = SECTIONS.map(([k, l], j) => `<li><a href="#cs-${k}" data-k="${k}"><span class="n">${String(j + 1).padStart(2, "0")}</span><span>${esc(l)}</span></a></li>`).join("");
+  document.getElementById("cs-toc").innerHTML = secsFor(p).map(([k, l], j) => `<li><a href="#cs-${k}" data-k="${k}"><span class="n">${String(j + 1).padStart(2, "0")}</span><span>${esc(l)}</span></a></li>`).join("");
   body.innerHTML = caseHTML(p); body.scrollTop = 0;
+  body.querySelectorAll("figure.deck").forEach(fig => {
+    const n = +fig.dataset.count, dir = fig.dataset.dir, img = fig.querySelector("img"), cnt = fig.querySelector(".show-count"); let k = 1;
+    const pad = x => String(x).padStart(2, "0");
+    const go = d => { k = (k - 1 + d + n) % n + 1; img.src = dir + pad(k) + ".jpg"; img.alt = `Slide ${k} of ${n}`; cnt.textContent = `${k} / ${n}`; new Image().src = dir + pad(k % n + 1) + ".jpg"; };
+    fig.querySelectorAll("button[data-d]").forEach(b => b.addEventListener("click", () => go(+b.dataset.d)));
+    fig.addEventListener("keydown", e => { if (e.key === "ArrowRight") { e.preventDefault(); go(1); } if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); } });
+  });
   if (!dlg.open) dlg.showModal();
   document.querySelectorAll("#cs-toc a").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.getElementById(a.getAttribute("href").slice(1)).scrollIntoView({ block: "start" }); }));
   if (tocObs) tocObs.disconnect();
@@ -967,6 +1105,8 @@ document.getElementById("cs-prev").onclick = () => openCase(current - 1);
 document.getElementById("cs-next").onclick = () => openCase(current + 1);
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 
+document.querySelectorAll("[data-open-case]").forEach(a => a.addEventListener("click", e => { const k = PROJECTS.findIndex(p => p.id === a.dataset.openCase); if (k >= 0) { e.preventDefault(); openCase(k); } }));
+
 /* ---------- writing reader ---------- */
 const pdlg = document.getElementById("piece"); let pk = "writing", pi = 0;
 function openPiece(kind, i) {
@@ -976,7 +1116,7 @@ function openPiece(kind, i) {
   const body = (d.body || "").trim();
   document.getElementById("piece-body").innerHTML = `<p class="label">${esc(tag)}</p><h2 id="piece-title">${esc(d.title)}</h2><p class="dek">${esc(d.text)}</p>` +
     (body ? `<div class="text">${esc(body)}</div>` : `<p class="empty">${kind === "idea" ? "Still taking shape. Check back soon." : "The full piece is coming soon."}</p>`) +
-    (d.link ? `<p style="margin-top:24px"><a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">Open the full piece ↗</a></p>` : "");
+    ((d.link || d.inspiration) ? `<p class="piece-links">${d.link ? `<a class="btn" href="${esc(d.link)}" target="_blank" rel="noopener">Open the full piece ↗</a>` : ""}${d.inspiration ? `<a class="btn ghost" href="${esc(d.inspiration)}" target="_blank" rel="noopener">See what inspired it ↗</a>` : ""}</p>` : "");
   document.getElementById("piece-body").scrollTop = 0;
   if (!pdlg.open) pdlg.showModal();
 }
