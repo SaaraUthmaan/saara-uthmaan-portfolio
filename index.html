@@ -102,6 +102,13 @@ p { margin: 0; }
 .show-ctrl { display: flex; align-items: center; gap: 8px; flex: none; }
 .show-count { font: 400 12px var(--font-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: center; }
 .icon-btn.sm { width: 32px; height: 32px; font-size: 15px; }
+.fn-mark { color: var(--seal); font-weight: 600; text-decoration: none; margin-left: 1px; vertical-align: super; font-size: .8em; line-height: 0; }
+.footnote { position: relative; margin-top: 6px; padding-top: 12px; padding-left: 1.1em; font-size: 14px; color: var(--ink-soft); max-width: 60ch; }
+.footnote::before { content: ""; position: absolute; top: 0; left: 0; width: 72px; border-top: 1px solid var(--wash); }
+.footnote .fn-star { position: absolute; left: 0; color: var(--seal); font-weight: 600; }
+.footnote strong { color: var(--ink); font-weight: 600; }
+.footnote a { color: var(--jade); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.footnote a:hover { text-decoration: underline; }
 .reach { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 15px; color: var(--ink-soft); }
 .reach .open { color: var(--ink); font-weight: 500; flex-basis: 100%; }
 .reach .dot { color: var(--wash); }
@@ -340,8 +347,9 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
       <p class="lede">I design paths through friction, guiding people toward their goals.</p>
       <div class="about-text">
         <p>My earliest memory is guiding my older sister home from school in Saudi Arabia when I was six. I've been the wayfinder for the people around me ever since. Growing up as a third culture kid across three continents, I learned to notice differences and small frictions others walk past. Now I design to guide people through the frictions of emerging technologies, centering human flourishing.</p>
-        <p>I'm a graduate student at the University of Michigan School of Information, studying UX research and design. As technology changes how we learn, I want to make sure no one gets left behind. I've researched how beginners learn with AI, co-designed support for students in computing, and I'm now designing Mosaic, an app that helps homeschooled kids find their people.</p>
+        <p>I'm a graduate student at the University of Michigan School of Information, studying UX research and design. As technology changes how we learn, I want to make sure no one gets left behind. I've researched how beginners learn with AI, co-designed support for students in computing<a class="fn-mark" href="#fn-icer" aria-describedby="fn-icer">*</a>, and I'm now designing Mosaic, an app that helps homeschooled kids find their people.</p>
         <p>Outside of design, I'm a reading addict who can't go a day without a book, especially an epistolary novel. I turn to books, people, and travel for new perspectives, and to slow down and notice the everyday moments others rush past. I keep my creative side alive through arts and crafts and cooking.</p>
+        <p class="footnote" id="fn-icer"><span class="fn-star" aria-hidden="true">*</span> This work received a <strong>Best Paper Honorable Mention at ICER 2026</strong>, the ACM International Computing Education Research conference. <a href="https://dl.acm.org/doi/epdf/10.1145/3765964.3811661" target="_blank" rel="noopener">Read the paper ↗</a></p>
       </div>
       <p class="reach bottom"><span class="open">Open to summer 2027 UX research &amp; design internships</span><a href="mailto:saarau@umich.edu">saarau@umich.edu</a><span class="dot" aria-hidden="true">·</span><a href="https://www.linkedin.com/in/saarauthmaan" target="_blank" rel="noopener">LinkedIn ↗</a></p>
     </div>
