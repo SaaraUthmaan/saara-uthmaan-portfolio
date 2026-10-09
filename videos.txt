@@ -1,0 +1,8 @@
+# YOUR VIDEOS (Videos slideshow in Words, arts & videos)
+#
+# One line per video:   title | short description | link
+# The link can be YouTube, Vimeo, Google Drive, Loom, etc. Leave it off and the card says "Link coming soon".
+# Videos show in the order listed. Lines starting with # don't show on the site.
+
+Mosaic pitch | Pitch from the business + tech innovation jam.
+Design walkthrough | A recorded prototype walkthrough.
