@@ -202,7 +202,9 @@ dialog.lb::backdrop { background: rgba(10,14,12,.88); }
 .vctrl { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; }
 .video { display: block; text-decoration: none; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--paper); }
 .video .frame { position: relative; aspect-ratio: 16/9; max-width: 100%; background: var(--paper-2); display: grid; place-items: center; }
-.video .frame canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.video .frame canvas, .video .frame .thumb, .video .frame video { position: absolute; inset: 0; width: 100%; height: 100%; }
+.video .frame .thumb { object-fit: cover; }
+.video .frame video { background: #000; object-fit: contain; }
 .video .play { position: relative; width: 54px; height: 54px; border-radius: 50%; background: var(--seal); display: grid; place-items: center; }
 .video .play::after { content: ""; margin-left: 4px; border-left: 16px solid var(--paper); border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
 .video .vbody { padding: 14px 16px; }
@@ -415,7 +417,7 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
 <section class="block" id="writings">
   <div class="wrap">
     <div class="sec-head">
-      <div><p class="label">Marginalia</p><h2>Writing, ideas &amp; videos</h2></div>
+      <div><p class="label">Marginalia</p><h2>Writings, ideas &amp; videos</h2></div>
     </div>
     <div class="wv">
       <div>
@@ -769,8 +771,14 @@ function renderWriting() {
   document.getElementById("writing-list").innerHTML = WRITINGS.map((d, i) => pieceCard(d, "writing", i)).join("");
   document.getElementById("idea-list").innerHTML = IDEAS.map((d, i) => pieceCard(d, "idea", i)).join("");
   document.querySelectorAll("button.idea").forEach(b => b.addEventListener("click", () => openPiece(b.dataset.kind, +b.dataset.i)));
+  const ytId = u => { const m = String(u || "").match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/); return m ? m[1] : ""; };
+  const isFile = u => /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(String(u || ""));
   document.getElementById("video-list").innerHTML = VIDEOS.map((v, i) => {
-    const inner = `<div class="frame"><canvas data-seed="${v.seed || 5 + i * 8}" aria-hidden="true"></canvas><span class="play" aria-hidden="true"></span></div><div class="vbody"><h4>${esc(v.title)}</h4><p>${esc(v.text)}${v.link ? "" : " · Link coming soon"}</p></div>`;
+    const pic = v.picture || (ytId(v.link) ? `https://img.youtube.com/vi/${ytId(v.link)}/hqdefault.jpg` : "");
+    const body = `<div class="vbody"><h4>${esc(v.title)}</h4><p>${esc(v.text)}${v.link ? "" : " · Link coming soon"}</p></div>`;
+    if (isFile(v.link)) return `<div class="video" data-v="${i}"><div class="frame"><video controls preload="none" playsinline src="${esc(encodeURI(v.link))}"${pic ? ` poster="${esc(encodeURI(pic))}"` : ""}></video></div>${body}</div>`;
+    const art = pic ? `<img class="thumb" src="${esc(/^https?:/.test(pic) ? pic : encodeURI(pic))}" alt="" loading="lazy">` : `<canvas data-seed="${v.seed || 5 + i * 8}" aria-hidden="true"></canvas>`;
+    const inner = `<div class="frame">${art}<span class="play" aria-hidden="true"></span></div>${body}`;
     return v.link ? `<a class="video" data-v="${i}" href="${esc(v.link)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="video" data-v="${i}">${inner}</div>`;
   }).join("");
   showVideo(0);
@@ -831,7 +839,7 @@ document.getElementById("v-prev").onclick = () => showVideo(vcur - 1);
 document.getElementById("v-next").onclick = () => showVideo(vcur + 1);
 fetch("videos.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
   const list = t.replace(/\r/g, "").split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(l => {
-    const [title, text = "", link = ""] = l.split("|").map(x => x.trim()); return { title, text, link };
+    const [title, text = "", link = "", picture = ""] = l.split("|").map(x => x.trim()); return { title, text, link, picture };
   }).filter(v => v.title);
   if (list.length) { VIDEOS.splice(0, VIDEOS.length, ...list); renderWriting(); }
 }).catch(() => {});
