@@ -199,6 +199,7 @@ dialog.lb::backdrop { background: rgba(10,14,12,.88); }
 .piece-body .empty { color: var(--ink-soft); font-style: italic; padding-top: 26px; }
 .idea p { color: var(--ink-soft); font-size: 14.5px; }
 .videos { display: grid; gap: 18px; }
+.vctrl { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; }
 .video { display: block; text-decoration: none; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--paper); }
 .video .frame { position: relative; aspect-ratio: 16/9; max-width: 100%; background: var(--paper-2); display: grid; place-items: center; }
 .video .frame canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -420,9 +421,9 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
       <div>
         <div class="w-group"><p class="label">Finished writing</p><p class="w-sub">Pieces I've completed.</p><div class="ideas" id="writing-list"></div></div>
         <div class="w-group"><p class="label">Ideas on my mind</p><p class="w-sub">Questions and drafts I keep coming back to. Half-formed on purpose.</p><div class="ideas" id="idea-list"></div></div>
-        <div class="w-group" id="photo-group"><p class="label">Art &amp; photos</p><p class="w-sub">Pictures of things I've seen and made.</p><div class="photos" id="photo-list"></div></div>
       </div>
-      <div><p class="label" style="margin-bottom:14px">Videos</p><div class="videos" id="video-list"></div></div>
+      <div class="vcar"><p class="label" style="margin-bottom:14px">Videos</p><div class="videos" id="video-list"></div>
+        <div class="vctrl" id="vctrl"><span class="label" id="v-hint">Use the arrows to see more</span><span class="show-ctrl"><button class="icon-btn sm" id="v-prev" aria-label="Previous video">←</button><span class="show-count" id="v-count"></span><button class="icon-btn sm" id="v-next" aria-label="Next video">→</button></span></div></div>
     </div>
   </div>
 </section>
@@ -442,18 +443,6 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
       <button class="icon-btn" id="piece-close" aria-label="Close">✕</button>
     </div>
     <article class="piece-body" id="piece-body"></article>
-  </div>
-</dialog>
-
-<dialog class="lb" id="lb" aria-label="Photo viewer">
-  <div class="lb-shell">
-    <div class="lb-top">
-      <button class="icon-btn" id="lb-prev" aria-label="Previous photo">←</button>
-      <button class="icon-btn" id="lb-next" aria-label="Next photo">→</button>
-      <button class="icon-btn" id="lb-close" aria-label="Close">✕</button>
-    </div>
-    <figure class="lb-fig"><img id="lb-img" alt=""></figure>
-    <p class="lb-cap" id="lb-cap"></p>
   </div>
 </dialog>
 
@@ -780,10 +769,11 @@ function renderWriting() {
   document.getElementById("writing-list").innerHTML = WRITINGS.map((d, i) => pieceCard(d, "writing", i)).join("");
   document.getElementById("idea-list").innerHTML = IDEAS.map((d, i) => pieceCard(d, "idea", i)).join("");
   document.querySelectorAll("button.idea").forEach(b => b.addEventListener("click", () => openPiece(b.dataset.kind, +b.dataset.i)));
-  document.getElementById("video-list").innerHTML = VIDEOS.map(v => {
-    const inner = `<div class="frame"><canvas data-seed="${v.seed}" aria-hidden="true"></canvas><span class="play" aria-hidden="true"></span></div><div class="vbody"><h4>${esc(v.title)}</h4><p>${esc(v.text)}${v.link ? "" : " · Link coming soon"}</p></div>`;
-    return v.link ? `<a class="video" href="${esc(v.link)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="video">${inner}</div>`;
+  document.getElementById("video-list").innerHTML = VIDEOS.map((v, i) => {
+    const inner = `<div class="frame"><canvas data-seed="${v.seed || 5 + i * 8}" aria-hidden="true"></canvas><span class="play" aria-hidden="true"></span></div><div class="vbody"><h4>${esc(v.title)}</h4><p>${esc(v.text)}${v.link ? "" : " · Link coming soon"}</p></div>`;
+    return v.link ? `<a class="video" data-v="${i}" href="${esc(v.link)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="video" data-v="${i}">${inner}</div>`;
   }).join("");
+  showVideo(0);
   const parts = [];
   if (SITE.email) parts.push(`<span class="email">${esc(SITE.email)}</span>`);
   if (SITE.linkedin) parts.push(`<a href="${esc(SITE.linkedin)}" target="_blank" rel="noopener">LinkedIn ↗</a>`);
@@ -826,31 +816,24 @@ fetch("writing.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.
   }
 }).catch(() => {});
 
-/* ---------- load photos.txt (edit that file to add pictures; no code needed) ---------- */
-let PHOTOS = [], li = 0;
-const lb = document.getElementById("lb");
-function renderPhotos() {
-  if (!PHOTOS.length) { document.getElementById("photo-list").innerHTML = `<div class="photo-empty"><span class="stage seed">Art &amp; photos</span><p>Pictures coming soon.</p></div>`; return; }
-  document.getElementById("photo-list").innerHTML = PHOTOS.map((p, i) => `<button class="photo" data-i="${i}" aria-haspopup="dialog"><img src="${esc(encodeURI(p.file))}" alt="${esc(p.caption || "Photo")}" loading="lazy">${p.caption ? `<span>${esc(p.caption)}</span>` : ""}</button>`).join("");
-  document.querySelectorAll("button.photo").forEach(b => b.addEventListener("click", () => openPhoto(+b.dataset.i)));
+/* ---------- Videos slideshow: videos.txt ---------- */
+let vcur = 0;
+function showVideo(i) {
+  const els = document.querySelectorAll("#video-list .video"), n = els.length;
+  if (!n) return;
+  vcur = (i + n) % n;
+  els.forEach((el, k) => { el.hidden = k !== vcur; });
+  document.getElementById("v-count").textContent = `${vcur + 1} / ${n}`;
+  document.getElementById("vctrl").hidden = n < 2;
+  const c = els[vcur].querySelector("canvas[data-seed]"); if (c) requestAnimationFrame(() => drawCover(c, +c.dataset.seed));
 }
-function openPhoto(i) {
-  li = (i + PHOTOS.length) % PHOTOS.length; const p = PHOTOS[li];
-  const img = document.getElementById("lb-img"); img.src = encodeURI(p.file); img.alt = p.caption || "Photo";
-  document.getElementById("lb-cap").textContent = p.caption || "";
-  if (!lb.open) lb.showModal();
-}
-document.getElementById("lb-close").onclick = () => lb.close();
-document.getElementById("lb-prev").onclick = () => openPhoto(li - 1);
-document.getElementById("lb-next").onclick = () => openPhoto(li + 1);
-lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("lb-fig")) lb.close(); });
-lb.addEventListener("keydown", e => { if (e.key === "ArrowRight") openPhoto(li + 1); if (e.key === "ArrowLeft") openPhoto(li - 1); });
-renderPhotos();
-fetch("photos.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
-  PHOTOS = t.replace(/\r/g, "").split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(l => {
-    const k = l.indexOf("|"); return k < 0 ? { file: l, caption: "" } : { file: l.slice(0, k).trim(), caption: l.slice(k + 1).trim() };
-  }).filter(p => p.file);
-  renderPhotos();
+document.getElementById("v-prev").onclick = () => showVideo(vcur - 1);
+document.getElementById("v-next").onclick = () => showVideo(vcur + 1);
+fetch("videos.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
+  const list = t.replace(/\r/g, "").split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(l => {
+    const [title, text = "", link = ""] = l.split("|").map(x => x.trim()); return { title, text, link };
+  }).filter(v => v.title);
+  if (list.length) { VIDEOS.splice(0, VIDEOS.length, ...list); renderWriting(); }
 }).catch(() => {});
 
 /* ---------- About postcards: about-photos.txt ---------- */
