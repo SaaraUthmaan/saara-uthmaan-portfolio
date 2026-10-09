@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <title>Saara Uthmaan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,8 +66,9 @@ p { margin: 0; }
 @keyframes drift { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
 @media (prefers-reduced-motion: reduce) { .mist { animation: none; } }
 .hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
-.hero h1 { font-size: clamp(52px, 8.5vw, 112px); font-weight: 800; letter-spacing: -.02em; line-height: .95; margin-block: 14px 22px; }
-.lede { font: 500 clamp(19px, 2.2vw, 24px)/1.45 var(--font-display); max-width: 30ch; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(46px, 7vw, 92px); font-weight: 800; letter-spacing: -.02em; line-height: .95; margin-block: 14px 22px; }
+.hero h1 .hi { color: var(--seal); }
+.lede { font: 500 clamp(19px, 2.2vw, 24px)/1.45 var(--font-display); max-width: 34ch; margin-bottom: 20px; }
 .about-text { color: var(--ink-soft); max-width: var(--measure); display: grid; gap: 12px; }
 .facts { display: grid; gap: 0; align-self: end; margin: 0; border-top: 2px solid var(--ink); }
 .facts div { display: grid; grid-template-columns: 7.5em minmax(0,1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
@@ -292,12 +294,12 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
   <div class="hero-inner">
     <div>
       <p class="label">UX Research &amp; Design · University of Michigan School of Information</p>
-      <h1>Saara<br>Uthmaan</h1>
-      <p class="lede">I research and design for people that tools often overlook.</p>
+      <h1><span class="hi">Hi,</span> I'm Saara!</h1>
+      <p class="lede">I guide people toward their goals through design and storytelling.</p>
       <div class="about-text">
-        <p>Homeschooled kids looking for friends. Students who aren't sure how to ask for help. I start with their stories and build from there.</p>
-        <p>I'm an MSI student at the University of Michigan, specializing in UX research and design on an Achievement Fellowship. At the University of Washington I studied Informatics and Creative Writing and did research at the Interactive Data Lab and the Center for Learning, Computing, and Imagination, on how beginners learn with LLMs and on co-designing help-seeking structures for marginalized students in computing.</p>
-        <p>Outside of research, I write poetry and make zines.</p>
+        <p>My earliest memory is guiding my older sister home from school in Saudi Arabia when I was six. I've been the wayfinder for the people around me ever since. Growing up as a third culture kid across three continents, I learned to notice differences and small frictions others walk past. Now I design to guide people through the frictions of emerging technologies, centering human flourishing.</p>
+        <p>I'm a graduate student at the University of Michigan School of Information, studying UX research and design. As technology changes how we learn, I want to make sure no one gets left behind. I've researched how beginners learn with AI, co-designed support for students in computing, and I'm now designing Mosaic, an app that helps homeschooled kids find their people.</p>
+        <p>Outside of design, I'm a reading addict who can't go a day without a book, especially an epistolary novel. I turn to books, people, and travel for new perspectives, and to slow down and notice the everyday moments others rush past. I keep my creative side alive through arts and crafts and cooking.</p>
       </div>
     </div>
     <dl class="facts">
@@ -894,6 +896,4 @@ const boot = () => requestAnimationFrame(redraw);
 document.fonts && document.fonts.ready ? document.fonts.ready.then(boot) : boot();
 boot();
 let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(redraw, 150); });
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redraw);
-new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 </script>
