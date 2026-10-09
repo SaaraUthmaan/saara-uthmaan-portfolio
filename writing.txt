@@ -135,3 +135,4 @@ JUSTIN
 ## Idea: Ideas & questions
 Summary: Everything I'm wondering about right now.
 ---
+Intensionality
