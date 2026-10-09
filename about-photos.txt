@@ -4,7 +4,6 @@
 # 2. Below, add one line per picture: the file name, a | bar, then a short caption.
 # 3. Commit changes. Pictures show on the site in the order you list them.
 #
-ICER_presentation.jpg | ICER 2026 presentation
 # Tips:
 # - The file name must match exactly, including .jpg / .JPG / .png / .jpeg
 # - File names without spaces are safest, like huron-river.jpg
