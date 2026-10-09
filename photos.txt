@@ -13,4 +13,7 @@ ICER_presentation.jpg | ICER 2026 presentation
 #
 # Example (remove the # at the start to use it):
 # huron-river.jpg | Sunset on the Huron River
-
+first-day-of-masters.jpg | First day of my master's at the University of Michigan 〽️| Ann Arbor, Michigan
+ICER_presentation.jpg | Presenting my research | ACM Conference on International Computing Education Research (ICER) 2026
+uppsala-city-garden.jpg | Visiting Stadsträdgården (City Garden) | Uppsala, Sweden
+home-cooked-lasagna.jpg | Home-cooked lasagna | My kitchen
