@@ -4,7 +4,7 @@
 <title>Saara Uthmaan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Caveat:wght@500;600&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: a handscroll you read top to bottom. Ink-wash landscape opens the scroll (About), then Work cards, Resume, Writings & Videos.  */
 :root {
@@ -19,6 +19,8 @@
   --line: rgba(28,35,33,.14);
   --font-display: "Shippori Mincho", "Songti SC", "Times New Roman", serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hand: "Caveat", "Bradley Hand", "Segoe Print", cursive;
+  --card: #FBFAF4;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --gutter: clamp(16px, 4vw, 48px);
   --measure: 64ch;
@@ -65,16 +67,50 @@ p { margin: 0; }
 .mist.m2 { bottom: 12%; animation-duration: 52s; animation-direction: alternate-reverse; opacity: .55; }
 @keyframes drift { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
 @media (prefers-reduced-motion: reduce) { .mist { animation: none; } }
-.hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+.hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(24px, 5vw, 72px); align-items: center; }
 .hero h1 { font-size: clamp(46px, 7vw, 92px); font-weight: 800; letter-spacing: -.02em; line-height: .95; margin-block: 14px 22px; }
 .hero h1 .hi { color: var(--seal); }
 .lede { font: 500 clamp(19px, 2.2vw, 24px)/1.45 var(--font-display); max-width: 34ch; margin-bottom: 20px; }
 .about-text { color: var(--ink-soft); max-width: var(--measure); display: grid; gap: 12px; }
-.facts { display: grid; gap: 0; align-self: end; margin: 0; border-top: 2px solid var(--ink); }
+.side { display: grid; gap: 28px; align-content: center; min-width: 0; padding-top: clamp(0px, 4vw, 48px); }
+.show { margin: 0; display: grid; gap: 10px; }
+.cards-stack { display: grid; gap: 22px; }
+.stack { position: relative; height: clamp(420px, 44vw, 540px); max-width: 100%; }
+.pc { position: absolute; inset: 0 8% 0 4%; margin: 0; padding: 12px 12px 0; background: var(--card); border: 1px solid var(--line); border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 30px -22px rgba(20,30,26,.55);
+  display: grid; grid-template-rows: minmax(0,1fr) auto; cursor: pointer; transform-origin: 50% 90%;
+  transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .4s ease; }
+.pc:focus-visible { outline: 2px solid var(--seal); outline-offset: 4px; }
+.pc .ph { position: relative; overflow: hidden; background: var(--paper-2); }
+.pc .ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pc .ph .blank { position: absolute; inset: 10px; border: 1px dashed var(--wash); display: grid; place-items: center; text-align: center; padding: 12px; color: var(--ink-soft); font: 500 11px/1.5 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+.pc .back { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 10px 4px 12px; }
+.pc .note { font: 600 22px/1.15 var(--font-hand); color: var(--ink); }
+.pc .from { display: block; margin-top: 4px; font: 500 10.5px/1.3 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+.pc .stamp { width: 50px; height: 60px; flex: none; display: grid; place-items: center; transform: rotate(4deg); background: var(--seal); color: var(--card); font: 700 20px/1 var(--font-display); outline: 1.5px dashed var(--card); outline-offset: -6px; box-shadow: 0 0 0 3px var(--card), 0 0 0 4px var(--line); }
+.pc.leaving { transform: translate(115%, -6%) rotate(14deg) !important; opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .pc { transition: none; } }
+.stack-ctrl { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-inline: 4% 8%; }
+.show-cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.show-text { display: grid; gap: 2px; min-width: 0; }
+.show-title { font-size: 15px; color: var(--ink); }
+.show-where { font: 500 11px/1.4 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.show-where:empty { display: none; }
+.show-ctrl { display: flex; align-items: center; gap: 8px; flex: none; }
+.show-count { font: 400 12px var(--font-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: center; }
+.icon-btn.sm { width: 32px; height: 32px; font-size: 15px; }
+.reach { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-size: 15px; color: var(--ink-soft); }
+.reach .open { color: var(--ink); font-weight: 500; flex-basis: 100%; }
+.reach .dot { color: var(--wash); }
+.reach a { color: var(--jade); font-weight: 600; text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--jade) 35%, transparent); }
+.reach a:hover { border-bottom-color: var(--jade); }
+.reach.top { margin-block: -6px 26px; }
+.reach.bottom { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); }
+.facts { display: grid; gap: 0; margin: 0; border-top: 2px solid var(--ink); }
 .facts div { display: grid; grid-template-columns: 7.5em minmax(0,1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
 .facts dt { margin: 0; } .facts dd { margin: 0; }
 .tree-caption { position: absolute; left: var(--gutter); bottom: 14px; margin: 0; font: italic 400 12px/1.3 var(--font-mono); color: var(--ink-soft); }
-@media (max-width: 820px) { .hero-inner { grid-template-columns: 1fr; } }
+@media (max-width: 820px) { .hero-inner { grid-template-columns: 1fr; } .side { padding-top: 0; } }
 
 /* ---------- sections ---------- */
 section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 120px); scroll-margin-top: 50px; }
@@ -301,15 +337,21 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
         <p>I'm a graduate student at the University of Michigan School of Information, studying UX research and design. As technology changes how we learn, I want to make sure no one gets left behind. I've researched how beginners learn with AI, co-designed support for students in computing, and I'm now designing Mosaic, an app that helps homeschooled kids find their people.</p>
         <p>Outside of design, I'm a reading addict who can't go a day without a book, especially an epistolary novel. I turn to books, people, and travel for new perspectives, and to slow down and notice the everyday moments others rush past. I keep my creative side alive through arts and crafts and cooking.</p>
       </div>
+      <p class="reach bottom"><span class="open">Open to summer 2027 UX research &amp; design internships</span><a href="mailto:saarau@umich.edu">saarau@umich.edu</a><span class="dot" aria-hidden="true">·</span><a href="https://www.linkedin.com/in/saarauthmaan" target="_blank" rel="noopener">LinkedIn ↗</a></p>
     </div>
-    <dl class="facts">
-      <div><dt class="label">Now</dt><dd>MSI, UX Research &amp; Design, UMich (Aug 2026 – May 2028)</dd></div>
-      <div><dt class="label">Before</dt><dd>BS &amp; BA, Informatics and Creative Writing, UW Seattle</dd></div>
-      <div><dt class="label">Research</dt><dd>Interactive Data Lab · Center for Learning, Computing, and Imagination</dd></div>
-      <div><dt class="label">Honors</dt><dd>ICER 2026 Best Paper Honorable Mention · McNair Scholar · Achievement Fellow</dd></div>
-      <div><dt class="label">Seeking</dt><dd>UX research &amp; design internships, summer 2027</dd></div>
-      <div id="contact-row" hidden><dt class="label">Contact</dt><dd class="contact-dd" id="contact-hero"></dd></div>
-    </dl>
+    <div class="side">
+      <section class="cards-stack" aria-label="Postcards from my life">
+        <div class="stack" id="stack"></div>
+        <div class="stack-ctrl">
+          <span class="label" id="stack-hint">Click to turn</span>
+          <span class="show-ctrl">
+            <button class="icon-btn sm" id="pc-prev" aria-label="Previous postcard">←</button>
+            <span class="show-count" id="pc-count"></span>
+            <button class="icon-btn sm" id="pc-next" aria-label="Next postcard">→</button>
+          </span>
+        </div>
+      </section>
+    </div>
   </div>
   <div class="scene" aria-hidden="true">
     <canvas id="landscape"></canvas>
@@ -748,8 +790,8 @@ function renderWriting() {
   if (SITE.resumeUrl) parts.push(`<a href="${esc(SITE.resumeUrl)}" target="_blank" rel="noopener">Resume ↗</a>`);
   const html = parts.map(x => `<span class="ci">${x}</span>`).join("");
   document.getElementById("contact").innerHTML = html;
-  document.getElementById("contact-hero").innerHTML = html;
-  document.getElementById("contact-row").hidden = !parts.length;
+  const ch = document.getElementById("contact-hero"); if (ch) ch.innerHTML = html;
+  const cr = document.getElementById("contact-row"); if (cr) cr.hidden = !parts.length;
   document.querySelectorAll("[data-paper]").forEach(el => { const u = SITE.papers && SITE.papers[el.dataset.paper]; if (u) el.innerHTML = `<a class="paper-link" href="${esc(u)}" target="_blank" rel="noopener">Read paper ↗</a>`; });
   if (SITE.resumeUrl) { document.getElementById("resume-link").href = SITE.resumeUrl; document.getElementById("resume-link-wrap").hidden = false; }
 }
@@ -810,6 +852,63 @@ fetch("photos.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.r
   }).filter(p => p.file);
   renderPhotos();
 }).catch(() => {});
+
+/* ---------- About postcards: about-photos.txt ---------- */
+(function () {
+  const stack = document.getElementById("stack");
+  const tilts = [-2.5, 3, -4, 1.5, 4.5, -1];
+  let cards = [], order = [], busy = false;
+  const placeholders = [
+    { file: "", title: "Travel shots on the way", where: "Somewhere new" },
+    { file: "", title: "My reading stack", where: "The library" },
+    { file: "", title: "Something I made", where: "Arts & crafts" }
+  ];
+  function build(list) {
+    cards = list; order = list.map((_, i) => i);
+    stack.innerHTML = list.map((c, i) => `
+      <figure class="pc" tabindex="${i === 0 ? 0 : -1}" data-i="${i}" aria-label="${esc((c.title || "Postcard") + (c.where ? ", from " + c.where : ""))}">
+        <div class="ph">${c.file ? `<img src="${esc(encodeURI(c.file))}" alt="${esc(c.title || "Photo of Saara")}" loading="lazy">` : `<span class="blank">Photo coming soon</span>`}</div>
+        <figcaption class="back"><span><span class="note">${esc(c.title)}</span>${c.where ? `<span class="from">From: ${esc(c.where)}</span>` : ""}</span><span class="stamp" aria-hidden="true">S</span></figcaption>
+      </figure>`).join("");
+    stack.querySelectorAll(".pc").forEach(el => el.addEventListener("click", () => turn(1)));
+    stack.addEventListener("keydown", e => { if (e.key === "ArrowRight" || e.key === "Enter" || e.key === " ") { e.preventDefault(); turn(1); } if (e.key === "ArrowLeft") { e.preventDefault(); turn(-1); } });
+    layout();
+  }
+  function layout() {
+    const els = stack.querySelectorAll(".pc"), n = order.length;
+    order.forEach((ci, pos) => {
+      const el = els[ci];
+      el.style.zIndex = n - pos;
+      const t = tilts[ci % tilts.length] * (pos === 0 ? .4 : 1);
+      el.style.transform = `translate(${pos * 6}px, ${pos * 5}px) rotate(${t}deg)`;
+      el.style.opacity = pos > 3 ? 0 : 1;
+      el.tabIndex = pos === 0 ? 0 : -1;
+      el.setAttribute("aria-hidden", pos === 0 ? "false" : "true");
+    });
+    document.getElementById("pc-count").textContent = `${order[0] + 1} / ${n}`;
+  }
+  function turn(dir) {
+    if (busy || order.length < 2) return;
+    const els = stack.querySelectorAll(".pc");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (dir > 0) {
+      const top = els[order[0]]; busy = true;
+      const done = () => { top.classList.remove("leaving"); order.push(order.shift()); layout(); busy = false; };
+      if (reduce) return done();
+      top.classList.add("leaving"); setTimeout(done, 380);
+    } else { order.unshift(order.pop()); layout(); }
+  }
+  document.getElementById("pc-next").onclick = () => turn(1);
+  document.getElementById("pc-prev").onclick = () => turn(-1);
+  build(placeholders);
+  fetch("about-photos.txt", { cache: "no-cache" }).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
+    const list = t.replace(/\r/g, "").split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("#")).map(l => {
+      const [file, title = "", where = ""] = l.split("|").map(x => x.trim());
+      return { file, title, where };
+    }).filter(x => x.file);
+    if (list.length) build(list.length < 3 ? list.concat(placeholders.slice(0, 3 - list.length)) : list);
+  }).catch(() => {});
+})();
 
 function drawAllCovers() { document.querySelectorAll("canvas[data-seed]").forEach(c => drawCover(c, +c.dataset.seed)); }
 
