@@ -1,8 +1,20 @@
-# YOUR VIDEOS (Videos slideshow in Words, arts & videos)
+# YOUR VIDEOS (Videos slideshow in Marginalia)
 #
-# One line per video:   title | short description | link
-# The link can be YouTube, Vimeo, Google Drive, Loom, etc. Leave it off and the card says "Link coming soon".
+# One line per video:   title | short description | link | picture
+#
+# link    = where the video lives. Either:
+#           - a YouTube / Vimeo / Google Drive / Loom link (opens in a new tab), or
+#           - a video file you uploaded to this repo, like mosaic-pitch.mp4 (plays right on your site).
+#           Leave it off and the card says "Link coming soon".
+# picture = the image shown on the card (optional). Upload it to the repo and put its file name here,
+#           like mosaic-cover.jpg. For YouTube links you can leave it off and the YouTube thumbnail is used.
+#           With no picture, the card shows the ink mountains.
+#
 # Videos show in the order listed. Lines starting with # don't show on the site.
+#
+# Examples:
+# Mosaic pitch | Pitch from the business + tech innovation jam. | https://youtu.be/XXXXXXXXXXX | mosaic-cover.jpg
+# Mosaic pitch | Pitch from the business + tech innovation jam. | mosaic-pitch.mp4 | mosaic-cover.jpg
 
-Mosaic pitch | Pitch from the business + tech innovation jam.
+Mosaic pitch | Pitch from the business + tech innovation jam. | mosaic-pitch.mp4 | mosaic-cover.jpg
 Design walkthrough | A recorded prototype walkthrough.
