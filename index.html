@@ -1024,7 +1024,7 @@ const CHAPTERS = {
   },
   umich: {
     label: "Current chapter", name: "University of Michigan", meta: "Graduate Student · 2026–2028",
-    img: "sketch-umich.jpg",
+    img: "chapter-umich.jpg", pos: "45% 50%", alt: "Aerial view of the University of Michigan Law Quadrangle in Ann Arbor",
     desc: "Here, I'm deepening my understanding of how people navigate technology—through research, design, and a continued love for learning.",
     guidesLabel: "What guides me", guides: ["User Research", "Thoughtful Design", "Human Flourishing"]
   }
@@ -1035,7 +1035,7 @@ function showChapter(key) {
   stopBtns.forEach(b => b.setAttribute("aria-expanded", String(b.dataset.ch === key)));
   if (!key) { chapterEl.hidden = true; return; }
   const c = CHAPTERS[key];
-  chapterEl.innerHTML = `<div class="arch"><img src="${esc(c.img)}" alt="${esc(c.alt || "Pen drawing of the " + c.name + " campus")}"></div>
+  chapterEl.innerHTML = `<div class="arch"><img style="object-position:${esc(c.pos || "50% 50%")}" src="${esc(c.img)}" alt="${esc(c.alt || "Pen drawing of the " + c.name + " campus")}"></div>
     <div><p class="label accent">${esc(c.label)}</p><h3>${esc(c.name)}</h3><p class="meta">${esc(c.meta)}</p><p class="desc">${esc(c.desc)}</p></div>
     <div class="guides"><p class="label accent">${esc(c.guidesLabel)}</p><ul>${c.guides.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
     <button class="close" type="button" aria-label="Close chapter">✕</button>`;
