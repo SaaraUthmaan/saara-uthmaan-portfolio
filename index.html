@@ -144,6 +144,14 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 .card .cover { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--paper-2); border-bottom: 1px solid var(--line); }
 .card .cover canvas { width: 100%; height: 100%; display: block; }
 .card .cover .cover-img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.cs-lock { max-width: 460px; margin: clamp(24px, 8vh, 80px) auto; text-align: left; display: grid; gap: 12px; }
+.cs-lock .lock-ic { font-size: 30px; }
+.cs-lock h3 { font-size: clamp(22px, 2.6vw, 28px); }
+.cs-lock p { color: var(--ink-soft); }
+.cs-lock .lock-row { display: flex; gap: 10px; }
+.cs-lock input { flex: 1; min-width: 0; font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); }
+.cs-lock input:focus { outline: 2px solid var(--jade); outline-offset: 1px; }
+.cs-lock .lock-err { color: var(--seal); font-size: 14px; }
 .cs-banner { margin: 0 0 4px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; }
 .cs-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card .cover .c-stamps { position: absolute; right: 14px; top: 14px; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
@@ -605,85 +613,24 @@ const SITE = {
 };
 
 const PROJECTS = [
+  /* Password-protected case study: content is encrypted (AES-GCM). Ask Claude to change the password. */
   {
-    id: "help-seeking", seed: 41, tags: ["Research", "Co-design"],
-    cardFacts: [
-      ["My role", "Co-author · AVELA liaison · co-designed the futures workshop · thematic analysis"],
-      ["When", "2025 – 2026 · UW Center for Learning, Computing & Imagination"],
-      ["Methods", "Futures workshop with 18 students · surveys · thematic analysis"],
-      ["Outcome", "ICER 2026 paper · Best Paper Honorable Mention"]
+    "id": "help-seeking",
+    "seed": 41,
+    "tags": [
+      "Research",
+      "Co-design"
     ],
-    cardRole: "Co-author", title: "Not Built for Us", kicker: "Research · ICER 2026 Best Paper Honorable Mention",
-    tagline: "What would help-seeking in computing look like if the students it fails got to design it?",
-    year: "2026",
-    meta: {
-      "My role": "Co-author (4th of 5) · AVELA liaison between the research team and community partner · analysis team · participant-researcher in the workshop",
-      Team: "Belén Edgar, Eman Sherif, Janet Jiang, Saara Uthmaan, Amy J. Ko",
-      "Community partner": "AVELA – A Vision for Engineering Literacy & Access",
-      Participants: "18 students marginalized in computing, all with teaching experience, in 4 groups",
-      Methods: "5-hour futures workshop · surveys · audio · field notes · thematic analysis",
-      Published: "ICER 2026, Uppsala, Sweden · Best Paper Honorable Mention",
-      Funding: "UW Community Engaged Computing Initiative (CECI)"
-    },
-    order: ["problem", "details", "challenge", "research", "flows", "wireframes", "themes", "solutions", "final", "future"],
-    labels: {
-      problem: "Problem & research question", details: "Role, team & context", challenge: "Barriers students face today",
-      research: "Research approach", flows: "Partnership & workshop structure", wireframes: "Workshop artifacts", themes: "Key themes from analysis",
-      solutions: "Design principles", final: "Outcome", future: "Limitations & next steps"
-    },
-    problem: "Asking for help is an essential skill in computing, but many students don't. They don't know what resources exist, doubt they'll help, fear being judged, or don't want to rely on others. Students marginalized in computing face all of this plus inequities of their own. Most research studies existing help-seeking resources. Almost none asks students to imagine what they actually need.",
-    hmw: "Research question: What help-seeking structures do students from marginalized communities in computing envision for post-secondary computing courses?",
-    challenge: [
-      "Office hours don't fit students' lives. Commuters and students with jobs can't attend in person, and long queues mean as little as 5 minutes with a TA.",
-      "\"No answer\" policies leave students stuck: TAs won't explain, but won't guide either.",
-      "Fear of judgment and imposter syndrome. \"I am scared to ask for help because I think they will think I am not smart enough even though I am.\"",
-      "Help-seeking spaces can feel threatening. One group described current environments in exactly that word.",
-      "Isolation, especially when no one looks like you. \"I was the only black girl in my lab, and my partner didn't want to talk to me.\"",
-      "Practice doesn't match assessment, so there are few low-stakes chances to fail and learn."
-    ],
-    research: {
-      summary: "We ran a futures workshop, a method that reverses traditional power dynamics and puts the people most affected by a system in the role of designing its future. The study was built on a partnership with AVELA, a nonprofit offering STEM outreach to Black and Latine students and taught mostly by Black and Latine computing undergrads. I served as the liaison between AVELA and the research team. We piloted the workshop with 4 students, and refined it over six weeks before running it with 18 students recruited through AVELA, NSBE, SHPE and the Allen Scholars program. Faculty were deliberately left out of the room so students could design without institutional limits. We collected 4.5 hours of audio per group, surveys, field notes, the maps students made, and letters they wrote to university leaders. Then we analyzed it in pairs through inductive and deductive thematic analysis, resolving disagreements through consensus memos and an expert audit.",
-      methods: ["Futures workshop", "Personal & group community maps", "Surveys", "Audio recordings", "Field notes", "Letters to leadership", "Inductive & deductive thematic analysis", "Consensus memos"]
-    },
-    flows: [
-      { name: "How we partnered with AVELA", steps: ["Agree on a shared goal", "Show up: attend events, org meetings & volunteer", "Name an AVELA liaison (me)", "6 weekly meetings to shape the workshop", "AVELA members join the analysis"] },
-      { name: "One five-hour workshop, three phases", steps: ["Rapport building", "Critique: name today's barriers", "Fantasy: map communities where you feel safe", "Fantasy: design an ideal help-seeking structure", "Implementation: merge into one collective map", "Letters to faculty & administrators"] }
-    ],
-    themes: [
-      { t: "Responsive to students' lives", d: "Support should adapt to commuters, workers and different learners, with TAs trained to try another explanation and to check in before a student spirals." },
-      { t: "Psychologically safe", d: "Students wanted informal, \"chill\" spaces where asking a question that might sound \"stupid\" doesn't feel risky." },
-      { t: "Agency over how to learn", d: "Many paths to help (friends, Discord, anonymous forums, AI, tutoring) so there's no single \"correct\" way to struggle." },
-      { t: "Free to fail", d: "Ungraded practice quizzes and exams so students can find gaps without losing points." },
-      { t: "Community, shared identity & joy", d: "Help-seeking built on peers with shared backgrounds, modeled on groups like NSBE and ColorStack, with buddy and peer-matching systems." }
-    ],
-    solutions: [
-      { t: "Design flexible structures that adapt without breaking", c: "Learning in comfortable, familiar spaces; staff who notice when a student is struggling and step in.", why: "Support shouldn't assume one-size-fits-all. It should respond to students' cultural backgrounds and lived realities.", cite: "Ladson-Billings, G. (1995). Toward a theory of culturally relevant pedagogy. American Educational Research Journal, 32(3), 465–491." },
-      { t: "Create conditions where students don't feel judged", c: "Responsive TA training in communication and cultural responsiveness; instructors who model vulnerability and visit student spaces.", why: "Students avoid help when asking threatens how competent they look. Our findings suggest that fear is often an accurate read of the environment, not a personal deficit.", cite: "Ryan, A. M., Pintrich, P. R., & Midgley, C. (2001). Avoiding seeking help in the classroom: Who and why? Educational Psychology Review, 13(2), 93–114." },
-      { t: "Give students agency in how they seek help", c: "Multiple modalities, from informal lounges to anonymous forums, with the student choosing.", why: "Motivation drops when autonomy is removed. Here the policies themselves grant or deny that autonomy.", cite: "Deci, E. L., & Ryan, R. M. (2012). Self-determination theory. Handbook of Theories of Social Psychology, 1, 416–436." },
-      { t: "Normalize failure with low-stakes practice", c: "Ungraded practice exams and quizzes; reliable help beyond TAs; instructors sharing their own struggles.", why: "Students were oriented toward mastery, wanting conceptual help rather than quick answers, while the systems around them rewarded performance.", cite: "Ryan, A. M., Pintrich, P. R., & Midgley, C. (2001). Avoiding seeking help in the classroom: Who and why? Educational Psychology Review, 13(2), 93–114." },
-      { t: "Connect students across shared identities", c: "Buddy and peer-matching systems; group work that invites students to share about themselves; joyful touches like memes and social media.", why: "Students draw on peers and social networks as a form of capital to navigate institutions.", cite: "Yosso, T. J. (2005). Whose culture has capital? A critical race theory discussion of community cultural wealth. Race Ethnicity and Education, 8(1), 69–91." },
-      { t: "Let the people at the margins lead the design", c: "A student-only futures workshop where participants were framed as the experts.", why: "The deepest expertise on a system's failures often lives at its boundaries, with the people who live those failures daily.", cite: "Collins, P. H. (2020). Defining Black feminist thought. In Feminist Theory Reader (pp. 278–290). Routledge." }
-    ],
-    wireframes: [
-      { photo: true, img: "workshop-map-template.jpg", label: "Community map template", note: "Each student mapped a community where they already felt safe: people, locations, values, communication and emotions." },
-      { photo: true, img: "workshop-personal-map.jpg", label: "A personal community map", note: "Fantasy phase. One participant's map of a campus program where they felt they belonged." },
-      { photo: true, img: "workshop-group-maps.jpg", label: "Group help-seeking maps", note: "Groups built their ideal help-seeking structure, then swapped maps in a gallery walk with sticky-note feedback." },
-      { photo: true, img: "workshop-collective-map.jpg", label: "The collective map", note: "Implementation phase. All four groups negotiated one shared vision, one dimension at a time." }
-    ],
-    final: { text: "Published at ICER 2026, the ACM International Computing Education Research conference in Uppsala, Sweden, where it received a Best Paper Honorable Mention. The paper offers a set of design principles that instructors and universities can use to rebuild help-seeking around community and care.", img: "icer-stage-wide.jpg", link: "https://dl.acm.org/doi/epdf/10.1145/3765964.3811661", linkText: "Read the paper ↗", alt: "Saara presenting the paper at ICER 2026",
-      points: [
-        "Help-seeking structures don't need to be separate from students' lives.",
-        "Help-seeking structures need to become more empathetic and accepting of imperfection.",
-        "Students' autonomy in choosing how to seek help is a precondition for their success.",
-        "Students are motivated by mastery, but help-seeking structures reward performance.",
-        "Friendships are essential to effective, supportive and joyful help-seeking."
-      ],
-      slides: { dir: "icer-slides/slide-", count: 35, title: "Our ICER 2026 talk slides" } },
-    future: [
-      "Participants came from student organizations at one large public university. Future work should include other institutions and students outside these groups.",
-      "Include more marginalized groups, including students with disabilities.",
-      "Test the design principles in a real course and measure how they change help-seeking behavior."
-    ]
+    "cardRole": "Co-author · Team of 5",
+    "title": "Not Built for Us",
+    "kicker": "Research · ICER 2026 Best Paper Honorable Mention",
+    "tagline": "What would help-seeking in computing look like if the students it fails got to design it?",
+    "year": "2026",
+    "locked": {
+      "salt": "raU0hgyQg+9zANZLY7zjeQ==",
+      "iv": "8qlpirY3NzU/5RLI",
+      "data": "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"
+    }
   },
   {
     id: "safetynet", seed: 7, tags: ["Product design", "Research"],
@@ -1013,7 +960,7 @@ function renderCards() {
         <p class="label">${esc(p.kicker)}</p>
         <h3>${esc(p.title)}</h3>
         <p class="tag">${esc(p.tagline)}</p>
-        <div class="meta"><span class="label">${esc(p.cardRole || String(p.meta.Role || "").split("·")[0])} · ${esc(p.year)}</span><span class="open">Open case study →</span></div>
+        <div class="meta"><span class="label">${esc(p.cardRole || String(p.meta.Role || "").split("·")[0])} · ${esc(p.year)}</span><span class="open">${p.locked ? "🔒 Password protected →" : "Open case study →"}</span></div>
       </div>
     </button>`).join("");
   document.querySelectorAll(".card").forEach(b => b.addEventListener("click", () => openCase(+b.dataset.i)));
@@ -1225,9 +1172,35 @@ function caseHTML(p) {
     (p.sections ? p.sections.map((sec, i) => `<section class="cs-sec" id="cs-${sec.k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(sec.label)}</span>${sec.blocks.map(b => blockHTML(b, p)).join("")}</section>`).join("") :
     secsFor(p).map(([k, label], i) => `<section class="cs-sec" id="cs-${k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(label)}</span>${k === "problem" ? `<h3>${esc(p.tagline)}</h3>` : ""}${S[k]()}</section>`).join(""));
 }
+/* ---------- password-protected case studies ---------- */
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function unlockCase(p, pw) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(p.locked.salt), iterations: 250000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+  const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(p.locked.iv) }, key, b64(p.locked.data));
+  Object.assign(p, JSON.parse(new TextDecoder().decode(plain)));
+  delete p.locked;
+  try { sessionStorage.setItem("cs-pw-" + p.id, pw); } catch (e) {}
+}
+function lockedHTML(p) {
+  return `<form class="cs-lock" id="cs-lock" autocomplete="off"><span class="lock-ic" aria-hidden="true">🔒</span><h3>This case study is password protected</h3><p>If you'd like to read it, email me at <a href="mailto:${esc(SITE.email || "saarau@umich.edu")}">${esc(SITE.email || "saarau@umich.edu")}</a> and I'll send the password.</p><label class="label" for="cs-pw">Password</label><div class="lock-row"><input id="cs-pw" type="password" required autocomplete="current-password"><button class="btn" type="submit">Unlock</button></div><p class="lock-err" id="cs-pw-err" role="alert" hidden>That password didn't work. Try again.</p></form>`;
+}
 function openCase(i) {
   current = (i + PROJECTS.length) % PROJECTS.length;
   const p = PROJECTS[current];
+  if (p.locked) {
+    let saved = null; try { saved = sessionStorage.getItem("cs-pw-" + p.id); } catch (e) {}
+    if (saved) { unlockCase(p, saved).then(() => openCase(current)).catch(() => { try { sessionStorage.removeItem("cs-pw-" + p.id); } catch (e) {} openCase(current); }); return; }
+    document.getElementById("cs-kicker").textContent = p.kicker;
+    document.getElementById("cs-title").textContent = p.title;
+    document.getElementById("cs-toc").innerHTML = "";
+    body.innerHTML = lockedHTML(p); body.scrollTop = 0;
+    if (!dlg.open) dlg.showModal();
+    const f = document.getElementById("cs-lock"), inp = document.getElementById("cs-pw"), err = document.getElementById("cs-pw-err");
+    inp.focus();
+    f.addEventListener("submit", e => { e.preventDefault(); err.hidden = true; unlockCase(p, inp.value).then(() => openCase(current)).catch(() => { err.hidden = false; inp.select(); }); });
+    return;
+  }
   document.getElementById("cs-kicker").textContent = p.kicker;
   document.getElementById("cs-title").textContent = p.title;
   document.getElementById("cs-toc").innerHTML = secsFor(p).map(([k, l], j) => `<li><a href="#cs-${k}" data-k="${k}"><span class="n">${String(j + 1).padStart(2, "0")}</span><span>${esc(l)}</span></a></li>`).join("");
