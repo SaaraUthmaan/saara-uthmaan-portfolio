@@ -143,6 +143,9 @@ section.block { padding-inline: var(--gutter); padding-block: clamp(64px, 9vw, 1
 @media (prefers-reduced-motion: reduce) { .card, .card:hover { transition: none; transform: none; } }
 .card .cover { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--paper-2); border-bottom: 1px solid var(--line); }
 .card .cover canvas { width: 100%; height: 100%; display: block; }
+.card .cover .cover-img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.cs-banner { margin: 0 0 4px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16 / 10; }
+.cs-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card .cover .c-stamps { position: absolute; right: 14px; top: 14px; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .card .cover .c-stamp { background: var(--seal); color: var(--paper); font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 6px 7px; border-radius: 2px; }
 .card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
@@ -381,6 +384,23 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
 .solution .why { margin-top: 10px; padding: 12px 14px; background: var(--paper-2); border-radius: 3px; font-size: 14.5px; color: var(--ink-soft); }
 .solution .why .label { display: block; margin-bottom: 4px; color: var(--jade); }
 .solution cite { display: block; margin-top: 8px; font: normal 400 12.5px/1.5 var(--font-mono); color: var(--ink-soft); }
+.cs-h4 { font-size: 18px; margin: 18px 0 8px; max-width: var(--measure); }
+.cs-sec h3 + .cs-h4 { margin-top: 0; }
+.cs-sec h3:not(:first-of-type) { margin-top: 28px; }
+.cs-lead { font: 500 clamp(17px, 1.8vw, 20px)/1.5 var(--font-display); color: var(--ink) !important; }
+.cs-note { font-size: 13.5px; color: var(--ink-soft); margin-top: 14px !important; }
+.cs-gap { margin-top: 14px; }
+.cs-quote { margin: 18px 0; padding: 14px 18px; border-left: 3px solid var(--jade); background: var(--paper-2); border-radius: 3px; max-width: var(--measure); }
+.cs-quote p { font: 500 16px/1.55 var(--font-display); color: var(--ink) !important; }
+.cs-quote cite { display: block; margin-top: 6px; font-size: 13px; font-style: normal; color: var(--ink-soft); }
+.cs-callout { margin: 18px 0; padding: 14px 16px; border: 1px solid var(--line); border-left: 3px solid var(--seal); border-radius: 3px; max-width: var(--measure); }
+.cs-callout .label { display: block; margin-bottom: 6px; color: var(--ink); }
+.cs-steps { margin: 14px 0 0; padding-left: 22px; display: grid; gap: 12px; max-width: var(--measure); color: var(--ink-soft); }
+.cs-steps b { color: var(--ink); font-weight: 600; }
+.cs-table td, .cs-table th { vertical-align: top; text-align: left; }
+.cs-fig { margin: 20px 0 6px; display: grid; gap: 8px; }
+.cs-fig img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
+.cs-fig figcaption { font-size: 14px; color: var(--ink-soft); max-width: var(--measure); }
 .artifact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 18px; }
 .artifact { margin: 0; display: grid; gap: 8px; align-content: start; }
 .artifact img { width: 100%; max-width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 3px; display: block; background: var(--paper-2); }
@@ -668,68 +688,174 @@ const PROJECTS = [
   {
     id: "safetynet", seed: 7, tags: ["Product design", "Research"],
     cardFacts: [
-      ["My role", "UX designer & researcher on a team of 4"],
-      ["When", "UW · INFO 360: Design Thinking"],
-      ["Methods", "Survey · prototyping · technology probe with 5 interviews"],
-      ["Outcome", "Interactive prototype with 3 core features"]
+      ["My role", "Product designer & researcher on a team of 4 (lock screen widget)"],
+      ["When", "Oct to Dec 2023 · about 10 weeks"],
+      ["Methods", "Survey · paper prototype · heuristic evaluation · field test · A/B"],
+      ["Outcome", "Mobile app concept with 3 core features"]
     ],
-    cardRole: "Team of 4", title: "SafetyNet", kicker: "Mobile app · UW INFO 360",
-    tagline: "A tracker app that helps people, especially young women, stay safe when meeting someone from a dating app.",
-    year: "UW",
+    cardRole: "Team of 4", title: "SafetyNet", kicker: "Mobile app",
+    cover: "safetynet-cover.jpg", coverAlt: "SafetyNet heart logo next to the app's home screen",
+    tagline: "Making the first date with a stranger feel less like a gamble.",
+    year: "2023",
     meta: {
-      "My role": "UX designer & researcher on a team of 4",
-      Team: "Amy, Saara, Marie & Sabrina",
-      Course: "INFO 360: Design Thinking, University of Washington",
-      Methods: "Survey · high-fidelity prototype · technology probe with 5 interviews",
-      Deliverables: "3 core features · 2 end-to-end user flows · interactive prototype"
+      Timeframe: "October to December 2023, about 10 weeks",
+      "My role": "Product Designer and Researcher (designed the lock screen widget)",
+      Team: "4 student designers and researchers",
+      Users: "College students, ages 19 to 21, who use dating apps (most of our respondents were women, so their safety concerns shaped our focus)",
+      Methods: "Survey, interviews, literature review, personas, sketching, paper prototype testing, heuristic evaluation, field testing, A/B",
+      Tools: "Figma, Qualtrics"
     },
-    order: ["problem", "details", "challenge", "themes", "flows", "wireframes", "solutions", "final", "future", "lessons"],
-    labels: {
-      problem: "Community & issue", details: "Role, team & context", challenge: "User pain points",
-      themes: "What we learned from research", flows: "User flows", wireframes: "Prototype screens",
-      solutions: "Design solutions", final: "Evaluation & final presentation",
-      future: "Changes from testing", lessons: "If we did this again"
-    },
-    problem: "Online dating puts people in situations where the person they're meeting may not be who they seem and can't be trusted. Our community was mostly women, especially college-aged people, who date online. They already take safety into their own hands, but they do it through scattered texts and habits rather than a tool built for it.",
-    hmw: "How might we help people who date online stay safe on a first date, with the friends they already rely on, without making the date awkward?",
-    challenge: [
-      "Online dating feels unsafe: 60% of study participants rated it 3 or lower on a scale from very unsafe to very safe.",
-      "Dates don't always respect boundaries. \"My date has pressured me to stay out later, even though I'm afraid of staying in the Ave/unsafe environments later at night… Didn't really respect my boundaries there.\"",
-      "Asking for help in the moment is hard to do without the date noticing.",
-      "Safety steps are manual and scattered: separate texts to friends about who, where and when."
-    ],
-    themes: [
-      { t: "Friends are already the safety net", d: "Participants share date information with close friends and make sure friends know what their date looks like." },
-      { t: "Public places feel safer", d: "Meeting first dates in a public place is a common precaution." },
-      { t: "Pressure happens in the moment", d: "The riskiest moments come mid-date, when leaving or calling for help would be noticed." }
-    ],
-    flows: [
-      { name: "Send date profile to emergency contacts", steps: ["Tap \"I'm going on a date\"", "Pick the match", "Add date, time & location", "Add an outfit photo", "Send to trusted friends", "Confirmation"] },
-      { name: "Create a discreet widget", steps: ["Open profile", "Choose a discreet image", "Pick how many contacts", "Choose an action: text, call contact or call police", "Add widget to lock screen", "Friends get an alert and can call"] }
-    ],
-    wireframes: [
-      { photo: true, img: "safetynet-landing.jpg", label: "Landing & home", note: "Sign in with your dating app, then see your current location, upcoming dates and partnered date spots." },
-      { photo: true, img: "safetynet-send-date.jpg", label: "Send date details", note: "Pick your match, add the time, place and outfit photo, and send it to trusted friends." },
-      { photo: true, img: "safetynet-create-widget.jpg", label: "Create a widget", note: "Choose a discreet image, the contacts to alert, and what happens when it's tapped." },
-      { photo: true, img: "safetynet-notifications.jpg", label: "Alerts & the rescue call", note: "One tap on the lock screen alerts friends, who can call with a ready-made excuse to leave." }
-    ],
-    solutions: [
-      { t: "Send date details to friends", c: "Share your date's profile, the time, location and your outfit with trusted friends before you go.", why: "Participants already did this through scattered texts. The feature turns a familiar habit into one flow instead of asking people to learn a new behavior.", cite: "Nielsen, J. (1994). Enhancing the explanatory power of usability heuristics. Proceedings of CHI '94, ACM." },
-      { t: "A discreet lock-screen widget", c: "A customizable widget with an innocent-looking image that alerts close friends when tapped, with an option to call or text them or call the police.", why: "In a risky moment, asking for help has to take almost no effort and not tip off the date. A single, well-placed tap raises the ability to act exactly when it's needed.", cite: "Fogg, B. J. (2009). A behavior model for persuasive design. Proceedings of Persuasive '09, ACM." },
-      { t: "Verified locations for safe dates", c: "Partner businesses and restaurants committed to date safety, searchable from the home screen.", why: "Participants already chose public places for first dates. Verified partners make that choice easier and more trustworthy.", cite: "" }
-    ],
-    final: { text: "We ran a technology probe, putting the prototype in people's hands to see how it would actually be used, with 5 interviews. Participants felt SafetyNet does address the issue: it adds a layer of security for people who use dating apps, letting them call friends for help while staying subtle about it. Their overall verdict was \"good functions, need polishing.\"", img: "", link: "",
-      slides: { dir: "safetynet-slides/slide-", count: 8, title: "Our final presentation", aspect: "1280 / 989" } },
-    future: [
-      "Show urgent notifications from friends (call, text, alert) on the home screen.",
-      "Let people add emergency contacts who don't have SafetyNet.",
-      "Simplify widget customization, which confused first-time users.",
-      "Use more multiple-choice selections to make setup less confusing."
-    ],
-    lessons: [
-      "Give research more time. Our initial data collection was short, so we understood user needs less fully than we wanted, and user feedback later forced bigger design changes.",
-      "Pick the evaluation method to match the question. The technology probe showed how people would use the app in real life; A/B testing would have let us compare specific design changes.",
-      "Build more interactivity into the prototype. Ours followed one user flow, which limited the tasks we could test."
+    sections: [
+      { k: "overview", label: "Overview", blocks: [
+        { h3: "SafetyNet: making the first date with a stranger feel less like a gamble" },
+        { lead: "A mobile app concept that turns the safety habits young daters already use into one quick, discreet step." },
+        { p: "Dating apps help people match, then step away at the exact moment risk goes up: meeting in person for the first time. Over about 10 weeks, a team of four of us asked one question." },
+        { hmw: "How might we help college-aged dating app users feel safe meeting a match in person, without making dating feel like a security drill?" },
+        { fig: "safetynet-hero.jpg", alt: "SafetyNet screens: creating a discreet widget and the notifications friends receive", cap: "Creating a discreet widget, and the alert a friend receives when it's tapped." },
+        { meta: true }
+      ] },
+      { k: "problem", label: "The problem", blocks: [
+        { h3: "Meeting a stranger from an app is normal now, and so is the fear that comes with it" },
+        { h4: "Nearly half of young adults have dated online, and nearly half of people who meet a match in person report some kind of harm" },
+        { p: "Nearly 50 percent of 18 to 29 year olds have used online dating. In one study, 46.5 percent of respondents said they had experienced at least one harm from meeting someone from a dating app in person. Our own survey of 11 students found the same unease close to home: 7 of 11 (64 percent) rated online dating a 3 or lower on a 5-point safety scale." },
+        { p: "The apps themselves offer almost nothing once the chat moves offline. So the job of staying safe falls entirely on the person going on the date." },
+        { fig: "safetynet-stats.jpg", alt: "64% of our survey respondents rated online dating 3 or lower for safety; 46.5% reported at least one harm; about 50% of 18 to 29 year olds have used online dating", cap: "Meeting a match online is common. Feeling safe doing it isn't." },
+        { callout: "Problem statement", text: "College-aged dating app users, especially women, want to meet matches in person without putting themselves at risk. But the safety steps they rely on are manual, scattered across different apps, and easy to skip or hard to do discreetly in the moment." },
+        { p: "Why it matters: When safety takes too much effort, people either skip it or stop dating altogether. One of our personas did exactly that after a single uncomfortable date." },
+        { p: "The questions our research had to answer: What makes daters feel unsafe? What do they already do to protect themselves? And where do those habits break down?" },
+        { note: "Sources: \"Swipe Right: Harms Associated With Using and Meeting People via Dating Apps\" (46.5%); \"College Students' Motives for In-Person Meetings with Dating Application Matches,\" Cyberpsychology, Behavior, and Social Networking, 2021 (nearly 50%)." }
+      ] },
+      { k: "users", label: "Our users", blocks: [
+        { h3: "Our users weren't careless. They had already built their own safety routines." },
+        { h4: "Our users: college students, ages 19 to 21, who use dating apps to meet people in real life" },
+        { p: "Our users want to make real connections on dating apps. But they only know their match online, so meeting in person comes with real worry about what could go wrong. 2 of the 6 who answered described a time they felt unsafe." },
+        { quote: "My date has pressured me to stay out later, even though I'm afraid of staying in unsafe environments later at night. He also didn't understand why I was hesitant to go to his place on the first date. Didn't really respect my boundaries there.", by: "Survey respondent" },
+        { h4: "What they were already doing to stay safe" },
+        { p: "Of the 8 survey respondents who answered the question about precautions, 7 described a personal safety routine. The same habits came up again and again:" },
+        { list: [
+          "5 of 7 tell close friends where they're going, who with, or share their location",
+          "4 of 7 only meet in a public place",
+          "3 of 7 talk to a match for a while before agreeing to meet",
+          "2 of 7 look up the match's social media to confirm they're real",
+          "1 of 7 arranges their own transportation"
+        ] },
+        { h4: "Two people we designed for" },
+        { fig: "safetynet-personas.jpg", alt: "Personas: Alexia, 20, the careful planner, and Amanda, 20, the one taking a break", cap: "Two daters, one problem: staying safe takes too much effort." },
+        { p: "Alexia, 20, three months on dating apps. A careful planner. She always talks to a match before meeting and tells people she trusts exactly where she'll be. Her safety routine works, but she rebuilds it by hand for every date." },
+        { p: "Amanda, 20, two years on dating apps. One date made her uncomfortable toward the end, and she has taken a break from the apps ever since. She wants to meet people again but doesn't know how to feel safe doing it." },
+        { h4: "The challenge they face, and why" },
+        { p: "Daters already know how to be safe. The hard part is effort and discretion. Each precaution is a separate manual task across texts, maps, and social media. And when a date starts going badly, openly texting a friend for help can make the situation worse. That insight became our design brief: don't invent new safety behaviors, make the existing ones fast and invisible." }
+      ] },
+      { k: "research", label: "Research methods", blocks: [
+        { h3: "We chose research methods that let people share something painful, safely" },
+        { h4: "An anonymous survey first, then optional one-on-one interviews, and deliberately no focus groups" },
+        { p: "Date violence is a sensitive topic, so our method had to protect participants. We started with an anonymous survey that included a content warning, because anonymity makes people more willing to describe a bad experience. At the end, people could opt in to a private interview, where we could build trust and ask follow-up questions about their own experiences." },
+        { table: { head: ["Method", "What it answered", "Why this method"], rows: [
+          ["Anonymous survey, 11 respondents, ages 19 to 21 (8 women, 2 men, 1 queer)", "How safe do daters feel, and what precautions do they take?", "Reaches people quickly, and anonymity makes sensitive answers easier to give"],
+          ["Optional interview sign-up at the end of the survey", "What does feeling unsafe actually look like on a date?", "Room for follow-up questions on a personal topic. In practice only 1 of 11 opted in and the interview wasn't conducted"],
+          ["Review of 3 published studies", "How common is harm from meeting dating app matches?", "Shows the problem goes beyond our campus"]
+        ] } },
+        { p: "We recruited through Discord, Instagram, and a university course on internet dating." },
+        { callout: "What we chose not to do, and why", text: "We ruled out focus groups, because asking people to share experiences of date violence in front of peers is uncomfortable and invites them to hold back. We wanted a diary study, where participants record each date as it happens, but it didn't fit our timeline." }
+      ] },
+      { k: "findings", label: "Findings", blocks: [
+        { h3: "What we learned, and how it shaped the design" },
+        { p: "Four findings turned into the four rules every feature had to follow." },
+        { table: { head: ["What we learned", "The evidence", "What it meant for the design"], rows: [
+          ["Daters already have a safety routine. It's just manual.", "7 of 8 who described their habits had one, and 5 of those 7 tell friends where they'll be", "Don't invent new behaviors. Make the ones people already have faster, starting with sending date details to friends"],
+          ["Trouble happens face to face, in real time.", "A respondent described a date who pressured her to stay out later and come back to his place", "Asking for help has to be invisible to the date. That led to a disguised lock screen widget and to safe words and hand signals at partner venues"],
+          ["Where you meet matters.", "4 of 7 only meet in a public place", "Help people choose public spots that actively support date safety: verified partner venues"],
+          ["You can't always confirm who you're meeting.", "One respondent couldn't find any proof her match existed. 2 of 7 check a match's social media first", "Someone else should always know who you're with, so the match's profile is part of the date details friends receive"]
+        ] } }
+      ] },
+      { k: "ideation", label: "Ideation & testing", blocks: [
+        { h3: "Every idea had to pass one test: does it make a habit people already have easier?" },
+        { h4: "We sketched 5 ideas, kept the 3 that matched real behavior, then tested and changed the design 3 times" },
+        { p: "We judged every idea against our research. If users already did something by hand, it was a strong candidate. If it asked them to learn a new behavior, it had to earn its place." },
+        { table: { head: ["Idea", "Decision", "Why"], rows: [
+          ["Send date details to friends (match's profile, time, place, outfit)", "Kept", "Users already texted this to friends by hand, one piece at a time"],
+          ["Lock screen widget that quietly alerts friends", "Kept", "Asking for help mid-date has to be invisible. A widget skips unlocking the phone and opening an app"],
+          ["Verified date spots: partner venues committed to date safety", "Kept", "Users already chose public places. Partner venues add trained staff"],
+          ["Profile compiler: find a match's social media and mutual friends", "Changed", "Searching someone's social media raises privacy concerns, and not everyone has social media. Instead, SafetyNet shares the profile the match already chose to put on the dating app"],
+          ["Friends get a reminder to send a check-in text during the date", "Saved for later", "It offers reassurance more than protection, so we put features that act when safety is at risk first. Testers later asked for an \"it's going OK\" message, so it's first on the list for the next version"]
+        ] } },
+        { h4: "How testing changed the design" },
+        { p: "Each round used a different method, because each answered a different question." },
+        { table: { head: ["Round", "Method and why", "What we heard", "What we changed"], rows: [
+          ["1", "Paper prototype test: cheapest way to check the concept before building screens", "\"How are the companies verified?\" \"Can I add multiple people?\" Users wanted reviews and a way to signal staff", "Explained how venues get verified, added user reviews of venues, a list of safe words and hand signals that staff are trained to recognize, and multiple contact lists per widget"],
+          ["2", "Heuristic evaluation: a structured expert check against 10 usability principles", "No confirmation before a date profile is sent, and no way to recover if sending fails", "Flagged a confirmation step and error messages for the next version"],
+          ["3", "Field test with 5 participants: walk through a realistic first-date scenario, because sharing a date profile was our most unique feature", "Setting up the widget confused first-time users. The date profile form asked for too much typing. Urgent alerts were easy to miss", "Planned multiple-choice inputs, alerts on the home screen, and inviting emergency contacts who don't have the app"]
+        ] } },
+        { fig: "safetynet-round3.jpg", alt: "Before and after: sharing a date moved onto each upcoming date and pre-fills what the app already knows", cap: "Round 3: sharing a date stopped asking users to re-enter what the app already knew. Each upcoming date now has its own \"Send profile\" button." }
+      ] },
+      { k: "widget", label: "My part: the widget", blocks: [
+        { h3: "The part I owned: a help button that doesn't look like one" },
+        { h4: "I designed the lock screen widget, one discreet tap that tells chosen friends to step in" },
+        { p: "Our research said asking for help in the middle of a date has to be invisible. Texting a friend at the table is obvious, and opening a safety app is worse. So I designed help as something already sitting on the lock screen, disguised as an ordinary photo widget." },
+        { p: "How it works, and why I made each choice:" },
+        { steps: [
+          ["Disguise it.", "Users pick any image, like a flower or the weather, so the widget looks like decoration. Why: if the date glances at the phone, it can't look like a panic button."],
+          ["Choose who gets alerted.", "Users pick how many contacts each widget reaches, and after paper prototype testing, each widget can use its own contact list. Why: testers asked \"Can you add multiple people?\" and wanted to switch lists between dates without redoing setup every time."],
+          ["Choose how big the response is.", "Each widget does one thing: send a text, ask a friend to call, or call the police. Why: a date going badly isn't always an emergency, so the response should match the level of risk."],
+          ["Help the friend help.", "The friend gets \"Avery would like you to call her now,\" and the call screen suggests lines to say, like \"I know you're on a date, but I really need your help.\" Why: it gives the dater a believable reason to leave, without a confrontation."]
+        ] },
+        { fig: "safetynet-widget-setup.jpg", alt: "Widget setup flow across eight screens", cap: "Setting up a widget: choose a disguise, who gets alerted, and what happens when you tap it.", wide: true },
+        { callout: "What testing told me", text: "Field test participants liked the widget and called it easy to use and understand. But customizing it confused first-time users who didn't know what widgets were for. My next step would be to explain the widget's purpose during onboarding and offer a ready-made template, so the first one takes seconds to set up." }
+      ] },
+      { k: "solution", label: "The solution", blocks: [
+        { h3: "SafetyNet follows the date from planning to the moment you need help" },
+        { h4: "Three features, each one an existing safety habit made faster and quieter" },
+        { fig: "safetynet-onboarding.jpg", alt: "Landing screen, sign in with a dating app, and the home screen with upcoming dates", cap: "Sign in with the dating app you already use, and your upcoming dates appear on the home screen, ready to share." },
+        { p: "The foundation: connect to the dating apps people already use. Instead of asking daters to rebuild their matches and plans in a new app, SafetyNet signs in through the dating app they already use. We chose this for three reasons:" },
+        { list: [
+          "Less work at the worst moment. Matches and upcoming dates come in automatically, so sending date details is a confirm, not a form. Field testers had said that typing in date information by hand made no sense.",
+          "Testers asked for it. In the field test, participants were confused that there was no way to connect their dating profiles, and one wanted to connect with contacts from their dating apps.",
+          "It respects privacy. SafetyNet shares only the profile a match already chose to post on the dating app, instead of searching their social media."
+        ] },
+        { p: "The tradeoff: this depends on dating apps agreeing to share data with SafetyNet. In a real product, that partnership would be the first thing to test." },
+        { steps: [
+          ["Before the date: share it in one tap.", "Pick your match and SafetyNet fills in the time and place. Add what you're wearing, then send the whole date profile to trusted friends at once. This replaces 4 or 5 separate texts."],
+          ["During the date: ask for help without anyone noticing.", "A customizable lock screen widget sends an alert to a chosen group of friends with one press, so they can call with an \"emergency\" or come get you. Different widgets can alert different contact lists."],
+          ["Choosing where to go: pick a place that has your back.", "Verified partner venues commit to date safety. Their staff are trained to respond to set safe words and hand signals, and other users review how well each venue follows through."]
+        ] },
+        { fig: "safetynet-send-date.jpg", alt: "Sending date details: pick a match, add time, place and an outfit photo, then confirmation", cap: "Before the date: pick your match, add an outfit photo, and send everything to trusted friends at once." },
+        { fig: "safetynet-venues.jpg", alt: "Partner venue list and a verified venue page with rating and safety commitments", cap: "Choosing where to go: partner venues show a verified badge, ratings from other daters, and what they do to keep dates safe." }
+      ] },
+      { k: "outcome", label: "Outcome", blocks: [
+        { h3: "Users trusted the idea. The next version needed to be simpler to set up." },
+        { h4: "Field testing confirmed the concept worked, and showed exactly where first-time users got lost" },
+        { p: "In the field test, participants called the interface \"very smooth\" and said the widget was easy to use and understand. Our verdict on our own question, \"Does SafetyNet address the problem?\", was yes: it adds a layer of security and lets daters reach friends without drawing attention. But setup was where people struggled, especially customizing widgets and filling out the date profile. In short: the right features, still in need of polish." },
+        { note: "SafetyNet was a concept, not a launched product, so there are no usage numbers." }
+      ] },
+      { k: "abtest", label: "Next: guided setup A/B", blocks: [
+        { h3: "What I tested next: a guided widget setup" },
+        { p: "Field testing showed that people understood why the widget mattered, but not how to set it up. So I designed a second version of the setup flow and an A/B test to compare the two. The project ended before I could run it, so I ran it after the project timeline." },
+        { list: [
+          "Version A, the current design: a settings form where users choose an image, a number of contacts, and an action.",
+          "Version B, a guided setup: it opens by explaining what the widget does, then walks through 3 steps (what happens when you tap it, who gets the alert, and how it looks). It ends with a lock screen preview and a \"Send a test alert\" button."
+        ] },
+        { h4: "Why Version B looks the way it does" },
+        { list: [
+          "It explains the widget first, because field testers who had never used widgets didn't know what it was for.",
+          "Contacts come in saved lists, like \"Date night,\" because paper prototype testers wanted to switch contacts between dates without redoing setup.",
+          "Users can add someone who isn't on SafetyNet, because a field tester asked for exactly that.",
+          "Setup ends on the lock screen preview, so users can see the widget is ready instead of guessing."
+        ] },
+        { fig: "safetynet-ab-test.jpg", alt: "Version A settings form compared with Version B guided three-step setup and lock screen preview", cap: "Version A asks users to fill in settings before they know what the widget does. Version B explains it first, then asks one question per screen and ends by showing the widget on the lock screen.", wide: true },
+        { callout: "The test plan", text: "Each participant would try both versions, with half starting on A and half on B, while thinking aloud for about 15 minutes. The task: \"You have a first date tonight. Set up a way to quietly get a friend to call you if things feel off.\" I would measure whether they finish, how long it takes, wrong taps, a 1 to 7 ease rating, and whether they can explain what the widget does in their own words." }
+      ] },
+      { k: "reflection", label: "Reflection", blocks: [
+        { h3: "What I'd do differently" },
+        { steps: [
+          ["Give discovery more time.", "Our survey closed about a week after it opened. Our early understanding of users was thinner than it should have been, so we made bigger design changes late in the project. Next time I would protect a longer research window up front."],
+          ["Design the research for the topic, and plan for who won't talk.", "Choosing an anonymous survey over focus groups was the right call: people shared real stories they likely wouldn't have said out loud. But that same sensitivity meant only 1 of 11 respondents agreed to an interview, which left our early picture of users thin. Next time I would plan a second recruiting path from the start, such as partnering with campus groups people already trust, or offering anonymous text-based interviews."]
+        ] },
+        { h3: "What this project taught me" },
+        { steps: [
+          ["Test my assumptions, especially the ones I like.", "While designing the widget, I believed customization would make users feel in control. Two rounds of testing showed the opposite: setting up something unfamiliar left people more confused than empowered. That's why Version B explains the widget first and asks one question at a time. It also changed how I'll run future tests. Social facilitation theory says being watched helps people on tasks they're good at, but hurts them on tasks they're new to. In a usability test, users are beginners being watched, so some of their struggle may come from that pressure, not the design. Now I stay conscious of how unfamiliar the tasks I ask users to do are, and I keep that in mind when I read the results."],
+          ["When I lack experience, I learn from people who have it.", "I didn't use dating apps myself, and I was surprised that almost everyone who answered our question about safety habits (7 of 8) already had a routine. Instead of designing from my own guesses, their habits became our starting point. Now, when I design for an experience I haven't lived, I start by learning how the people living it already do things."]
+        ] }
+      ] }
     ]
   }
 ];
@@ -882,7 +1008,7 @@ function drawCover(canvas, seed) {
 function renderCards() {
   document.getElementById("cards").innerHTML = PROJECTS.map((p, i) => `
     <button class="card" data-i="${i}" data-tags="${esc(p.tags.join("|"))}" aria-haspopup="dialog">
-      <div class="cover"><canvas data-seed="${p.seed}" aria-hidden="true"></canvas><span class="c-stamps">${p.tags.map(t => `<span class="c-stamp">${esc(t)}</span>`).join("")}</span></div>
+      <div class="cover">${p.cover ? `<img class="cover-img" src="${esc(p.cover)}" alt="${esc(p.coverAlt || "")}" loading="lazy">` : `<canvas data-seed="${p.seed}" aria-hidden="true"></canvas>`}<span class="c-stamps">${p.tags.map(t => `<span class="c-stamp">${esc(t)}</span>`).join("")}</span></div>
       <div class="body">
         <p class="label">${esc(p.kicker)}</p>
         <h3>${esc(p.title)}</h3>
@@ -1055,9 +1181,27 @@ function wireHTML(w, i) {
   return `<figure class="wire" style="margin:0"><div class="frame${web ? " web" : ""}">${w.img ? `<img src="${esc(w.img)}" alt="${esc(w.label)} wireframe">` : `<i class="h"></i><i class="s"></i><div class="blk">${esc(w.note)}<br>· add image ·</div><i></i>`}</div><figcaption class="cap"><b>${esc(w.label)}</b>${esc(w.note)}</figcaption></figure>`;
 }
 function secsFor(p) {
+  if (p.sections) return p.sections.map(s => [s.k, s.label]);
   const has = k => { const v = p[k === "details" ? "meta" : k]; return Array.isArray(v) ? v.length > 0 : !!v; };
   const base = p.order ? p.order.map(k => SECTIONS.find(([x]) => x === k)).filter(Boolean) : SECTIONS;
   return base.filter(([k]) => has(k)).map(([k, l]) => [k, (p.labels && p.labels[k]) || l]);
+}
+/* Flexible case-study blocks (used when a project has `sections`). */
+function blockHTML(b, p) {
+  if (b.h3) return `<h3>${esc(b.h3)}</h3>`;
+  if (b.h4) return `<h4 class="cs-h4">${esc(b.h4)}</h4>`;
+  if (b.lead) return `<p class="cs-lead">${esc(b.lead)}</p>`;
+  if (b.p) return `<p>${esc(b.p)}</p>`;
+  if (b.hmw) return `<p class="hmw">${esc(b.hmw)}</p>`;
+  if (b.note) return `<p class="cs-note">${esc(b.note)}</p>`;
+  if (b.meta) return `<div class="meta-grid cs-gap">${Object.entries(p.meta).map(([k, v]) => `<div><span class="label">${esc(k)}</span><span class="v">${esc(v)}</span></div>`).join("")}</div>`;
+  if (b.list) return `<div class="cs-gap">${listHTML(b.list)}</div>`;
+  if (b.quote) return `<blockquote class="cs-quote"><p>${esc(b.quote)}</p>${b.by ? `<cite>${esc(b.by)}</cite>` : ""}</blockquote>`;
+  if (b.callout) return `<div class="cs-callout"><span class="label">${esc(b.callout)}</span><p>${esc(b.text)}</p></div>`;
+  if (b.steps) return `<ol class="cs-steps">${b.steps.map(([t, d]) => `<li><b>${esc(t)}</b> ${esc(d)}</li>`).join("")}</ol>`;
+  if (b.table) return `<div class="table-wrap cs-gap"><table class="cs-table"><thead><tr>${b.table.head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${b.table.rows.map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  if (b.fig) return `<figure class="cs-fig${b.wide ? " wide" : ""}"><a href="${esc(b.fig)}" target="_blank" rel="noopener" aria-label="Open full-size image"><img src="${esc(b.fig)}" alt="${esc(b.alt || "")}" loading="lazy"></a>${b.cap ? `<figcaption>${esc(b.cap)}</figcaption>` : ""}</figure>`;
+  return "";
 }
 function caseHTML(p) {
   const S = {
@@ -1077,8 +1221,9 @@ function caseHTML(p) {
     future: () => listHTML(p.future),
     lessons: () => listHTML(p.lessons)
   };
-  return (p.draft ? `<div class="draft-note"><b>Draft</b><span>Bracketed text, personas, competitor ratings and wireframes are placeholders. Swap in your real findings and screens before sharing.</span></div>` : "") +
-    secsFor(p).map(([k, label], i) => `<section class="cs-sec" id="cs-${k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(label)}</span>${k === "problem" ? `<h3>${esc(p.tagline)}</h3>` : ""}${S[k]()}</section>`).join("");
+  return (p.cover ? `<figure class="cs-banner"><img src="${esc(p.cover)}" alt="${esc(p.coverAlt || "")}"></figure>` : "") + (p.draft ? `<div class="draft-note"><b>Draft</b><span>Bracketed text, personas, competitor ratings and wireframes are placeholders. Swap in your real findings and screens before sharing.</span></div>` : "") +
+    (p.sections ? p.sections.map((sec, i) => `<section class="cs-sec" id="cs-${sec.k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(sec.label)}</span>${sec.blocks.map(b => blockHTML(b, p)).join("")}</section>`).join("") :
+    secsFor(p).map(([k, label], i) => `<section class="cs-sec" id="cs-${k}"><span class="label">${String(i + 1).padStart(2, "0")} · ${esc(label)}</span>${k === "problem" ? `<h3>${esc(p.tagline)}</h3>` : ""}${S[k]()}</section>`).join(""));
 }
 function openCase(i) {
   current = (i + PROJECTS.length) % PROJECTS.length;
