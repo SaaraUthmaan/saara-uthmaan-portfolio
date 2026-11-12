@@ -155,32 +155,24 @@ p { margin: 0; }
 
 /* case study cards */
 .filters { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
-.filter { font: 500 13px/1 var(--font-body); color: var(--ink-soft); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-.filter .count { font: 500 11px/1 var(--font-mono); color: var(--ink-soft); }
-.filter:hover { border-color: var(--ocean); color: var(--ink); }
+.filter { font: 500 13px/1 var(--font-body); padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--sand); color: var(--ocean); cursor: pointer; }
+.filter:hover { border-color: var(--ocean); }
 .filter[aria-pressed="true"] { background: var(--ocean); border-color: var(--ocean); color: var(--sand); }
-.filter[aria-pressed="true"] .count { color: var(--drift); }
-.cards { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 375px)); gap: 28px; } /* same card width as the old site */
-.card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
-.card .tags span { font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border-radius: 2px; background: var(--drift); color: var(--ocean); }
-.card { display: flex; flex-direction: column; text-align: left; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 0; cursor: pointer; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s; }
-.card:hover { transform: translateY(-3px); border-color: var(--ocean); }
+.filter .count { font-family: var(--font-mono); font-size: 11px; margin-left: 4px; }
+.cards { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 375px)); gap: 28px; } /* same card width as the old site */
+.card { display: flex; flex-direction: column; text-align: left; font: inherit; color: inherit; background: var(--sand); border: 1px solid var(--line); border-radius: 3px; padding: 0; cursor: pointer; overflow: hidden; transition: transform .25s ease, border-color .25s; }
+.card:hover { transform: translateY(-4px); border-color: var(--ocean); }
 @media (prefers-reduced-motion: reduce) { .card, .card:hover { transition: none; transform: none; } }
-.card .panel { padding: 22px; min-height: 0; aspect-ratio: 16 / 10; display: grid; grid-template-rows: auto 1fr auto; gap: 16px; }
-.card .panel .k, .card .panel .f { font: 500 10.5px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
-.card .panel .q { align-self: center; font: 400 clamp(22px, 2vw, 26px)/1.22 var(--font-display); max-width: 18ch; }
-.card .panel.sea { background: var(--drift); color: var(--ocean); }
-.card .panel.sea .k, .card .panel.sea .f { color: var(--ink-soft); }
-.card .panel.ocean { background: var(--ocean); color: var(--sand); }
-.card .panel.ocean .k, .card .panel.ocean .f { color: var(--drift); }
-.card .body { padding: 20px clamp(20px, 2.6vw, 28px) 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.card h3 { font-size: clamp(22px, 2.1vw, 26px); font-weight: 400; }
-.card .tag { color: var(--ink-soft); font-size: 15px; }
-.card .facts { font: 400 11.5px/1.5 var(--font-mono); letter-spacing: .04em; color: var(--ink-soft); }
-.card .foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.card .open { font-weight: 600; font-size: 14px; color: var(--ocean); white-space: nowrap; }
-.card .lock { white-space: nowrap; }
-.card .lock { font-size: 13px; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 6px; }
+.card .cover { position: relative; aspect-ratio: 16 / 10; max-width: 100%; background: var(--sand); border-bottom: 1px solid var(--line); overflow: hidden; }
+.card .cover img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.card .cover img.contain { object-fit: contain; padding: 14px; }
+.card .cover .c-stamps { position: absolute; right: 14px; top: 14px; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.card .cover .c-stamp { background: var(--ocean); color: var(--sand); font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 6px 7px; border-radius: 2px; }
+.card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card h3 { font-size: 24px; font-weight: 500; }
+.card .tag { color: var(--ocean); font-size: 15px; }
+.card .meta { margin-top: auto; padding-top: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px dashed var(--line); }
+.card .open { font-weight: 600; font-size: 14px; color: var(--ocean); }
 
 /* about */
 .about { background: var(--drift); }
@@ -621,8 +613,8 @@ const PROJECTS = [
       "Co-design"
     ],
     "cardRole": "Team of 5",
-    "title": "Not Built for Us: Marginalized Students' Visions for Help-Seeking in Computing Education",
-    "card": { "tone": "sea", "kicker": "Research + co-design · 2026", "headline": "What if students designed the help they need?", "foot": "18 students · one shared vision", "facts": "ICER 2026 · Best Paper Honorable Mention" },
+    "title": "Not Built for Us",
+    "cardImg": "cover-not-built-for-us.jpg", "cardFit": "contain", "cardAlt": "ACM listing for Not Built for Us: Marginalized Students' Visions for Help-Seeking in Computing Education, ICER 2026",
     "kicker": "Research · ICER 2026 Best Paper Honorable Mention",
     "tagline": "What would help-seeking in computing look like if the students it fails got to design it?",
     "year": "2026",
@@ -641,7 +633,6 @@ const PROJECTS = [
       ["Outcome", "Mobile app concept with 3 core features"]
     ],
     cardRole: "Team of 4", title: "SafetyNet", kicker: "Mobile app",
-    card: { tone: "ocean", kicker: "Product design + research · 2023", headline: "A little reassurance. A discreet way to get help.", foot: "Plan the date → share it → get help", facts: "Team of 4 · Mobile app concept" },
     cover: "safetynet-cover.jpg", coverAlt: "SafetyNet heart logo next to the app's home screen",
     tagline: "Making the first date with a stranger feel less like a gamble.",
     year: "2023",
@@ -1045,15 +1036,14 @@ showChapter("umich");
 /* ---------- case study cards ---------- */
 function renderCards() {
   document.getElementById("cards").innerHTML = PROJECTS.map((p, i) => {
-    const c = p.card || {};
+    const img = p.cardImg || p.cover;
     return `<button class="card" data-i="${i}" aria-haspopup="dialog">
-      <div class="panel ${esc(c.tone || "sea")}"><span class="k">${esc(c.kicker || p.kicker)}</span><span class="q">${esc(c.headline || p.tagline)}</span><span class="f">${esc(c.foot || "")}</span></div>
+      <div class="cover">${img ? `<img class="${p.cardFit === "contain" ? "contain" : ""}" src="${esc(img)}" alt="${esc(p.cardAlt || p.coverAlt || "")}" loading="lazy">` : ""}<span class="c-stamps">${p.tags.map(t => `<span class="c-stamp">${esc(t)}</span>`).join("")}</span></div>
       <div class="body">
-        <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
+        <p class="label">${esc(p.kicker)}</p>
         <h3>${esc(p.title)}</h3>
         <p class="tag">${esc(p.tagline)}</p>
-        <p class="facts">${esc(c.facts || "")}</p>
-        <div class="foot">${p.locked ? `<span class="lock">🔒 Password</span>` : `<span></span>`}<span class="open">Open case study →</span></div>
+        <div class="meta"><span class="label">${esc(p.cardRole)} · ${esc(p.year)}</span><span class="open">${p.locked ? "🔒 Password protected →" : "Open case study →"}</span></div>
       </div>
     </button>`;
   }).join("");
