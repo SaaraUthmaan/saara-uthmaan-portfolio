@@ -154,13 +154,21 @@ p { margin: 0; }
 @media (max-width: 760px) { .sec-intro { grid-template-columns: 1fr; } }
 
 /* case study cards */
-.cards { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(18px, 2.4vw, 28px); }
+.filters { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+.filter { font: 500 13px/1 var(--font-body); color: var(--ink-soft); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.filter .count { font: 500 11px/1 var(--font-mono); color: var(--ink-soft); }
+.filter:hover { border-color: var(--ocean); color: var(--ink); }
+.filter[aria-pressed="true"] { background: var(--ocean); border-color: var(--ocean); color: var(--sand); }
+.filter[aria-pressed="true"] .count { color: var(--drift); }
+.cards { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: clamp(18px, 2.4vw, 24px); }
+.card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.card .tags span { font: 500 10px/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border-radius: 2px; background: color-mix(in srgb, var(--clay) 16%, var(--card)); color: var(--seal); }
 .card { display: flex; flex-direction: column; text-align: left; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 0; cursor: pointer; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s; }
 .card:hover { transform: translateY(-3px); box-shadow: 0 22px 40px -28px rgba(31, 51, 58, .55); border-color: color-mix(in srgb, var(--ocean) 40%, transparent); }
 @media (prefers-reduced-motion: reduce) { .card, .card:hover { transition: none; transform: none; } }
-.card .panel { padding: clamp(20px, 2.6vw, 28px); min-height: clamp(200px, 20vw, 236px); display: grid; grid-template-rows: auto 1fr auto; gap: 16px; }
+.card .panel { padding: 22px; min-height: 210px; display: grid; grid-template-rows: auto 1fr auto; gap: 16px; }
 .card .panel .k, .card .panel .f { font: 500 10.5px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
-.card .panel .q { align-self: center; font: 400 clamp(24px, 2.4vw, 30px)/1.22 var(--font-display); max-width: 18ch; }
+.card .panel .q { align-self: center; font: 400 clamp(22px, 2vw, 26px)/1.22 var(--font-display); max-width: 18ch; }
 .card .panel.sea { background: var(--sea-tint); color: var(--ink); }
 .card .panel.sea .k, .card .panel.sea .f { color: var(--ink-soft); }
 .card .panel.ocean { background: var(--ocean); color: var(--sand); }
@@ -170,7 +178,8 @@ p { margin: 0; }
 .card .tag { color: var(--ink-soft); font-size: 15px; }
 .card .facts { font: 400 11.5px/1.5 var(--font-mono); letter-spacing: .04em; color: var(--ink-soft); }
 .card .foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.card .open { font-weight: 600; font-size: 14px; color: var(--ocean); }
+.card .open { font-weight: 600; font-size: 14px; color: var(--ocean); white-space: nowrap; }
+.card .lock { white-space: nowrap; }
 .card .lock { font-size: 13px; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 6px; }
 
 /* about */
@@ -466,7 +475,6 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
         <div class="next" style="left:90%;top:50%" aria-hidden="true"><span class="ring">✦</span><span>What's next?</span></div>
       </div>
       <div class="chapter" id="chapter" role="region" aria-live="polite"></div>
-      <p class="chapter-hint" id="chapter-hint" hidden>Click a school on the path to open its chapter.</p>
     </div>
   </div>
 </section>
@@ -481,6 +489,7 @@ th.us, td.us { background: color-mix(in srgb, var(--jade) 12%, transparent); }
         <p>Research with communities. Design for everyday friction.<br>Two projects, from the questions to the decisions.</p>
       </div>
     </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter case studies"></div>
     <div class="cards" id="cards"></div>
   </div>
 </section>
@@ -1009,7 +1018,7 @@ const FOOD = [{ title: "Recipes & favorites", text: "Recipes and foods that I ke
 const CHAPTERS = {
   uw: {
     label: "Previous chapter", name: "University of Washington", meta: "Undergraduate · Informatics & Creative Writing · 2021–2026",
-    img: "sketch-uw.jpg",
+    img: "chapter-uw.jpg", alt: "The University of Washington quad with cherry blossoms at sunset",
     desc: "Here, I learned to listen closely to how people learn: researching how beginners learn with AI, co-designing help-seeking support with students, and telling stories through creative writing.",
     guidesLabel: "What shaped me", guides: ["Informatics", "Creative Writing", "McNair Scholar"]
   },
@@ -1020,17 +1029,17 @@ const CHAPTERS = {
     guidesLabel: "What guides me", guides: ["User Research", "Thoughtful Design", "Human Flourishing"]
   }
 };
-const chapterEl = document.getElementById("chapter"), chapterHint = document.getElementById("chapter-hint");
+const chapterEl = document.getElementById("chapter");
 const stopBtns = [...document.querySelectorAll(".stop-btn")];
 function showChapter(key) {
   stopBtns.forEach(b => b.setAttribute("aria-expanded", String(b.dataset.ch === key)));
-  if (!key) { chapterEl.hidden = true; chapterHint.hidden = false; return; }
+  if (!key) { chapterEl.hidden = true; return; }
   const c = CHAPTERS[key];
-  chapterEl.innerHTML = `<div class="arch"><img src="${esc(c.img)}" alt="Pen drawing of the ${esc(c.name)} campus"></div>
+  chapterEl.innerHTML = `<div class="arch"><img src="${esc(c.img)}" alt="${esc(c.alt || "Pen drawing of the " + c.name + " campus")}"></div>
     <div><p class="label accent">${esc(c.label)}</p><h3>${esc(c.name)}</h3><p class="meta">${esc(c.meta)}</p><p class="desc">${esc(c.desc)}</p></div>
     <div class="guides"><p class="label accent">${esc(c.guidesLabel)}</p><ul>${c.guides.map(g => `<li>${esc(g)}</li>`).join("")}</ul></div>
     <button class="close" type="button" aria-label="Close chapter">✕</button>`;
-  chapterEl.hidden = false; chapterHint.hidden = true;
+  chapterEl.hidden = false;
   chapterEl.querySelector(".close").onclick = () => { showChapter(null); stopBtns.find(b => b.dataset.ch === key)?.focus(); };
 }
 stopBtns.forEach(b => b.addEventListener("click", () => showChapter(b.getAttribute("aria-expanded") === "true" ? null : b.dataset.ch)));
@@ -1043,14 +1052,23 @@ function renderCards() {
     return `<button class="card" data-i="${i}" aria-haspopup="dialog">
       <div class="panel ${esc(c.tone || "sea")}"><span class="k">${esc(c.kicker || p.kicker)}</span><span class="q">${esc(c.headline || p.tagline)}</span><span class="f">${esc(c.foot || "")}</span></div>
       <div class="body">
+        <div class="tags">${p.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>
         <h3>${esc(p.title)}</h3>
         <p class="tag">${esc(p.tagline)}</p>
         <p class="facts">${esc(c.facts || "")}</p>
-        <div class="foot">${p.locked ? `<span class="lock">🔒 Password protected</span>` : `<span></span>`}<span class="open">Open case study →</span></div>
+        <div class="foot">${p.locked ? `<span class="lock">🔒 Password</span>` : `<span></span>`}<span class="open">Open case study →</span></div>
       </div>
     </button>`;
   }).join("");
   document.querySelectorAll(".card").forEach(b => b.addEventListener("click", () => openCase(+b.dataset.i)));
+  const tags = [...new Set(PROJECTS.flatMap(p => p.tags))];
+  const f = document.getElementById("filters");
+  f.innerHTML = ["All", ...tags].map(t => `<button class="filter" type="button" data-tag="${esc(t)}" aria-pressed="${t === "All"}">${esc(t)}<span class="count">${t === "All" ? PROJECTS.length : PROJECTS.filter(p => p.tags.includes(t)).length}</span></button>`).join("");
+  f.querySelectorAll(".filter").forEach(b => b.addEventListener("click", () => {
+    f.querySelectorAll(".filter").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    const t = b.dataset.tag;
+    document.querySelectorAll(".card").forEach((c, i) => { c.hidden = t !== "All" && !PROJECTS[i].tags.includes(t); });
+  }));
 }
 
 /* ---------- footer links ---------- */
